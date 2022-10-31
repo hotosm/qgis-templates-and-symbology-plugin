@@ -1,0 +1,22 @@
+{
+  "general": {
+    "name" : "QGIS Templates and Symbology Manager",
+    "qgisMinimumVersion": 3.0,
+    "qgisMaximumVersion": 3.99,
+    "icon": "icon.png",
+    "experimental": false,
+    "deprecated": false,
+    "homepage": "https://hotosm.github.io/qgis-templates-and-symbology-plugin",
+    "tracker": "https://github.com/hotosm/qgis-templates-and-symbology-plugin/issues",
+    "repository": "https://github.com/hotosm/qgis-templates-and-symbology-plugin",
+    "tags": ["maps", "templates", "symbology", "styles"],
+    "category": ["plugins"],
+    "hasProcessingProvider": "no",
+    "about": "Provides functionality to manage QGIS map templates and symbology, Sponsored by Microsoft",
+    "author": "Kartoza",
+    "email": "info@kartoza.com",
+    "description": "QGIS plugin for managing map templates and symbology",
+    "version": "1.1.0",
+    "changelog": ""
+  }
+}

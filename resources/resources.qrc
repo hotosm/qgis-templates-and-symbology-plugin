@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/qgis_templates_symbology" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
