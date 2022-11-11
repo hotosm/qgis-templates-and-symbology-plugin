@@ -22,8 +22,6 @@ a dedicated plugin repository
   
 - Click the `Install Plugin` button at the bottom of the dialog to install the plugin.
 
-![Add plugin repository](docs/images/plugin_settings.png)
-
 
 #### Install from ZIP file
 
@@ -34,7 +32,6 @@ QGIS plugin manager.
 https://github.com/hotosm/qgis-templates-and-symbology-plugin/releases/download/{tagname}/qgis_templates_symbology.{version}.zip
 
 - From the **Install from ZIP** page, select the zip file and click the **Install** button to install plugin
-![Screenshot for install from zip option](docs/images/install_from_zip.png)
 
 #### Install from custom plugin repository
 
