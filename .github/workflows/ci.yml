@@ -21,8 +21,8 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
-    name: Running tests on QGIS ${{ matrix.qgis_version_tag }}
+    runs-on: ${{ matrix.os }}
+    name: Running tests on ${{ matrix.os }} using QGIS ${{ matrix.qgis_version_tag }}
 
     strategy:
       fail-fast: false
@@ -32,6 +32,7 @@ jobs:
           - release-3_20
           - release-3_24
           - release-3_26
+        os: [ubuntu-22.04, windows-latest, mac-latest]
 
     steps:
 
