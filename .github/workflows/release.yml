@@ -6,7 +6,7 @@ on:
 
 jobs:
   create-release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     container:
       image: qgis/qgis:release-3_26
     steps:
@@ -27,7 +27,7 @@ jobs:
       - name: Get experimental info
         id: get-experimental
         run: |
-          echo "::set-output name=IS_EXPERIMENTAL::$(python -c "import json; data=json.load('config.json'); print(data['general']['experimental'].lower())")"
+           echo "::set-output name=IS_EXPERIMENTAL::$(python -c "import json; f = open('config.json'); data=json.load(f); print(str(data['general']['experimental']).lower())")"
 
       - name: Create release from tag
         id: create-release

@@ -18,7 +18,7 @@ from functools import lru_cache
 from pathlib import Path
 
 import httpx
-import toml
+import json
 import typer
 
 LOCAL_ROOT_DIR = Path(__file__).parent.resolve()
@@ -282,7 +282,7 @@ def generate_metadata(
         output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "build/temp",
 ):
     """ Generates plugin metadata file using settings defined in the
-        project configuration file 'pyproject.toml'
+        project configuration file config.json
 
     :param context: Application context
     :type context: typer.Context

@@ -19,8 +19,8 @@ need to be present.
 Run the following commands in linux shell to pull the images and execute the script for tests.
 
 ```
-docker pull qgis/qgis:release-3_16
-docker pull qgis/qgis:release-3_22
+docker pull qgis/qgis:latest
+docker pull qgis/qgis:release-3_26
 ```
 
 ```

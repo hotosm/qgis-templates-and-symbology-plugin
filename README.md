@@ -1,4 +1,4 @@
-# qgis-templates-symbology-plugin
+# QGIS Templates and Symbology plugin
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hotosm/qgis-templates-symbology-plugin/Continuous%20Integration)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/hotosm/qgis-templates-symbology-plugin/?include_prereleases)
