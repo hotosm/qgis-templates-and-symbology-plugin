@@ -1,8 +1,9 @@
 # QGIS Templates and Symbology plugin
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hotosm/qgis-templates-symbology-plugin/Continuous%20Integration)
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/hotosm/qgis-templates-symbology-plugin/?include_prereleases)
-![GitHub](https://img.shields.io/github/license/hotosm/qgis-templates-symbology-plugin)
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hotosm/qgis-templates-and-symbology-plugin/Continuous%20Integration)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/hotosm/qgis-templates-and-symbology-plugin/?include_prereleases)
+![GitHub](https://img.shields.io/github/license/hotosm/qgis-templates-and-symbology-plugin)
 
 QGIS plugin for managing map templates and symbology
 
@@ -14,17 +15,15 @@ During the development phase the plugin is available to install via
 a dedicated plugin repository 
 https://hotosm.github.io/qgis-templates-symbology-plugin/repository/plugins.xml
 
+#### Install from QGIS plugin repository
+
 Open the QGIS plugin manager, then select the **Settings** page, click **Add** 
 button on the **Plugin Repositories** group box and use the above url to create
 the new plugin repository.
 ![Add plugin repository](docs/images/plugin_settings.png)
 
-After adding the new repository, the plugin should be available from the list
-of all plugins that can be installed.
 
-**NOTE:** While the development phase is on going the plugin will be flagged as experimental, make
-sure to enable the QGIS plugin manager in the **Settings** page to show the experimental plugins
-in order to be able to install it.
+#### Install from ZIP file
 
 Alternatively the plugin can be installed using **Install from ZIP** option on the 
 QGIS plugin manager. Download zip file from the required plugin released version
@@ -33,6 +32,17 @@ https://github.com/hotosm/qgis-templates-symbology-plugin/releases/download/{tag
 From the **Install from ZIP** page, select the zip file and click the **Install** button to install
 plugin
 ![Screenshot for install from zip option](docs/images/install_from_zip.png)
+
+#### Install from custom plugin repository
+
+After adding the new repository, the plugin should be available from the list
+of all plugins that can be installed.
+
+**NOTE:** While the development phase is on going the plugin will be flagged as experimental, make
+sure to enable the QGIS plugin manager in the **Settings** page to show the experimental plugins
+in order to be able to install it.
+
+
 
 When the development work is complete the plugin will be available on the QGIS
 official plugin repository.
@@ -72,5 +82,6 @@ To install the plugin into the QGIS application, activate virtual environment an
 ```
  python admin.py install
 ```
+
 
 
