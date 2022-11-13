@@ -64,15 +64,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         self.update_inputs(True)
 
-    def handle_error(self, error):
-        """Handles the returned response error
-
-        :param error: Network response error
-        :type error: str
-        """
-        self.show_message(error, level=Qgis.Critical)
-        self.update_inputs(True)
-
     def prepare_message_bar(self):
         """ Initializes the widget message bar settings"""
         self.message_bar.setSizePolicy(

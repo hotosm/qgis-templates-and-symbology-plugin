@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
- Template dialog class file
+ Symbology dialog class file
 """
 
 import os
@@ -14,28 +14,28 @@ from qgis.gui import QgsMessageBar
 
 from qgis.PyQt.uic import loadUiType
 
-from ..models import Template, Symbology
+from ..models import Symbology
 
 DialogUi, _ = loadUiType(
-    os.path.join(os.path.dirname(__file__), "../ui/template_dialog.ui")
+    os.path.join(os.path.dirname(__file__), "../ui/symbology_dialog.ui")
 )
 
 
-class TemplateDialog(QtWidgets.QDialog, DialogUi):
-    """ Dialog for handling templates details"""
+class SymbologyDialog(QtWidgets.QDialog, DialogUi):
+    """ Dialog for handling symbology details"""
 
     def __init__(
             self,
-            template=None
+            symbology=None
     ):
         """ Constructor
 
-        :param template: template instance
-        :type template: models.Template
+        :param symbology: symbology instance
+        :type symbology: models.Symbology
         """
         super().__init__()
         self.setupUi(self)
-        self.template = template
+        self.symbology = symbology
 
         self.grid_layout = QtWidgets.QGridLayout()
         self.message_bar = QgsMessageBar()
@@ -44,23 +44,23 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         connection = settings_manager.get_current_connection()
         self.update_inputs(False)
 
-    def populate_properties(self, template):
-        """ Populates the template dialog widgets with the
-        respective information from passed template.
+    def populate_properties(self, symbology):
+        """ Populates the symbology dialog widgets with the
+        respective information from passed symbology.
 
-        :param template: Plugin template instance
-        :type template: models.Template
+        :param symbology: Plugin symbology instance
+        :type symbology: models.Symbology
         """
-        template = template
-        if template:
-            id_le.setText(template.id)
-            title_le.setText(template.title)
-            description_le.setText(template.description)
+        symbology = symbology
+        if symbology:
+            id_le.setText(symbology.id)
+            title_le.setText(symbology.title)
+            description_le.setText(symbology.description)
 
-            if template.license:
-                license_le.setText(template.license)
-            if template.extent:
-                set_extent(template.extent)
+            if symbology.license:
+                license_le.setText(symbology.license)
+            if symbology.extent:
+                set_extent(symbology.extent)
 
         self.update_inputs(True)
 
@@ -136,7 +136,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.tab_widget.setEnabled(enabled)
 
     def set_extent(self, extent):
-        """ Sets the templates spatial and temporal extents
+        """ Sets the symbology spatial and temporal extents
 
         :param extent: Instance that contain spatial and temporal extents
         :type extent: models.Extent

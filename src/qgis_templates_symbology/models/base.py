@@ -20,8 +20,8 @@ class Template:
     id: UUID
     title: str
     description: str
-    type: str
-    resources: typing.List[str]
+    license: str
+    properties: Properties
     name: str = None
 
 
@@ -31,6 +31,15 @@ class Symbology:
     id: UUID
     title: str
     description: str
-    type: str
-    resources: typing.List[str]
+    license: str
+    properties: Properties
     name: str = None
+
+
+@dataclasses.dataclass
+class Properties:
+    links: typing.List[str]
+    spatial: SpatialExtent
+    temporal: TemporalExtent
+
+
