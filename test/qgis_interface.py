@@ -26,7 +26,7 @@ import logging
 from qgis.PyQt.QtCore import QObject, pyqtSlot, pyqtSignal
 from qgis.core import QgsMapLayerRegistry
 from qgis.gui import QgsMapCanvasLayer
-LOGGER = logging.getLogger('qgis-templates-symbology')
+LOGGER = logging.getLogger('qgis_templates_symbology')
 
 
 #noinspection PyMethodMayBeStatic,PyPep8Naming
@@ -63,7 +63,7 @@ class QgisInterface(QObject):
 
         :param layers: list<QgsMapLayer> list of map layers that were added
 
-        .. note:: The QgsInterface api does not include this method,
+        .. note:: The QgsInterface models does not include this method,
             it is added here as a helper to facilitate testing.
         """
         #LOGGER.debug('addLayers called on qgis_interface')
@@ -85,7 +85,7 @@ class QgisInterface(QObject):
 
         :param layer: list<QgsMapLayer> list of map layers that were added
 
-        .. note: The QgsInterface api does not include this method, it is added
+        .. note: The QgsInterface models does not include this method, it is added
                  here as a helper to facilitate testing.
 
         .. note: The addLayer method was deprecated in QGIS 1.8 so you should

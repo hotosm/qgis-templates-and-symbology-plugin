@@ -21,8 +21,6 @@ from qgis.PyQt.QtWidgets import QAction, QDockWidget, QMainWindow, QVBoxLayout
 from .resources import *
 
 from .gui.qgis_templates_symbology_main import QgisTemplatesSymbologyMain
-from .conf import settings_manager
-from .utils import config_defaults_catalogs, open_documentation
 
 
 class QgisTemplatesSymbology:
@@ -147,20 +145,12 @@ class QgisTemplatesSymbology:
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
-        icon_path = ":/plugins/qgis-templates-symbology/icon.png"
+        icon_path = ":/plugins/qgis_templates_symbology/icon.png"
         self.add_action(
             icon_path,
             text=self.tr(u"Open Templates and Symbology Manager"),
             callback=self.run,
             parent=self.iface.mainWindow(),
-        )
-
-        self.add_action(
-            None,
-            text=self.tr(u"Documentation"),
-            callback=open_documentation,
-            parent=self.iface.mainWindow(),
-            add_to_toolbar=False,
         )
 
     def onClosePlugin(self):
