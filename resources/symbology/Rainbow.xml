@@ -1,0 +1,56 @@
+<!DOCTYPE qgis_style>
+<qgis_style version="2">
+  <symbols/>
+  <colorramps>
+    <colorramp tags="HOTOSM" name="Rainbow" type="preset">
+      <Option type="Map">
+        <Option value="0,147,146,255" name="preset_color_0" type="QString"/>
+        <Option value="57,177,133,255" name="preset_color_1" type="QString"/>
+        <Option value="156,203,134,255" name="preset_color_2" type="QString"/>
+        <Option value="233,226,156,255" name="preset_color_3" type="QString"/>
+        <Option value="238,180,121,255" name="preset_color_4" type="QString"/>
+        <Option value="232,132,113,255" name="preset_color_5" type="QString"/>
+        <Option value="207,89,126,255" name="preset_color_6" type="QString"/>
+        <Option value="#009392" name="preset_color_name_0" type="QString"/>
+        <Option value="#39b185" name="preset_color_name_1" type="QString"/>
+        <Option value="#9ccb86" name="preset_color_name_2" type="QString"/>
+        <Option value="#e9e29c" name="preset_color_name_3" type="QString"/>
+        <Option value="#eeb479" name="preset_color_name_4" type="QString"/>
+        <Option value="#e88471" name="preset_color_name_5" type="QString"/>
+        <Option value="#cf597e" name="preset_color_name_6" type="QString"/>
+        <Option value="preset" name="rampType" type="QString"/>
+      </Option>
+    </colorramp>
+    <colorramp tags="Colorful" name="Rainbow2" type="preset">
+      <Option type="Map">
+        <Option value="158,1,66,255" name="preset_color_0" type="QString"/>
+        <Option value="213,62,79,255" name="preset_color_1" type="QString"/>
+        <Option value="94,79,162,255" name="preset_color_10" type="QString"/>
+        <Option value="244,109,67,255" name="preset_color_2" type="QString"/>
+        <Option value="253,174,97,255" name="preset_color_3" type="QString"/>
+        <Option value="254,224,139,255" name="preset_color_4" type="QString"/>
+        <Option value="255,255,191,255" name="preset_color_5" type="QString"/>
+        <Option value="230,245,152,255" name="preset_color_6" type="QString"/>
+        <Option value="171,221,164,255" name="preset_color_7" type="QString"/>
+        <Option value="102,194,165,255" name="preset_color_8" type="QString"/>
+        <Option value="50,136,189,255" name="preset_color_9" type="QString"/>
+        <Option value="#9e0142" name="preset_color_name_0" type="QString"/>
+        <Option value="#d53e4f" name="preset_color_name_1" type="QString"/>
+        <Option value="#5e4fa2" name="preset_color_name_10" type="QString"/>
+        <Option value="#f46d43" name="preset_color_name_2" type="QString"/>
+        <Option value="#fdae61" name="preset_color_name_3" type="QString"/>
+        <Option value="#fee08b" name="preset_color_name_4" type="QString"/>
+        <Option value="#ffffbf" name="preset_color_name_5" type="QString"/>
+        <Option value="#e6f598" name="preset_color_name_6" type="QString"/>
+        <Option value="#abdda4" name="preset_color_name_7" type="QString"/>
+        <Option value="#66c2a5" name="preset_color_name_8" type="QString"/>
+        <Option value="#3288bd" name="preset_color_name_9" type="QString"/>
+        <Option value="preset" name="rampType" type="QString"/>
+      </Option>
+    </colorramp>
+  </colorramps>
+  <textformats/>
+  <labelsettings/>
+  <legendpatchshapes/>
+  <symbols3d/>
+</qgis_style>
