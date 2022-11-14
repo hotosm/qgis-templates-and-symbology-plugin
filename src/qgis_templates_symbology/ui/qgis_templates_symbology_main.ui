@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>777</width>
-    <height>825</height>
+    <width>891</width>
+    <height>687</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -89,8 +89,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>755</width>
-             <height>732</height>
+             <width>869</width>
+             <height>594</height>
             </rect>
            </property>
            <property name="styleSheet">
@@ -110,18 +110,7 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
-                <widget class="QComboBox" name="connections_box">
-                 <item>
-                  <property name="text">
-                   <string>HOT profile</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>HOT Admins profile</string>
-                  </property>
-                 </item>
-                </widget>
+                <widget class="QComboBox" name="connections_box"/>
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -192,7 +181,7 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_10">
                <item>
-                <widget class="QTreeWidget" name="treeWidget">
+                <widget class="QTreeWidget" name="template_tree">
                  <property name="columnCount">
                   <number>2</number>
                  </property>
@@ -203,73 +192,9 @@
                  </column>
                  <column>
                   <property name="text">
-                   <string>Links</string>
+                   <string>Description</string>
                   </property>
                  </column>
-                 <item>
-                  <property name="text">
-                   <string>Thematic map</string>
-                  </property>
-                  <property name="text">
-                   <string>A4, Interactive, Computer Screen, Presentation slides</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Symbols map</string>
-                  </property>
-                  <property name="text">
-                   <string>A4, Interactive, Computer Screen, Presentation slides</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Story-map</string>
-                  </property>
-                  <property name="text">
-                   <string>A4, Interactive, Computer Screen, Presentation slides</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>3w</string>
-                  </property>
-                  <property name="text">
-                   <string>A4, Interactive, Computer Screen, Presentation slides</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Text Heavy map</string>
-                  </property>
-                  <property name="text">
-                   <string>A4, Interactive, Computer Screen, Presentation slides</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Infographic</string>
-                  </property>
-                  <property name="text">
-                   <string>A4, Interactive, Computer Screen, Presentation slides</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Topographic/physical</string>
-                  </property>
-                  <property name="text">
-                   <string>A4, Interactive, Computer Screen, Presentation slides</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Disaster (General)</string>
-                  </property>
-                  <property name="text">
-                   <string>A4, Interactive, Computer Screen, Presentation slides</string>
-                  </property>
-                 </item>
                 </widget>
                </item>
                <item>
@@ -305,12 +230,12 @@
                     <string>Sort by</string>
                    </property>
                    <property name="buddy">
-                    <cstring>sort_cmb</cstring>
+                    <cstring>symbology_sort_cmb</cstring>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="sort_cmb_2">
+                  <widget class="QComboBox" name="template_sort_cmb">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                      <horstretch>0</horstretch>
@@ -330,14 +255,14 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                  <item>
-                  <widget class="QPushButton" name="pushButton">
+                  <widget class="QPushButton" name="add_local_template">
                    <property name="text">
                     <string>Add Local Templates</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="fetch_collections_btn">
+                  <widget class="QPushButton" name="fetch_templates_btn">
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get templates that are hosted by the current connection.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
@@ -365,7 +290,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QgsCollapsibleGroupBox" name="collections_group_2">
+             <widget class="QgsCollapsibleGroupBox" name="symbology_group">
               <property name="title">
                <string>Symbology styles</string>
               </property>
@@ -374,7 +299,7 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_12">
                <item>
-                <widget class="QTreeWidget" name="treeWidget_3">
+                <widget class="QTreeWidget" name="symbology_tree">
                  <property name="columnCount">
                   <number>2</number>
                  </property>
@@ -388,46 +313,6 @@
                    <string>URL</string>
                   </property>
                  </column>
-                 <item>
-                  <property name="text">
-                   <string>Elevation Ramp</string>
-                  </property>
-                  <property name="text">
-                   <string>https://plugins.qgis.org/styles/1/</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Measure Line</string>
-                  </property>
-                  <property name="text">
-                   <string>https://plugins.qgis.org/styles/5/</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Rainbow</string>
-                  </property>
-                  <property name="text">
-                   <string>https://plugins.qgis.org/styles/8/</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Basic Legend Patches Set</string>
-                  </property>
-                  <property name="text">
-                   <string>https://plugins.qgis.org/styles/9/</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>ECMWF Total Precipitation</string>
-                  </property>
-                  <property name="text">
-                   <string>https://plugins.qgis.org/styles/12/</string>
-                  </property>
-                 </item>
                 </widget>
                </item>
                <item>
@@ -460,12 +345,12 @@
                     <string>Sort by</string>
                    </property>
                    <property name="buddy">
-                    <cstring>sort_cmb</cstring>
+                    <cstring>symbology_sort_cmb</cstring>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="sort_cmb">
+                  <widget class="QComboBox" name="symbology_sort_cmb">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                      <horstretch>0</horstretch>
@@ -488,14 +373,14 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_5">
                  <item>
-                  <widget class="QPushButton" name="pushButton_2">
+                  <widget class="QPushButton" name="add_local_style">
                    <property name="text">
                     <string>Add Local Styles </string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="fetch_collections_btn_3">
+                  <widget class="QPushButton" name="fetch_styles_btn">
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get styles from the current connection service.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
@@ -685,7 +570,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>777</width>
+     <width>891</width>
      <height>22</height>
     </rect>
    </property>

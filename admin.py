@@ -22,7 +22,7 @@ import json
 import typer
 
 LOCAL_ROOT_DIR = Path(__file__).parent.resolve()
-SRC_NAME = "qgis-templates-symbology"
+SRC_NAME = "qgis_templates_symbology"
 PACKAGE_NAME = SRC_NAME.replace("_", "")
 TEST_FILES = [
     "test",
@@ -460,7 +460,7 @@ def _get_existing_releases(
     :rtype: List[GithubRelease]
     """
     base_url = "https://api.github.com/repos/" \
-               "hotosm/qgis-templates-symbology-plugin/releases"
+               "hotosm/qgis_templates_symbology-plugin/releases"
     response = httpx.get(base_url)
     result = []
     if response.status_code == 200:

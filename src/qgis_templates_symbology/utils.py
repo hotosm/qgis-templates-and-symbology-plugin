@@ -36,18 +36,18 @@ def tr(message):
 
 def log(
         message: str,
-        name: str = "qgis-templates-symbology",
+        name: str = "qgis_templates_symbology",
         info: bool = True,
         notify: bool = True,
 ):
-    """ Logs the message into QGIS logs using qgis-templates-symbology as the default
+    """ Logs the message into QGIS logs using qgis_templates_symbology as the default
     log instance.
     If notify_user is True, user will be notified about the log.
 
     :param message: The log message
     :type message: str
 
-    :param name: Name of te log instance, qgis-templates-symbology is the default
+    :param name: Name of te log instance, qgis_templates_symbology is the default
     :type message: str
 
     :param info: Whether the message is about info or a
