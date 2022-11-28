@@ -1,1 +1,1 @@
-from base import Template, Symbology
+from .base import Template, Symbology

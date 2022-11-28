@@ -98,7 +98,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QGroupBox" name="connections_group">
+             <widget class="QGroupBox" name="profiles_group">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -110,14 +110,14 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
-                <widget class="QComboBox" name="connections_box"/>
+                <widget class="QComboBox" name="profiles_box"/>
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
                  <item>
-                  <widget class="QPushButton" name="new_connection_btn">
+                  <widget class="QPushButton" name="new_profile_btn">
                    <property name="toolTip">
-                    <string>Create a new service connection</string>
+                    <string>Create a new service profile</string>
                    </property>
                    <property name="text">
                     <string>&amp;New</string>
@@ -125,12 +125,12 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="edit_connection_btn">
+                  <widget class="QPushButton" name="edit_profile_btn">
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
                    <property name="toolTip">
-                    <string>Edit selected service connection</string>
+                    <string>Edit selected service profile</string>
                    </property>
                    <property name="text">
                     <string>Edit</string>
@@ -138,12 +138,12 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="remove_connection_btn">
+                  <widget class="QPushButton" name="remove_profile_btn">
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
                    <property name="toolTip">
-                    <string>Remove connection to selected service</string>
+                    <string>Remove profile to selected service</string>
                    </property>
                    <property name="text">
                     <string>Remove</string>
@@ -181,20 +181,34 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_10">
                <item>
-                <widget class="QTreeWidget" name="template_tree">
-                 <property name="columnCount">
-                  <number>2</number>
+                <widget class="QTreeView" name="templates_tree">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <column>
-                  <property name="text">
-                   <string>Name</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Description</string>
-                  </property>
-                 </column>
+                 <property name="toolTip">
+                  <string>Click on an item to select the collection.</string>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::NoEditTriggers</set>
+                 </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::MultiSelection</enum>
+                 </property>
+                 <property name="indentation">
+                  <number>5</number>
+                 </property>
+                 <property name="sortingEnabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="allColumnsShowFocus">
+                  <bool>true</bool>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
                <item>
@@ -264,7 +278,7 @@
                  <item>
                   <widget class="QPushButton" name="fetch_templates_btn">
                    <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get templates that are hosted by the current connection.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get templates that are hosted by the current profile.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="text">
                     <string>Fetch Templates Online</string>
@@ -299,20 +313,34 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_12">
                <item>
-                <widget class="QTreeWidget" name="symbology_tree">
-                 <property name="columnCount">
-                  <number>2</number>
+                <widget class="QTreeView" name="symbology_tree">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <column>
-                  <property name="text">
-                   <string>Name</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>URL</string>
-                  </property>
-                 </column>
+                 <property name="toolTip">
+                  <string>Click on an item to select the collection.</string>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::NoEditTriggers</set>
+                 </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::MultiSelection</enum>
+                 </property>
+                 <property name="indentation">
+                  <number>5</number>
+                 </property>
+                 <property name="sortingEnabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="allColumnsShowFocus">
+                  <bool>true</bool>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
                <item>
@@ -382,7 +410,7 @@
                  <item>
                   <widget class="QPushButton" name="fetch_styles_btn">
                    <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get styles from the current connection service.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get styles from the current profile service.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="text">
                     <string>Fetch Online Styles</string>
@@ -462,7 +490,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
-         <widget class="QGroupBox" name="mConnectionGroupBox_2">
+         <widget class="QGroupBox" name="mProfileGroupBox_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
