@@ -1,4 +1,13 @@
+
+import os
 import sqlite3
+
+DB_PATH = os.path.abspath(
+    os.path.join(
+        os.path.dirname(os.path.dirname(__file__)),
+        'sqlite',
+        'resources.db')
+)
 
 
 class DBManager:
@@ -6,7 +15,10 @@ class DBManager:
     def __init__(
             self,
     ):
-        self.connection = sqlite3.connect("../sqlite/resources.db")
+        self.connection = None
+
+    def connect(self):
+        self.connection = sqlite3.connect(DB_PATH)
 
     def get_all_templates(self):
         cur = self.connection.cursor()
@@ -22,4 +34,5 @@ class DBManager:
         return templates
 
 
-resource_manager = DBManager()
+db_manager = DBManager()
+db_manager.connect()

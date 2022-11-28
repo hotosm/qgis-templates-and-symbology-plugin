@@ -130,3 +130,6 @@ dmypy.json
 # Development
 .idea/
 build/
+
+#DB
+src/qgis_templates_symbology/sqlite

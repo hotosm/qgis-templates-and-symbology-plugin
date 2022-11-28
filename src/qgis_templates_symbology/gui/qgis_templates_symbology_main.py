@@ -29,7 +29,7 @@ from qgis.utils import iface
 from ..resources import *
 
 from ..gui.template_dialog import TemplateDialog
-from ..models.db import resource_manager
+from ..models.db import db_manager
 
 
 WidgetUi, _ = loadUiType(
@@ -47,18 +47,59 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.prepare_connections()
+        self.prepare_profiles()
         self.prepare_templates()
 
-    def prepare_connections(self):
+    def prepare_profiles(self):
 
-        self.new_connection_btn.clicked.connect(self.add_connection)
-        self.edit_connection_btn.clicked.connect(self.edit_connection)
-        self.remove_connection_btn.clicked.connect(self.remove_connection)
+        self.new_profile_btn.clicked.connect(self.add_profile)
+        self.edit_profile_btn.clicked.connect(self.edit_profile)
+        self.remove_profile_btn.clicked.connect(self.remove_profile)
 
-        self.connections_box.currentIndexChanged.connect(
-            self.update_connection_buttons
+        self.profiles_box.currentIndexChanged.connect(
+            self.update_profile_buttons
         )
+
+    def add_profile(self):
+        """ Adds a new profile into the plugin, then updates
+        the profiles combo box list to show the added profile.
+        """
+        profile_dialog = ProfileDialog()
+        profile_dialog.exec_()
+        self.update_profiles_box()
+
+    def edit_profile(self):
+        """ Edits the passed profile and updates the profile box list.
+        """
+        current_text = self.profiles_box.currentText()
+        if current_text == "":
+            return
+        profile = settings_manager.find_profile_by_name(current_text)
+        profile_dialog = ProfileDialog(profile)
+        profile_dialog.exec_()
+        self.update_profiles_box()
+
+    def remove_profile(self):
+        """ Removes the current active profile.
+        """
+        current_text = self.profiles_box.currentText()
+        if current_text == "":
+            return
+        profile = settings_manager.find_profile_by_name(current_text)
+        reply = QtWidgets.QMessageBox.warning(
+            self,
+            tr('Qgis Templates and Symbology Manager'),
+            tr('Remove the profile "{}"?').format(current_text),
+            QtWidgets.QMessageBox.Yes,
+            QtWidgets.QMessageBox.No
+        )
+        if reply == QtWidgets.QMessageBox.Yes:
+            settings_manager.delete_profile(profile.id)
+            latest_profile = settings_manager.get_latest_profile()
+            settings_manager.set_current_profile(
+                latest_profile.id
+            ) if latest_profile is not None else None
+            self.update_profiles_box()
 
     def prepare_templates(self):
 
@@ -71,79 +112,73 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
 
         self.templates_tree.setModel(self.proxy_model)
-        self.templates_tree.selectionModel().selectionChanged.connect(
-            self.display_selected_template
-        )
         self.templates_tree.doubleClicked.connect(self.templates_tree_double_clicked)
-        templates = resources_manager.get_all_templates()
+        templates = db_manager.get_all_templates()
         self.load_templates(templates)
 
-    def edit_connection(self):
-        """ Edits the passed connection and updates the connection box list.
+    def edit_profile(self):
+        """ Edits the passed profile and updates the profile box list.
         """
-        current_text = self.connections_box.currentText()
+        current_text = self.profiles_box.currentText()
         if current_text == "":
             return
-        connection = settings_manager.find_connection_by_name(current_text)
-        connection_dialog = ConnectionDialog(connection)
-        connection_dialog.exec_()
-        self.update_connections_box()
+        profile = settings_manager.find_profile_by_name(current_text)
+        profile_dialog = ProfileDialog(profile)
+        profile_dialog.exec_()
+        self.update_profiles_box()
 
-    def remove_connection(self):
-        """ Removes the current active connection.
+    def remove_profile(self):
+        """ Removes the current active profile.
         """
-        current_text = self.connections_box.currentText()
+        current_text = self.profiles_box.currentText()
         if current_text == "":
             return
-        connection = settings_manager.find_connection_by_name(current_text)
+        profile = settings_manager.find_profile_by_name(current_text)
         reply = QtWidgets.QMessageBox.warning(
             self,
             tr('Templates and Symbology manager'),
-            tr('Remove the connection "{}"?').format(current_text),
+            tr('Remove the profile "{}"?').format(current_text),
             QtWidgets.QMessageBox.Yes,
             QtWidgets.QMessageBox.No
         )
         if reply == QtWidgets.QMessageBox.Yes:
-            settings_manager.delete_connection(connection.id)
-            latest_connection = settings_manager.get_latest_connection()
-            settings_manager.set_current_connection(
-                latest_connection.id
-            ) if latest_connection is not None else None
-            self.update_connections_box()
+            settings_manager.delete_profile(profile.id)
+            latest_profile = settings_manager.get_latest_profile()
+            settings_manager.set_current_profile(
+                latest_profile.id
+            ) if latest_profile is not None else None
+            self.update_profiles_box()
 
-    def update_connection_buttons(self):
-        """ Updates the edit and remove connection buttons state
+    def update_profile_buttons(self):
+        """ Updates the edit and remove profile buttons state
         """
-        current_name = self.connections_box.currentText()
+        current_name = self.profiles_box.currentText()
         enabled = current_name != ""
-        self.edit_connection_btn.setEnabled(enabled)
-        self.remove_connection_btn.setEnabled(enabled)
+        self.edit_profile_btn.setEnabled(enabled)
+        self.remove_profile_btn.setEnabled(enabled)
 
-    def update_current_connection(self, index: int):
-        """ Sets the connection with the passed index to be the
-        current selected connection.
+    def update_current_profile(self, index: int):
+        """ Sets the profile with the passed index to be the
+        current selected profile.
 
-        :param index: Index from the connection box item
+        :param index: Index from the profile box item
         :type index: int
         """
-        current_text = self.connections_box.itemText(index)
+        current_text = self.profiles_box.itemText(index)
         if current_text == "":
             return
-        current_connection = settings_manager. \
-            find_connection_by_name(current_text)
-        settings_manager.set_current_connection(current_connection.id)
-        if current_connection:
-            self.update_api_client()
-            # Update the templates view to show the current connection
-            # templates
-            templates = resource_manager.get_templates(
-                current_connection.id
+        current_profile = settings_manager. \
+            find_profile_by_name(current_text)
+        settings_manager.set_current_profile(current_profile.id)
+        if current_profile:
+            templates = db.get_templates(
+                current_profile.id
             )
             self.model.removeRows(0, self.model.rowCount())
             self.load_templates(templates)
             # self.handle_queryable(Queryable())
 
-        self.search_btn.setEnabled(current_connection is not None)
+        self.search_btn.setEnabled(current_profile is not None)
 
     def templates_tree_double_clicked(self, index):
         """ Opens the template dialog when an entry from the
