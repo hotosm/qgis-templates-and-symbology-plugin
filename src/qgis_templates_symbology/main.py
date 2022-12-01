@@ -21,6 +21,8 @@ from qgis.PyQt.QtWidgets import QAction, QDockWidget, QMainWindow, QVBoxLayout
 from .resources import *
 
 from .gui.qgis_templates_symbology_main import QgisTemplatesSymbologyMain
+from .conf import settings_manager
+from .utils import config_defaults_profiles
 
 
 class QgisTemplatesSymbology:
@@ -46,6 +48,15 @@ class QgisTemplatesSymbology:
         self.main_widget = QgisTemplatesSymbologyMain()
         self.toolbar = self.iface.addToolBar("Open Templates and Symbology Manager")
         self.toolbar.setObjectName("QGISTemplatesSymbology")
+
+        # Add default catalogs, first check if they have already
+        # been set.
+        if not settings_manager.get_value(
+                "default_profiles_set",
+                default=False,
+                setting_type=bool
+        ):
+            config_defaults_profiles()
 
 
     # noinspection PyMethodMayBeStatic

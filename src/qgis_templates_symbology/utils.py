@@ -15,9 +15,13 @@ from qgis.PyQt import QtCore, QtGui
 from qgis.core import Qgis, QgsMessageLog
 
 from .conf import (
-    ConnectionSettings,
+    ProfileSettings,
+    TemplateSettings,
+    SymbologySettings,
     settings_manager
 )
+
+from .definitions.profiles import PROFILES
 
 
 def tr(message):
@@ -95,4 +99,48 @@ def open_folder(path):
         raise NotImplementedError
 
     return True, tr("Success")
+
+
+def config_defaults_profiles():
+    """ Initialize the plugin profiles
+    """
+
+    for profile in PROFILES:
+        profile_id = uuid.UUID(profile['id'])
+
+        templates_settings = []
+
+        for template in profile.get('templates'):
+            template_setting = TemplateSettings(
+                id=template.get('id'),
+                name=template.get('name'),
+            )
+            templates_settings.append(template_setting)
+
+
+        symbology_settings = []
+
+        for symbology in profile.get('symbology'):
+            symbology_setting = SymbologySettings(
+                id=symbology.get('id'),
+                name=symbology.get('name'),
+            )
+            symbology_settings.append(symbology_setting)
+
+        if not settings_manager.is_profile(
+                profile_id
+        ):
+            profile_settings = ProfileSettings(
+                id=profile_id,
+                name=profile['name'],
+                path=profile['path'],
+                templates=templates_settings,
+                symbology=symbology_settings,
+            )
+            settings_manager.save_profile_settings(profile_settings)
+
+            if profile['selected']:
+                settings_manager.set_current_profile(profile_id)
+
+    settings_manager.set_value("default_profiles_set", True)
 

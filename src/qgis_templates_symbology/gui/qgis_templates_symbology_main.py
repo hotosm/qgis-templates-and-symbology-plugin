@@ -29,7 +29,7 @@ from qgis.utils import iface
 from ..resources import *
 
 from ..gui.template_dialog import TemplateDialog
-from ..models.db import db_manager
+from ..conf import settings_manager
 
 
 WidgetUi, _ = loadUiType(
@@ -113,8 +113,10 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
         self.templates_tree.setModel(self.proxy_model)
         self.templates_tree.doubleClicked.connect(self.templates_tree_double_clicked)
-        templates = db_manager.get_all_templates()
-        self.load_templates(templates)
+        current_profile = settings_manager.get_current_profile()
+        if current_profile:
+            templates = settings_manager.get_templates(current_profile.id)
+            self.load_templates(templates)
 
     def edit_profile(self):
         """ Edits the passed profile and updates the profile box list.
@@ -171,7 +173,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             find_profile_by_name(current_text)
         settings_manager.set_current_profile(current_profile.id)
         if current_profile:
-            templates = db.get_templates(
+            templates = settings_manager.get_templates(
                 current_profile.id
             )
             self.model.removeRows(0, self.model.rowCount())
@@ -201,8 +203,8 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.model.removeRows(0, self.model.rowCount())
 
         for template in templates:
-            title = template.title if template.title else tr("No Title") + f" ({template.id})"
-            item = QtGui.QStandardItem(title)
+            name = template.name if template.name else tr("No Title") + f" ({template.id})"
+            item = QtGui.QStandardItem(name)
             item.setData(template, 1)
             self.model.appendRow(item)
 

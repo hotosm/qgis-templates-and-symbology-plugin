@@ -37,20 +37,20 @@ class Properties:
 class Template:
 
     id: UUID
-    title: str
-    description: str
-    license: str
-    properties: Properties
-    name: str = None
+    name: str
+    title: str = None
+    description: str = None
+    license: str = None
+    properties: Properties = None
 
 
 @dataclasses.dataclass
 class Symbology:
 
     id: UUID
-    title: str
-    description: str
-    license: str
-    properties: Properties
-    name: str = None
+    name: str
+    title: str = None
+    description: str = None
+    license: str = None
+    properties: Properties = None
 

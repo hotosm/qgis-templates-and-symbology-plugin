@@ -15,6 +15,7 @@ from qgis.gui import QgsMessageBar
 from qgis.PyQt.uic import loadUiType
 
 from ..models import Template, Symbology
+from ..conf import settings_manager
 
 DialogUi, _ = loadUiType(
     os.path.join(os.path.dirname(__file__), "../ui/template_dialog.ui")
@@ -41,7 +42,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.message_bar = QgsMessageBar()
         self.prepare_message_bar()
 
-        connection = settings_manager.get_current_connection()
+        self.profile = settings_manager.get_current_profile()
         self.update_inputs(False)
 
     def populate_properties(self, template):
@@ -54,7 +55,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         template = template
         if template:
             id_le.setText(template.id)
-            title_le.setText(template.title)
+            title_le.setText(template.name)
             description_le.setText(template.description)
 
             if template.license:
