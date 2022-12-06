@@ -29,6 +29,7 @@ from qgis.utils import iface
 from ..resources import *
 
 from ..gui.template_dialog import TemplateDialog
+from ..gui.symbology_dialog import SymbologyDialog
 from ..conf import settings_manager
 
 
@@ -49,6 +50,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
         self.prepare_profiles()
         self.prepare_templates()
+        self.prepare_symbology()
 
     def prepare_profiles(self):
 
@@ -118,6 +120,23 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             templates = settings_manager.get_templates(current_profile.id)
             self.load_templates(templates)
 
+    def prepare_symbology(self):
+
+        self.symbology_model = QtGui.QStandardItemModel()
+        self.symbology_model.setHorizontalHeaderLabels(['Title'])
+        self.symbology_proxy_model = QtCore.QSortFilterProxyModel()
+        self.symbology_proxy_model.setSourceModel(self.symbology_model)
+        self.symbology_proxy_model.setDynamicSortFilter(True)
+        self.symbology_proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.symbology_proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
+
+        self.symbology_tree.setModel(self.symbology_proxy_model)
+        self.symbology_tree.doubleClicked.connect(self.symbology_tree_double_clicked)
+        current_profile = settings_manager.get_current_profile()
+        if current_profile:
+            symbology_list = settings_manager.get_symbology(current_profile.id)
+            self.load_symbology(symbology_list)
+
     def edit_profile(self):
         """ Edits the passed profile and updates the profile box list.
         """
@@ -182,6 +201,19 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
         self.search_btn.setEnabled(current_profile is not None)
 
+
+    def symbology_tree_double_clicked(self, index):
+        """ Opens the symbology dialog when an entry from the
+        symbology view tree has been double clicked.
+
+        :param index: Index of the double clicked item.
+        :type index: int
+
+        """
+        symbology = self.symbology_tree.model().data(index, 1)
+        symbology_dialog = SymbologyDialog(symbology)
+        symbology_dialog.exec_()
+
     def templates_tree_double_clicked(self, index):
         """ Opens the template dialog when an entry from the
         templates view tree has been double clicked.
@@ -193,6 +225,23 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         template = self.templates_tree.model().data(index, 1)
         template_dialog = TemplateDialog(template)
         template_dialog.exec_()
+
+    def load_symbology(self, symbology_list):
+        """ Adds the templates into the tree view
+
+        :param templates: List of templates to be added
+        :type templates: []
+        """
+        self.symbology_model.removeRows(0, self.model.rowCount())
+
+        for symbology in symbology_list:
+            name = symbology.name if symbology.name else tr("No Title") + f" ({symbology.id})"
+            item = QtGui.QStandardItem(name)
+            item.setData(symbology, 1)
+            self.symbology_model.appendRow(item)
+
+        self.symbology_proxy_model.setSourceModel(self.symbology_model)
+        self.symbology_proxy_model.sort(QtCore.Qt.DisplayRole)
 
     def load_templates(self, templates):
         """ Adds the templates into the tree view
@@ -210,3 +259,4 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.sort(QtCore.Qt.DisplayRole)
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NewConnectionDialog</class>
- <widget class="QDialog" name="NewConnectionDialog">
+ <class>SymbologyDialog</class>
+ <widget class="QDialog" name="SymbologyDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Template Information</string>
+   <string>Symbology Information</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -201,10 +201,15 @@
          </attribute>
          <column>
           <property name="text">
-           <string>Keywords</string>
+           <string>Name</string>
           </property>
           <property name="toolTip">
            <string>List of keywords describing the Collection</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Value</string>
           </property>
          </column>
         </widget>
