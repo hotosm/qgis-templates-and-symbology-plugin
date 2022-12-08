@@ -11,6 +11,10 @@ import uuid
 
 from osgeo import gdal
 
+from pathlib import Path
+
+import json
+
 from qgis.PyQt import QtCore, QtGui
 from qgis.core import Qgis, QgsMessageLog
 
@@ -21,7 +25,11 @@ from .conf import (
     settings_manager
 )
 
+from .models import Properties
+
 from .definitions.profiles import PROFILES
+
+LOCAL_ROOT_DIR = Path(__file__).parent.resolve()
 
 
 def tr(message):
@@ -109,14 +117,25 @@ def config_defaults_profiles():
         profile_id = uuid.UUID(profile['id'])
 
         templates_settings = []
+        templates_list = query_templates()
 
-        for template in profile.get('templates'):
+        for template in templates_list:
+            properties = Properties(
+                extension=template.get('extension'),
+                directory=template.get('directory'),
+                template_type=template.get('type'),
+                thumbnail=template.get('thumbnail'),
+            )
             template_setting = TemplateSettings(
                 id=template.get('id'),
                 name=template.get('name'),
+                description=template.get('description'),
+                title=template.get('title'),
+                properties=properties,
             )
             templates_settings.append(template_setting)
 
+        log(f"Templates settings {len(templates_settings)}")
 
         symbology_settings = []
 
@@ -143,4 +162,16 @@ def config_defaults_profiles():
                 settings_manager.set_current_profile(profile_id)
 
     settings_manager.set_value("default_profiles_set", True)
+
+
+def query_templates():
+    templates_directory = LOCAL_ROOT_DIR / "data/templates"
+    templates_list = []
+    for template_directory in templates_directory.iterdir():
+        data_file = template_directory / 'data.json'
+        with data_file.open("r") as fh:
+            data_json = json.load(fh)
+            for template in data_json['templates']:
+                templates_list.append(template)
+    return templates_list
 

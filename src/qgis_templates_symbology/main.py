@@ -164,6 +164,15 @@ class QgisTemplatesSymbology:
             parent=self.iface.mainWindow(),
         )
 
+        # Add default catalogs, first check if they have already
+        # been set.
+        if not settings_manager.get_value(
+                "default_profiles_set",
+                default=False,
+                setting_type=bool
+        ):
+            config_defaults_profiles()
+
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin widget is closed"""
         self.pluginIsActive = False

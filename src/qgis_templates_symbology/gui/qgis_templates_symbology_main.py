@@ -48,9 +48,22 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         super().__init__(parent)
         self.setupUi(self)
 
+        self.model = QtGui.QStandardItemModel()
+        self.model.setHorizontalHeaderLabels(['Title'])
+        self.proxy_model = QtCore.QSortFilterProxyModel()
+        self.proxy_model.setSourceModel(self.model)
+        self.proxy_model.setDynamicSortFilter(True)
+        self.proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
+
         self.prepare_profiles()
         self.prepare_templates()
         self.prepare_symbology()
+
+        self.grid_layout = QtWidgets.QGridLayout()
+        self.message_bar = QgsMessageBar()
+        self.progress_bar = None
+        self.prepare_message_bar()
 
     def prepare_profiles(self):
 
@@ -62,6 +75,27 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             self.update_profile_buttons
         )
 
+        self.update_profiles_box()
+
+    def update_profiles_box(self):
+        existing_profiles = settings_manager.list_profiles()
+        self.profiles_box.clear()
+        if len(existing_profiles) > 0:
+            self.profiles_box.addItems(
+                profile.name for profile in existing_profiles
+            )
+            current_profile = settings_manager.get_current_profile()
+            if current_profile is not None:
+                current_index = self.profiles_box. \
+                    findText(current_profile.name)
+                self.profiles_box.setCurrentIndex(current_index)
+                templates = settings_manager.get_templates(
+                    current_profile.id
+                )
+                self.model.removeRows(0, self.model.rowCount())
+                self.load_templates(templates)
+            else:
+                self.profiles_box.setCurrentIndex(0)
     def add_profile(self):
         """ Adds a new profile into the plugin, then updates
         the profiles combo box list to show the added profile.
@@ -104,14 +138,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             self.update_profiles_box()
 
     def prepare_templates(self):
-
-        self.model = QtGui.QStandardItemModel()
-        self.model.setHorizontalHeaderLabels(['Title'])
-        self.proxy_model = QtCore.QSortFilterProxyModel()
-        self.proxy_model.setSourceModel(self.model)
-        self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
 
         self.templates_tree.setModel(self.proxy_model)
         self.templates_tree.doubleClicked.connect(self.templates_tree_double_clicked)
@@ -197,7 +223,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             )
             self.model.removeRows(0, self.model.rowCount())
             self.load_templates(templates)
-            # self.handle_queryable(Queryable())
 
         self.search_btn.setEnabled(current_profile is not None)
 
@@ -223,7 +248,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
         """
         template = self.templates_tree.model().data(index, 1)
-        template_dialog = TemplateDialog(template)
+        template_dialog = TemplateDialog(template, self)
         template_dialog.exec_()
 
     def load_symbology(self, symbology_list):
@@ -260,3 +285,78 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.sort(QtCore.Qt.DisplayRole)
 
+    def show_message(
+            self,
+            message,
+            level=Qgis.Warning
+    ):
+        """ Shows message on the main widget message bar
+
+        :param message: Message text
+        :type message: str
+
+        :param level: Message level type
+        :type level: Qgis.MessageLevel
+        """
+        self.message_bar.clearWidgets()
+        self.message_bar.pushMessage(message, level=level)
+
+    def show_progress(self, message, minimum=0, maximum=0):
+        """ Shows the progress message on the main widget message bar
+
+        :param message: Progress message
+        :type message: str
+
+        :param minimum: Minimum value that can be set on the progress bar
+        :type minimum: int
+
+        :param maximum: Maximum value that can be set on the progress bar
+        :type maximum: int
+        """
+        self.message_bar.clearWidgets()
+        message_bar_item = self.message_bar.createMessage(message)
+        self.progress_bar = QtWidgets.QProgressBar()
+        self.progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+        self.progress_bar.setMinimum(minimum)
+        self.progress_bar.setMaximum(maximum)
+        message_bar_item.layout().addWidget(self.progress_bar)
+        self.message_bar.pushWidget(message_bar_item, Qgis.Info)
+
+    def update_progress_bar(self, value):
+        """Sets the value of the progress bar
+
+        :param value: Value to be set on the progress bar
+        :type value: float
+        """
+        if self.progress_bar:
+            try:
+                self.progress_bar.setValue(int(value))
+            except RuntimeError:
+                log(
+                    tr("Error setting value to a progress bar"),
+                    notify=False
+                )
+
+    def clear_message_bar(self):
+        self.message_bar.clearWidgets()
+
+    def update_inputs(self, enabled):
+        self.search.setEnabled(enabled)
+        self.settings.setEnabled(enabled)
+
+    def prepare_message_bar(self):
+        """ Initializes the widget message bar settings"""
+        self.message_bar.setSizePolicy(
+            QtWidgets.QSizePolicy.Minimum,
+            QtWidgets.QSizePolicy.Fixed
+        )
+        self.grid_layout.addWidget(
+            self.container,
+            0, 0, 1, 1
+        )
+        self.grid_layout.addWidget(
+            self.message_bar,
+            0, 0, 1, 1,
+            alignment=QtCore.Qt.AlignTop
+        )
+        self.central_widget.layout().insertLayout(0, self.grid_layout)

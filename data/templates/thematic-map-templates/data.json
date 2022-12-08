@@ -1,0 +1,164 @@
+{
+  "templates": [
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_landscape_a1_global",
+        "title": "Thematic heavy landscape A1 global",
+        "description": "Thematic heavy landscape global",
+        "directory": "thematic-heavy-map-layout",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_landscape_a1_global.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_landscape_a2_global",
+        "title": "Thematic heavy landscape A2 global",
+        "description": "Thematic heavy landscape global",
+        "directory": "thematic-heavy-map-layout",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_landscape_a2_global.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_landscape_a3_global",
+        "title": "Thematic heavy landscape A3 global",
+        "description": "Thematic heavy landscape global",
+        "directory": "thematic-heavy-map-layout",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_landscape_a3_global.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_landscape_a4_global",
+        "title": "Thematic heavy landscape A4 global",
+        "description": "Thematic heavy landscape global",
+        "directory": "thematic-heavy-map-layout",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_landscape_a4_global.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_landscape_a1_hub",
+        "title": "Thematic heavy landscape A1 hub",
+        "description": "Thematic heavy landscape hub",
+        "directory": "thematic-heavy-map-layout",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_landscape_a1_hub.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_landscape_a2_hub",
+        "title": "Thematic heavy landscape A2 hub",
+        "description": "Thematic heavy landscape hub",
+        "directory": "thematic-heavy-map-layout",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_landscape_a2_hub.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_landscape_a3_hub",
+        "title": "Thematic heavy landscape A3 hub",
+        "description": "Thematic heavy landscape hub",
+        "directory": "thematic-heavy-map-layout",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_landscape_a3_hub.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_landscape_a4_hub",
+        "title": "Thematic heavy landscape A4 hub",
+        "description": "Thematic heavy landscape hub",
+        "directory": "thematic-heavy-map-layout",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_landscape_a4_hub.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_portrait_a1_global",
+        "title": "Thematic heavy portrait A1 global",
+        "description": "Thematic heavy portrait global",
+        "directory": "thematic-heavy-map-layout",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_portrait_a1_global.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_portrait_a2_global",
+        "title": "Thematic heavy portrait A2 global",
+        "description": "Thematic heavy portrait global",
+        "directory": "thematic-heavy-map-layout",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_portrait_a2_global.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_portrait_a3_global",
+        "title": "Thematic heavy portrait A3 global",
+        "description": "Thematic heavy portrait global",
+        "directory": "thematic-heavy-map-layout",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_portrait_a3_global.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_portrait_a4_global",
+        "title": "Thematic heavy portrait A4 global",
+        "description": "Thematic heavy portrait global",
+        "directory": "thematic-heavy-map-layout",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_portrait_a4_global.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_portrait_a1_hub",
+        "title": "Thematic heavy portrait A1 hub",
+        "description": "Thematic heavy portrait hub",
+        "directory": "thematic-heavy-map-layout",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_portrait_a1_hub.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_portrait_a2_hub",
+        "title": "Thematic heavy portrait A2 hub",
+        "description": "Thematic heavy portrait hub",
+        "directory": "thematic-heavy-map-layout",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_portrait_a2_hub.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_portrait_a3_hub",
+        "title": "Thematic heavy portrait A3 hub",
+        "description": "Thematic heavy portrait hub",
+        "directory": "thematic-heavy-map-layout",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_portrait_a3_hub.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_heavy_portrait_a4_hub",
+        "title": "Thematic heavy portrait A4 hub",
+        "description": "Thematic heavy portrait hub",
+        "directory": "thematic-heavy-map-layout",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_heavy_portrait_a4_hub.png"
+    }
+  ]
+}

@@ -28,9 +28,13 @@ class TemporalExtent:
 
 @dataclasses.dataclass
 class Properties:
-    links: typing.List[str]
-    spatial: SpatialExtent
-    temporal: TemporalExtent
+    links: typing.List[str] = None
+    thumbnail: str = None
+    directory: str = None
+    extension: str = None
+    template_type: str = None
+    spatial: SpatialExtent = None
+    temporal: TemporalExtent = None
 
 
 @dataclasses.dataclass

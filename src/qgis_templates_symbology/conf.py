@@ -16,7 +16,7 @@ from qgis.PyQt import (
 )
 from qgis.core import QgsRectangle, QgsSettings
 
-from .models import Template, Symbology
+from .models import Properties, Symbology, Template
 
 
 @contextlib.contextmanager
@@ -119,9 +119,19 @@ class TemplateSettings(Template):
         :rtype: TemplateSettings
         """
 
+        properties = Properties(
+            extension=settings.value("properties/extension", None),
+            directory=settings.value("properties/directory", None),
+            thumbnail=settings.value("properties/thumbnail", None),
+            template_type=settings.value("properties/template_type", None)
+        )
+
         return cls(
             name=settings.value("name", None),
             id=settings.value("id", None),
+            description=settings.value("description", None),
+            title=settings.value("title", None),
+            properties=properties,
         )
 
 
@@ -467,6 +477,16 @@ class SettingsManager(QtCore.QObject):
                f"{self.TEMPLATE_GROUP_NAME}/" \
                f"{str(identifier)}"
 
+    def save_template_properties(self, properties, template_id, profile_id):
+        templates_key = self._get_template_settings_base(profile_id, template_id)
+        properties_key = f"{templates_key}/properties"
+
+        with qgis_settings(properties_key) as settings:
+            settings.setValue("extension", properties.extension)
+            settings.setValue("thumbnail", properties.thumbnail)
+            settings.setValue("directory", properties.directory)
+            settings.setValue("template_type", properties.template_type)
+
 
     def save_template(self, profile, template_settings):
         """ Save the passed template settings into the plugin settings
@@ -482,9 +502,18 @@ class SettingsManager(QtCore.QObject):
             template_settings.id
         )
 
+        self.save_template_properties(
+            template_settings.properties,
+            template_settings.id,
+            profile.id
+        )
+
         with qgis_settings(settings_key) as settings:
             settings.setValue("name", template_settings.name)
             settings.setValue("id", template_settings.id)
+            settings.setValue("title", template_settings.title)
+            settings.setValue("description", template_settings.description)
+
 
     def get_templates(self, profile_identifier):
         """ Gets all the available templates settings in the
@@ -504,16 +533,16 @@ class SettingsManager(QtCore.QObject):
                 f"{self.TEMPLATE_GROUP_NAME}"
         ) \
                 as settings:
-            for uuid in settings.childGroups():
+            for id in settings.childGroups():
                 template_settings_key = self._get_template_settings_base(
                     profile_identifier,
-                    uuid
+                    id
                 )
                 with qgis_settings(template_settings_key) \
                         as template_settings:
                     result.append(
                         TemplateSettings.from_qgs_settings(
-                            uuid, template_settings
+                            id, template_settings
                         )
                     )
         return result
@@ -539,7 +568,6 @@ class SettingsManager(QtCore.QObject):
                f"{str(profile_identifier)}/" \
                f"{self.SYMBOLOGY_GROUP_NAME}/" \
                f"{str(identifier)}"
-
 
     def save_symbology(self, profile, symbology_settings):
         """ Save the passed symbology settings into the plugin settings
@@ -591,6 +619,41 @@ class SettingsManager(QtCore.QObject):
                         )
                     )
         return result
+
+
+from qgis.core import Qgis, QgsMessageLog
+
+
+def log(
+        message: str,
+        name: str = "qgis_templates_symbology",
+        info: bool = True,
+        notify: bool = True,
+):
+    """ Logs the message into QGIS logs using qgis_templates_symbology as the default
+    log instance.
+    If notify_user is True, user will be notified about the log.
+
+    :param message: The log message
+    :type message: str
+
+    :param name: Name of te log instance, qgis_templates_symbology is the default
+    :type message: str
+
+    :param info: Whether the message is about info or a
+    warning
+    :type info: bool
+
+    :param notify: Whether to notify user about the log
+    :type notify: bool
+     """
+    level = Qgis.Info if info else Qgis.Warning
+    QgsMessageLog.logMessage(
+        message,
+        name,
+        level=level,
+        notifyUser=notify,
+    )
 
 
 settings_manager = SettingsManager()
