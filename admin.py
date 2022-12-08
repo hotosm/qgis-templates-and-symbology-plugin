@@ -249,7 +249,7 @@ def copy_source_files(
         if not child.is_dir():
             continue
         for child_temp in child.iterdir():
-            if 'gpkg' in child_temp.name or child_temp.is_dir():
+            if 'gpkg' in child_temp.name or 'png' in child_temp.name or child_temp.is_dir():
                 continue
             target_directory = (output_directory / "data" / "templates" / child.name)
             target_directory.mkdir(parents=True, exist_ok=True)
