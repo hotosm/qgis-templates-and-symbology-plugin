@@ -1,5 +1,5 @@
 
-REPO_URL = 'https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/resources'
+REPO_URL = 'https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data'
 
 THUMBNAIL_HEIGHT_PARAM = 'height'
 THUMBNAIL_WIDTH_PARAM = 'width'

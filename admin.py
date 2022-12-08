@@ -257,12 +257,6 @@ def copy_source_files(
             handler = shutil.copytree if child_temp.is_dir() else shutil.copy
             handler(str(child_temp.resolve()), str(target_path))
 
-    # for child in (LOCAL_ROOT_DIR / 'data' / 'symbology').iterdir():
-    #     for child_temp in child.iterdir():
-    #         target_path = output_directory / 'data' / 'symbology' / child.name / child_temp.name
-    #         handler = shutil.copytree if child_temp.is_dir() else shutil.copy
-    #         handler(str(child_temp.resolve()), str(target_path))
-
     # Copy source files
     for child in (LOCAL_ROOT_DIR / "src" / SRC_NAME).iterdir():
         if child.name != "__pycache__":

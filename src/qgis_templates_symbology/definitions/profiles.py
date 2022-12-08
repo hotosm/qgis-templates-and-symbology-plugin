@@ -22,27 +22,6 @@ SYMBOLOGY = [
     }
 ]
 
-TEMPLATES = [
-    {
-        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
-        "name": "text_heavy_landscape_a2_global",
-        "title": "Text heavy landscape A2 global",
-        "description": "Text heavy landscape global",
-        "directory": "text-heavy-map-layout",
-        "type": "landscape",
-        "extension": "qpt",
-    },
-    {
-        "id": "68e8752f-c877-4679-9a3e-bfada559595a'",
-        "name": "text_heavy_landscape_a2_hub",
-        "title": "Text heavy landscape A2 hub",
-        "description": "Text heavy landscape hub",
-        "directory": "text-heavy-map-layout",
-        "type": "landscape",
-        "extension": "qpt",
-    }
-]
-
 
 PROFILES = [
     {
@@ -50,7 +29,7 @@ PROFILES = [
         "name": "HOT",
         "path": "",
         "selected": True,
-        "templates": TEMPLATES,
+        "templates": [],
         "symbology": SYMBOLOGY,
     },
 ]

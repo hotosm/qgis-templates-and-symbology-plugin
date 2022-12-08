@@ -21,7 +21,7 @@ from qgis.PyQt.uic import loadUiType
 
 from ..models import Template, Symbology
 from ..conf import settings_manager
-from ..utils import log
+from ..utils import log, tr
 
 from functools import partial
 
