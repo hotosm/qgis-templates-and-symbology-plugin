@@ -11,13 +11,25 @@ import uuid
 
 from osgeo import gdal
 
+from pathlib import Path
+
+import json
+
 from qgis.PyQt import QtCore, QtGui
 from qgis.core import Qgis, QgsMessageLog
 
 from .conf import (
-    ConnectionSettings,
+    ProfileSettings,
+    TemplateSettings,
+    SymbologySettings,
     settings_manager
 )
+
+from .models import Properties
+
+from .definitions.profiles import PROFILES
+
+LOCAL_ROOT_DIR = Path(__file__).parent.resolve()
 
 
 def tr(message):
@@ -95,4 +107,71 @@ def open_folder(path):
         raise NotImplementedError
 
     return True, tr("Success")
+
+
+def config_defaults_profiles():
+    """ Initialize the plugin profiles
+    """
+
+    for profile in PROFILES:
+        profile_id = uuid.UUID(profile['id'])
+
+        templates_settings = []
+        templates_list = query_templates()
+
+        for template in templates_list:
+            properties = Properties(
+                extension=template.get('extension'),
+                directory=template.get('directory'),
+                template_type=template.get('type'),
+                thumbnail=template.get('thumbnail'),
+            )
+            template_setting = TemplateSettings(
+                id=template.get('id'),
+                name=template.get('name'),
+                description=template.get('description'),
+                title=template.get('title'),
+                properties=properties,
+            )
+            templates_settings.append(template_setting)
+
+        log(f"Templates settings {len(templates_settings)}")
+
+        symbology_settings = []
+
+        for symbology in profile.get('symbology'):
+            symbology_setting = SymbologySettings(
+                id=symbology.get('id'),
+                name=symbology.get('name'),
+            )
+            symbology_settings.append(symbology_setting)
+
+        if not settings_manager.is_profile(
+                profile_id
+        ):
+            profile_settings = ProfileSettings(
+                id=profile_id,
+                name=profile['name'],
+                path=profile['path'],
+                templates=templates_settings,
+                symbology=symbology_settings,
+            )
+            settings_manager.save_profile_settings(profile_settings)
+
+            if profile['selected']:
+                settings_manager.set_current_profile(profile_id)
+
+    settings_manager.set_value("default_profiles_set", True)
+
+
+def query_templates():
+    templates_directory = LOCAL_ROOT_DIR / "data/templates"
+    templates_list = []
+    for template_directory in templates_directory.iterdir():
+        data_file = template_directory / 'data.json'
+        with data_file.open("r") as fh:
+            data_json = json.load(fh)
+            for template in data_json['templates']:
+                templates_list.append(template)
+    return templates_list
 

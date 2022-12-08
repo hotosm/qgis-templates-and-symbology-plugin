@@ -21,6 +21,8 @@ from qgis.PyQt.QtWidgets import QAction, QDockWidget, QMainWindow, QVBoxLayout
 from .resources import *
 
 from .gui.qgis_templates_symbology_main import QgisTemplatesSymbologyMain
+from .conf import settings_manager
+from .utils import config_defaults_profiles
 
 
 class QgisTemplatesSymbology:
@@ -43,9 +45,19 @@ class QgisTemplatesSymbology:
         self.actions = []
         self.menu = self.tr(u"&Templates and Symbology Manager")
         self.pluginIsActive = False
-        self.main_widget = QgisTemplatesSymbologyMain()
         self.toolbar = self.iface.addToolBar("Open Templates and Symbology Manager")
         self.toolbar.setObjectName("QGISTemplatesSymbology")
+
+        # Add default catalogs, first check if they have already
+        # been set.
+        if not settings_manager.get_value(
+                "default_profiles_set",
+                default=False,
+                setting_type=bool
+        ):
+            config_defaults_profiles()
+
+        self.main_widget = QgisTemplatesSymbologyMain()
 
 
     # noinspection PyMethodMayBeStatic
@@ -153,6 +165,15 @@ class QgisTemplatesSymbology:
             parent=self.iface.mainWindow(),
         )
 
+        # Add default catalogs, first check if they have already
+        # been set.
+        if not settings_manager.get_value(
+                "default_profiles_set",
+                default=False,
+                setting_type=bool
+        ):
+            config_defaults_profiles()
+
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin widget is closed"""
         self.pluginIsActive = False
@@ -164,7 +185,17 @@ class QgisTemplatesSymbology:
             self.iface.removePluginWebMenu(self.tr(u"&Templates and Symbology Manager"), action)
             self.iface.removeToolBarIcon(action)
 
+        settings_manager.set_value("default_profiles_set", False)
+
     def run(self):
+        # Add default catalogs, first check if they have already
+        # been set.
+        if not settings_manager.get_value(
+                "default_profiles_set",
+                default=False,
+                setting_type=bool
+        ):
+            config_defaults_profiles()
         self.main_widget.show()
         if not self.pluginIsActive:
             self.pluginIsActive = True

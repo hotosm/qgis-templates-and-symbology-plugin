@@ -28,29 +28,33 @@ class TemporalExtent:
 
 @dataclasses.dataclass
 class Properties:
-    links: typing.List[str]
-    spatial: SpatialExtent
-    temporal: TemporalExtent
+    links: typing.List[str] = None
+    thumbnail: str = None
+    directory: str = None
+    extension: str = None
+    template_type: str = None
+    spatial: SpatialExtent = None
+    temporal: TemporalExtent = None
 
 
 @dataclasses.dataclass
 class Template:
 
     id: UUID
-    title: str
-    description: str
-    license: str
-    properties: Properties
-    name: str = None
+    name: str
+    title: str = None
+    description: str = None
+    license: str = None
+    properties: Properties = None
 
 
 @dataclasses.dataclass
 class Symbology:
 
     id: UUID
-    title: str
-    description: str
-    license: str
-    properties: Properties
-    name: str = None
+    name: str
+    title: str = None
+    description: str = None
+    license: str = None
+    properties: Properties = None
 

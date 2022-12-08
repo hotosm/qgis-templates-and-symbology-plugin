@@ -15,6 +15,7 @@ from qgis.gui import QgsMessageBar
 from qgis.PyQt.uic import loadUiType
 
 from ..models import Symbology
+from ..conf import settings_manager
 
 DialogUi, _ = loadUiType(
     os.path.join(os.path.dirname(__file__), "../ui/symbology_dialog.ui")
@@ -41,7 +42,7 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
         self.message_bar = QgsMessageBar()
         self.prepare_message_bar()
 
-        connection = settings_manager.get_current_connection()
+        self.profile = settings_manager.get_current_profile()
         self.update_inputs(False)
 
     def populate_properties(self, symbology):
