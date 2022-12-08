@@ -12,7 +12,7 @@
     "tags": ["maps", "templates", "symbology", "styles"],
     "category": ["plugins"],
     "hasProcessingProvider": "no",
-    "about": "Provides functionality to manage QGIS map templates and symbology, Sponsored by Microsoft",
+    "about": "Provides functionality to manage QGIS map templates and symbology, Sponsored by HOT",
     "author": "Kartoza",
     "email": "info@kartoza.com",
     "description": "QGIS plugin for managing map templates and symbology",

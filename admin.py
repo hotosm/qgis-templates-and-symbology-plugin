@@ -381,6 +381,8 @@ def generate_plugin_repo_xml(
     repo_index.write_text(contents, encoding="utf-8")
     _log(f"Plugin repo XML file saved at {repo_index}", context=context)
 
+    return contents
+
 
 @lru_cache()
 def _get_metadata() -> typing.Dict:
@@ -475,7 +477,7 @@ def _get_existing_releases(
     :rtype: List[GithubRelease]
     """
     base_url = "https://api.github.com/repos/" \
-               "hotosm/qgis_templates_symbology-plugin/releases"
+               "hotosm/qgis-templates-and-symbology-plugin/releases"
     response = httpx.get(base_url)
     result = []
     if response.status_code == 200:
