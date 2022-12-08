@@ -11,11 +11,16 @@ from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork
 from qgis.core import (
     Qgis,
     QgsNetworkContentFetcherTask,
+    QgsLayout,
+    QgsProject,
+    QgsReadWriteContext,
     QgsCoordinateReferenceSystem,
     QgsRectangle
 )
 
 from qgis.gui import QgsMessageBar
+
+from qgis.utils import iface
 
 from qgis.PyQt.uic import loadUiType
 
@@ -58,6 +63,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.update_inputs(False)
         self.add_thumbnail()
         self.populate_properties(template)
+
+        self.open_layout.clicked.connect(self.add_layout)
 
     def populate_properties(self, template):
         """ Populates the template dialog widgets with the
@@ -262,4 +269,27 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         else:
             log(tr("Problem fetching response from network"))
 
+    def add_layout(self):
+        template = self.template
+        project = QgsProject.instance()
+        layout = QgsPrintLayout(project)
 
+        layoutPath = Path(__file__).parent.resolve() / 'data' / 'templates' /\
+                     template.properties.directory / templates.name / '.qpt'
+
+        layout.setname(templates.name)
+
+        # initializes default settings for blank print layout canvas
+        layout.initializeDefaults()
+
+        with open(layoutPath) as f:
+            template_content = f.read()
+        doc = QDomDocument()
+        doc.setContent(template_content)
+
+        items, ok = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
+
+        manager = project.layoutManager()
+        manager.addLayout(layout)
+
+        iface.openLayoutDesigner(layout)
