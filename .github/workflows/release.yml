@@ -65,11 +65,12 @@ jobs:
       - name: Update custom plugin repository to include latest release
         run: |
           echo "$(python admin.py generate-plugin-repo-xml)" >> docs/repository/plugins.xml
+          python admin.py --verbose generate-plugin-repo-xml
+          echo " " >> docs/repository/plugins.xml 
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global --add safe.directory /__w/qgis-templates-and-symbology-plugin/qgis-templates-and-symbology-plugin
           
           git add -A
           git commit -m "Update plugins.xml"
-          git push origin :refs/tags/refs/heads/release
           git push origin release
