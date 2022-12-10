@@ -6,8 +6,6 @@
 
 QGIS plugin for managing map templates and symbology
 
-Site https://hotosm.github.io/qgis-templates-symbology-plugin/
-
 ### Installation
 
 During the development phase the plugin is available to install via 

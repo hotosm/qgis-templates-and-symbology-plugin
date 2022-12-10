@@ -6,12 +6,15 @@
 
 import os
 
+from pathlib import Path
+
 from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork
 
 from qgis.core import (
     Qgis,
     QgsNetworkContentFetcherTask,
     QgsLayout,
+    QgsPrintLayout,
     QgsProject,
     QgsReadWriteContext,
     QgsCoordinateReferenceSystem,
@@ -64,7 +67,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.add_thumbnail()
         self.populate_properties(template)
 
-        self.open_layout.clicked.connect(self.add_layout)
+        self.open_layout_btn.clicked.connect(self.add_layout)
 
     def populate_properties(self, template):
         """ Populates the template dialog widgets with the
@@ -274,20 +277,20 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         project = QgsProject.instance()
         layout = QgsPrintLayout(project)
 
-        layoutPath = Path(__file__).parent.resolve() / 'data' / 'templates' /\
-                     template.properties.directory / templates.name / '.qpt'
+        layout_path = Path(__file__).parent.resolve() / 'data' / 'templates' /\
+                     template.properties.directory / template.name / '.qpt'
 
-        layout.setname(templates.name)
-
-        # initializes default settings for blank print layout canvas
+        layout.setName(templates.name)
         layout.initializeDefaults()
 
-        with open(layoutPath) as f:
+        log(f"Opening layout from {layout_path}")
+
+        with open(layout_path) as f:
             template_content = f.read()
         doc = QDomDocument()
         doc.setContent(template_content)
 
-        items, ok = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
+        _items, _value = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
 
         manager = project.layoutManager()
         manager.addLayout(layout)
