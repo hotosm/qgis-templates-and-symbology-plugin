@@ -41,6 +41,10 @@ def qgis_settings(group_root: str, settings=None):
         settings.endGroup()
 
 
+class Settings(enum.Enum):
+    DOWNLOAD_FOLDER = "DOWNLOAD_FOLDER"
+
+
 @dataclasses.dataclass
 class ProfileSettings:
     """Manages the plugin profile settings.
