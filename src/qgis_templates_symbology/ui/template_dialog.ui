@@ -156,7 +156,7 @@
          <item>
           <widget class="QPushButton" name="pushButton_2">
            <property name="toolTip">
-            <string>Download project used to create this template</string>
+            <string>Download the associate project for this template</string>
            </property>
            <property name="text">
             <string>Download project</string>
@@ -178,7 +178,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>Open templates inside the QGIS layout manager</string>
+            <string>Open the template inside the QGIS layout manager</string>
            </property>
            <property name="text">
             <string>Open in Layout Manager</string>

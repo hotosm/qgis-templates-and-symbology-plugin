@@ -8,7 +8,7 @@ import os
 
 from pathlib import Path
 
-from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork
+from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork, QtXml
 
 from qgis.core import (
     Qgis,
@@ -277,22 +277,26 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         project = QgsProject.instance()
         layout = QgsPrintLayout(project)
 
-        layout_path = Path(__file__).parent.resolve() / 'data' / 'templates' /\
-                     template.properties.directory / template.name / '.qpt'
+        layout_path = Path(__file__).parent.parent.resolve() / 'data' / 'templates' /\
+                     template.properties.directory / f"{template.name}.qpt"
 
-        layout.setName(templates.name)
+        layout.setName(template.name)
         layout.initializeDefaults()
 
         log(f"Opening layout from {layout_path}")
 
-        with open(layout_path) as f:
-            template_content = f.read()
-        doc = QDomDocument()
-        doc.setContent(template_content)
+        try:
+            with open(layout_path) as f:
+                template_content = f.read()
+            doc = QtXml.QDomDocument()
+            doc.setContent(template_content)
 
-        _items, _value = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
+            _items, _value = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
 
-        manager = project.layoutManager()
-        manager.addLayout(layout)
+            manager = project.layoutManager()
+            manager.addLayout(layout)
 
-        iface.openLayoutDesigner(layout)
+            iface.openLayoutDesigner(layout)
+
+        except RuntimeError:
+            log(f"Problem opening layout {template.name}")
