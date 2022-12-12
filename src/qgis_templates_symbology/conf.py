@@ -42,7 +42,8 @@ def qgis_settings(group_root: str, settings=None):
 
 
 class Settings(enum.Enum):
-    DOWNLOAD_FOLDER = "DOWNLOAD_FOLDER"
+    DOWNLOAD_FOLDER = "download_folder"
+    AUTO_PROJECT_LOAD = "auto_project_load"
 
 
 @dataclasses.dataclass

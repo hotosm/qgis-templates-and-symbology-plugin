@@ -78,6 +78,23 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             self.save_download_folder)
         self.open_folder_btn.clicked.connect(self.open_download_folder)
 
+        self.project_auto_load.setChecked(
+            settings_manager.get_value(
+                Settings.AUTO_PROJECT_LOAD,
+                False,
+                setting_type=bool
+            )
+        )
+
+        self.project_auto_load.toggled.connect(self.change_auto_load_setting)
+
+    def change_auto_load_setting(self, enabled):
+
+        settings_manager.set_value(
+            Settings.AUTO_PROJECT_LOAD,
+            enabled
+        )
+
     def save_download_folder(self, folder):
         """ Saves the passed folder into the plugin settings
 
