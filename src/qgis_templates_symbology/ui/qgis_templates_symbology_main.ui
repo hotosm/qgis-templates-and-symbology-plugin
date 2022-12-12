@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>891</width>
-    <height>687</height>
+    <width>951</width>
+    <height>860</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -89,8 +89,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>869</width>
-             <height>594</height>
+             <width>929</width>
+             <height>767</height>
             </rect>
            </property>
            <property name="styleSheet">
@@ -116,6 +116,9 @@
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
                  <item>
                   <widget class="QPushButton" name="new_profile_btn">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="toolTip">
                     <string>Create a new service profile</string>
                    </property>
@@ -262,6 +265,18 @@
                      <height>0</height>
                     </size>
                    </property>
+                   <item>
+                    <property name="text">
+                     <string>Name</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="template_order">
+                   <property name="text">
+                    <string>Reverse order</string>
+                   </property>
                   </widget>
                  </item>
                 </layout>
@@ -359,6 +374,18 @@
                      <width>0</width>
                      <height>0</height>
                     </size>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Name</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="symbology_order">
+                   <property name="text">
+                    <string>Reverse order</string>
                    </property>
                   </widget>
                  </item>
@@ -546,7 +573,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>891</width>
+     <width>951</width>
      <height>22</height>
     </rect>
    </property>

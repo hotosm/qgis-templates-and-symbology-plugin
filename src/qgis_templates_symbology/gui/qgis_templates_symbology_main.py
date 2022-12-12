@@ -26,7 +26,7 @@ from ..gui.template_dialog import TemplateDialog
 from ..gui.symbology_dialog import SymbologyDialog
 from ..conf import settings_manager, Settings
 
-from ..utils import open_folder
+from ..utils import open_folder, tr, log
 
 
 WidgetUi, _ = loadUiType(
@@ -90,6 +90,22 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         )
 
         self.project_auto_load.toggled.connect(self.change_auto_load_setting)
+
+        self.symbology_sort_cmb.activated.connect(self.sort_symbology)
+        self.template_sort_cmb.activated.connect(self.sort_template)
+
+
+    def sort_symbology(self):
+        order = self.symbology_order.isChecked()
+        symbology_order = QtCore.Qt.SortOrder.DescendingOrder \
+            if order else QtCore.Qt.SortOrder.AscendingOrder
+        self.symbology_proxy_model.sort(QtCore.Qt.DisplayRole, symbology_order)
+
+    def sort_template(self):
+        order = self.symbology_order.isChecked()
+        templates_order = QtCore.Qt.SortOrder.DescendingOrder \
+            if order else QtCore.Qt.SortOrder.AscendingOrder
+        self.proxy_model.sort(QtCore.Qt.DisplayRole, templates_order)
 
     def change_auto_load_setting(self, enabled):
 
