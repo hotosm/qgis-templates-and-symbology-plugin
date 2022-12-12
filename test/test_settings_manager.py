@@ -5,7 +5,6 @@
 
 import unittest
 
-import uuid
 
 
 class SettingsManagerTest(unittest.TestCase):
