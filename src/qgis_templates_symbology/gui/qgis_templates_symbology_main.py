@@ -11,20 +11,14 @@ from functools import partial
 from qgis.PyQt import (
     QtCore,
     QtGui,
-    QtNetwork,
     QtWidgets,
-    QtXml,
 )
 from qgis.PyQt.uic import loadUiType
 
 from qgis.core import (
     Qgis,
-    QgsApplication,
-    QgsCoordinateReferenceSystem,
-    QgsTask
 )
 from qgis.gui import QgsMessageBar
-from qgis.utils import iface
 
 from ..resources import *
 
@@ -57,6 +51,15 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.proxy_model.setDynamicSortFilter(True)
         self.proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
+
+
+        self.symbology_model = QtGui.QStandardItemModel()
+        self.symbology_model.setHorizontalHeaderLabels(['Title'])
+        self.symbology_proxy_model = QtCore.QSortFilterProxyModel()
+        self.symbology_proxy_model.setSourceModel(self.symbology_model)
+        self.symbology_proxy_model.setDynamicSortFilter(True)
+        self.symbology_proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.symbology_proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
 
         self.prepare_profiles()
         self.prepare_templates()
@@ -171,6 +174,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
                 self.load_templates(templates)
             else:
                 self.profiles_box.setCurrentIndex(0)
+
     def add_profile(self):
         """ Adds a new profile into the plugin, then updates
         the profiles combo box list to show the added profile.
@@ -222,14 +226,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             self.load_templates(templates)
 
     def prepare_symbology(self):
-
-        self.symbology_model = QtGui.QStandardItemModel()
-        self.symbology_model.setHorizontalHeaderLabels(['Title'])
-        self.symbology_proxy_model = QtCore.QSortFilterProxyModel()
-        self.symbology_proxy_model.setSourceModel(self.symbology_model)
-        self.symbology_proxy_model.setDynamicSortFilter(True)
-        self.symbology_proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
-        self.symbology_proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
 
         self.symbology_tree.setModel(self.symbology_proxy_model)
         self.symbology_tree.doubleClicked.connect(self.symbology_tree_double_clicked)

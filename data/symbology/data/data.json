@@ -5,7 +5,7 @@
         "name": "diverging_brownblue",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "gpl",
         "thumbnail": "diverging_brownblue.png"
@@ -15,7 +15,7 @@
         "name": "diverging_brownbteal",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "gpl",
         "thumbnail": "diverging_brownteal.png"
@@ -25,7 +25,7 @@
         "name": "diverging_redblue",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "gpl",
         "thumbnail": "diverging_redblue.png"
@@ -35,7 +35,7 @@
         "name": "diverging_redgreen",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "gpl",
         "thumbnail": "diverging_redgren.png"
@@ -45,7 +45,7 @@
         "name": "inset_map",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "qml",
         "thumbnail": "inset_map.png"
@@ -55,7 +55,7 @@
         "name": "world_map",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "qml",
         "thumbnail": "world_map.png"
@@ -65,7 +65,7 @@
         "name": "rainbow",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "xml",
         "thumbnail": "rainbow.png"
@@ -75,7 +75,7 @@
         "name": "sequential_bluegreen",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "gpl",
         "thumbnail": "sequential_bluegreen.png"
@@ -85,7 +85,7 @@
         "name": "sequential_brown",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "gpl",
         "thumbnail": "sequential_brown.png"
@@ -95,7 +95,7 @@
         "name": "sequential_green",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "xml",
         "thumbnail": "sequential_green.png"
@@ -105,7 +105,7 @@
         "name": "sequential_red_orange_yellow",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "gpl",
         "thumbnail": "sequential_red_orange_yellow.png"
@@ -115,7 +115,7 @@
         "name": "sequential_teal",
         "title": "",
         "description": "Colour scale pallete",
-        "directory": "colour-scale",
+        "directory": "colour-scales",
         "type": "colour_scale",
         "extension": "xml",
         "thumbnail": "sequential_teal.png"

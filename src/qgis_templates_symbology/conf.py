@@ -163,9 +163,19 @@ class SymbologySettings(Symbology):
         :rtype: SymbologySettings
         """
 
+        properties = Properties(
+            extension=settings.value("properties/extension", None),
+            directory=settings.value("properties/directory", None),
+            thumbnail=settings.value("properties/thumbnail", None),
+            template_type=settings.value("properties/template_type", None)
+        )
+
         return cls(
             name=settings.value("name", None),
             id=settings.value("id", None),
+            description=settings.value("description", None),
+            title=settings.value("title", None),
+            properties=properties,
         )
 
 
@@ -492,6 +502,16 @@ class SettingsManager(QtCore.QObject):
             settings.setValue("directory", properties.directory)
             settings.setValue("template_type", properties.template_type)
 
+    def save_symbology_properties(self, properties, symbology_id, profile_id):
+        symbology_key = self._get_symbology_settings_base(profile_id, symbology_id)
+        properties_key = f"{symbology_key}/properties"
+
+        with qgis_settings(properties_key) as settings:
+            settings.setValue("extension", properties.extension)
+            settings.setValue("thumbnail", properties.thumbnail)
+            settings.setValue("directory", properties.directory)
+            settings.setValue("template_type", properties.template_type)
+
 
     def save_template(self, profile, template_settings):
         """ Save the passed template settings into the plugin settings
@@ -583,14 +603,23 @@ class SettingsManager(QtCore.QObject):
         :param symbology_settings: Symbology settings
         :type symbology_settings:  SymbologySettings
         """
+
         settings_key = self._get_symbology_settings_base(
             profile.id,
             symbology_settings.id
         )
 
+        self.save_symbology_properties(
+            symbology_settings.properties,
+            symbology_settings.id,
+            profile.id
+        )
+
         with qgis_settings(settings_key) as settings:
             settings.setValue("name", symbology_settings.name)
             settings.setValue("id", symbology_settings.id)
+            settings.setValue("title", symbology_settings.title)
+            settings.setValue("description", symbology_settings.description)
             
     
     def get_symbology(self, profile_identifier):

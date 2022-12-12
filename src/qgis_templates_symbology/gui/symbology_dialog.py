@@ -5,21 +5,44 @@
 """
 
 import os
+import uuid
 
-from qgis.PyQt import QtCore, QtGui, QtWidgets
+from pathlib import Path
 
-from qgis.core import Qgis, QgsCoordinateReferenceSystem, QgsRectangle
+from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork, QtXml
+
+from qgis import processing
+
+from qgis.core import (
+    Qgis,
+    QgsApplication,
+    QgsCoordinateReferenceSystem,
+    QgsNetworkContentFetcherTask,
+    QgsProject,
+    QgsReadWriteContext,
+    QgsProcessing,
+    QgsProcessingFeedback,
+    QgsRectangle,
+    QgsTask
+)
 
 from qgis.gui import QgsMessageBar
 
+from qgis.utils import iface
+
 from qgis.PyQt.uic import loadUiType
 
-from ..models import Symbology
-from ..conf import settings_manager
+from ..models import Template, Symbology
+from ..conf import settings_manager, Settings
+from ..utils import log, tr
+
+from functools import partial
 
 DialogUi, _ = loadUiType(
     os.path.join(os.path.dirname(__file__), "../ui/symbology_dialog.ui")
 )
+
+from ..constants import REPO_URL
 
 
 class SymbologyDialog(QtWidgets.QDialog, DialogUi):
@@ -27,7 +50,8 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
 
     def __init__(
             self,
-            symbology=None
+            symbology=None,
+            main_widget=None
     ):
         """ Constructor
 
@@ -37,13 +61,17 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
         super().__init__()
         self.setupUi(self)
         self.symbology = symbology
+        self.main_widget = main_widget
 
         self.grid_layout = QtWidgets.QGridLayout()
         self.message_bar = QgsMessageBar()
         self.prepare_message_bar()
 
         self.profile = settings_manager.get_current_profile()
-        self.update_inputs(False)
+        self.populate_properties(symbology)
+
+        self.download_symbology_btn.clicked.connect(self.download_symbology)
+        self.download_result = {}
 
     def populate_properties(self, symbology):
         """ Populates the symbology dialog widgets with the
@@ -54,24 +82,15 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
         """
         symbology = symbology
         if symbology:
-            id_le.setText(symbology.id)
-            title_le.setText(symbology.title)
-            description_le.setText(symbology.description)
+            self.title_le.setText(symbology.title)
+            self.name_le.setText(symbology.name)
+            self.description_le.setText(symbology.description)
+            self.extension_le.setText(symbology.properties.extension)
+            self.symbology_type_le.setText(symbology.properties.template_type)
 
             if symbology.license:
-                license_le.setText(symbology.license)
-            if symbology.extent:
-                set_extent(symbology.extent)
+                self.license_le.setText(symbology.license)
 
-        self.update_inputs(True)
-
-    def handle_error(self, error):
-        """Handles the returned response error
-
-        :param error: Network response error
-        :type error: str
-        """
-        self.show_message(error, level=Qgis.Critical)
         self.update_inputs(True)
 
     def prepare_message_bar(self):
@@ -170,3 +189,234 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
         else:
             self.from_date.clear()
             self.to_date.clear()
+
+    def add_thumbnail(self):
+        """ Downloads and loads thumbnail"""
+
+        url = f"{REPO_URL}/symbology/" \
+              f"{self.symbology.properties.directory}/" \
+              f"{self.symbology.properties.thumbnail}"
+        request = QtNetwork.QNetworkRequest(
+            QtCore.QUrl(
+                url
+            )
+        )
+
+        if self.main_widget:
+            self.main_widget.update_inputs(False)
+            self.main_widget.show_progress("Loading symbology information")
+
+        self.network_task(
+            request,
+            self.thumbnail_response
+        )
+
+    def thumbnail_response(self, content):
+        """ Callback to handle the thumbnail network response.
+            Sets the thumbnail image data into the widget thumbnail label.
+
+        :param content: Network response data
+        :type content: QByteArray
+        """
+        thumbnail_image = QtGui.QImage.fromData(content)
+
+        if thumbnail_image:
+            thumbnail_pixmap = QtGui.QPixmap.fromImage(thumbnail_image)
+
+            self.image_la.setPixmap(thumbnail_pixmap.scaled(
+                500,
+                350,
+                QtCore.Qt.IgnoreAspectRatio)
+            )
+
+        if self.main_widget:
+            self.main_widget.update_inputs(True)
+            self.main_widget.clear_message_bar()
+
+    def download_symbology_file(self, url, project_file, load=False):
+        try:
+            download_folder = settings_manager.get_value(Settings.DOWNLOAD_FOLDER)
+
+            self.show_message(
+                tr("Download for file {} to {} has started."
+                   ).format(
+                    project_file,
+                    download_folder
+                ),
+                level=Qgis.Info
+            )
+            self.update_inputs(False)
+            self.show_progress(
+                f"Downloading {url}",
+                minimum=0,
+                maximum=100,
+            )
+            feedback = QgsProcessingFeedback()
+
+            feedback.progressChanged.connect(
+                self.update_progress_bar
+            )
+            feedback.progressChanged.connect(self.download_progress)
+
+            file_name = self.clean_filename(project_file)
+
+            output = os.path.join(
+                download_folder, file_name
+            ) if download_folder else QgsProcessing.TEMPORARY_OUTPUT
+            params = {'URL': url, 'OUTPUT': output}
+
+            self.download_result["file"] = output
+
+            results = processing.run(
+                "qgis:filedownloader",
+                params,
+                feedback=feedback
+            )
+
+            if results:
+                log(tr(f"Finished downloading file to {self.download_result['file']}"))
+                self.update_inputs(True)
+                self.show_message(
+                    tr(f"Finished downloading "
+                       f"file to {self.download_result['file']}"),
+                    level=Qgis.Info
+                )
+
+        except Exception as e:
+            self.update_inputs(True)
+            self.show_message(
+                tr("Error in downloading file, {}").format(str(e))
+            )
+            log(tr("Error in downloading file, {}").format(str(e)))
+
+        return True
+
+    def network_task(
+            self,
+            request,
+            handler,
+    ):
+        """Fetches the response from the given request.
+
+        :param request: Network request
+        :type request: QNetworkRequest
+
+        :param handler: Callback function to handle the response
+        :type handler: Callable
+        """
+        task = QgsNetworkContentFetcherTask(
+            request
+        )
+        response_handler = partial(
+            self.response,
+            task,
+            handler
+        )
+        task.fetched.connect(response_handler)
+        task.run()
+
+    def response(
+            self,
+            task,
+            handler
+    ):
+        """Handle the return response
+
+        :param task: QGIS task that fetches network content
+        :type task:  QgsNetworkContentFetcherTask
+        """
+        reply = task.reply()
+        error = reply.error()
+        if error == QtNetwork.QNetworkReply.NoError:
+            contents: QtCore.QByteArray = reply.readAll()
+            handler(contents)
+        else:
+            self.update_inputs(True)
+            self.show_message(f"Fetching content via network, {reply.errorString()}")
+            log(tr("Problem fetching response from network"))
+
+    def download_symbology(self, load=False):
+        """ Downloads symbology"""
+
+        if not settings_manager.get_value(Settings.DOWNLOAD_FOLDER):
+            self.show_message(
+                tr("Set the download folder "
+                   "first in the plugin settings tab!"
+                   )
+            )
+            return
+
+        symbology_name = self.symbology.name
+
+        url = f"{REPO_URL}/symbology/" \
+              f"{self.symbology.properties.directory}/" \
+              f"{symbology_name}.{self.symbology.properties.extension}"
+
+        try:
+            download_task = QgsTask.fromFunction(
+                'Download symbology function',
+                self.download_symbology_file(
+                    url,
+                    f"{symbology_name}.{self.symbology.properties.extension}"
+                )
+            )
+            QgsApplication.taskManager().addTask(download_task)
+
+        except Exception as err:
+            self.update_inputs(True)
+            self.show_message("Problem running task for downloading project")
+            log(tr("An error occured when running task for"
+                   " downloading {}, error message \"{}\" ").format(
+                symbology_name,
+                err)
+            )
+
+    def clean_filename(self, filename):
+        """ Creates a safe filename by removing operating system
+        invalid filename characters.
+
+        :param filename: File name
+        :type filename: str
+
+        :returns A clean file name
+        :rtype str
+        """
+        characters = " %:/,\[]<>*?"
+
+        for character in characters:
+            if character in filename:
+                filename = filename.replace(character, '_')
+
+        return filename
+
+    def download_progress(self, value):
+        """Tracks the download progress of value and updates
+        the info message when the download has finished
+
+        :param value: Download progress value
+        :type value: int
+        """
+        if value == 100:
+            self.update_inputs(True)
+            self.show_message(
+                tr("Download for file {} has finished."
+                   ).format(
+                    self.download_result["file"]
+                ),
+                level=Qgis.Info
+            )
+
+    def update_progress_bar(self, value):
+        """Sets the value of the progress bar
+
+        :param value: Value to be set on the progress bar
+        :type value: float
+        """
+        if self.progress_bar:
+            try:
+                self.progress_bar.setValue(int(value))
+            except RuntimeError:
+                log(
+                    tr("Error setting value to a progress bar"),
+                    notify=False
+                )

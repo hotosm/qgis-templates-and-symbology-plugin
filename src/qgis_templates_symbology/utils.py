@@ -3,19 +3,16 @@
     Plugin utilities
 """
 
-import datetime
 import os
 import subprocess
 import sys
 import uuid
 
-from osgeo import gdal
-
 from pathlib import Path
 
 import json
 
-from qgis.PyQt import QtCore, QtGui
+from qgis.PyQt import QtCore
 from qgis.core import Qgis, QgsMessageLog
 
 from .conf import (
@@ -135,14 +132,22 @@ def config_defaults_profiles():
             )
             templates_settings.append(template_setting)
 
-        log(f"Templates settings {len(templates_settings)}")
-
         symbology_settings = []
+        symbology_list = query_symbology()
 
-        for symbology in profile.get('symbology'):
+        for symbology in symbology_list:
+            properties = Properties(
+                extension=symbology.get('extension'),
+                directory=symbology.get('directory'),
+                template_type=symbology.get('type'),
+                thumbnail=symbology.get('thumbnail'),
+            )
             symbology_setting = SymbologySettings(
                 id=symbology.get('id'),
                 name=symbology.get('name'),
+                description=symbology.get('description'),
+                title=symbology.get('title'),
+                properties=properties,
             )
             symbology_settings.append(symbology_setting)
 
@@ -174,4 +179,15 @@ def query_templates():
             for template in data_json['templates']:
                 templates_list.append(template)
     return templates_list
+
+
+def query_symbology():
+    symbology_directory = LOCAL_ROOT_DIR / "data/symbology/data"
+    symbology_list = []
+    data_file = symbology_directory / 'data.json'
+    with data_file.open("r") as fh:
+        data_json = json.load(fh)
+        for symbology in data_json['symbology']:
+            symbology_list.append(symbology)
+    return symbology_list
 

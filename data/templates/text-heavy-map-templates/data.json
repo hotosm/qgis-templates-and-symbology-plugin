@@ -5,7 +5,7 @@
         "name": "text_heavy_landscape_a1_global",
         "title": "Text heavy landscape A1 global",
         "description": "Text heavy landscape global",
-        "directory": "text-heavy-map-layout",
+        "directory": "text-heavy-map-templates",
         "type": "landscape",
         "extension": "qpt",
         "thumbnail": "text_heavy_landscape_a1_global.png"

@@ -6,6 +6,5 @@
 import unittest
 
 
-
 class SettingsManagerTest(unittest.TestCase):
     """Test the plugins setting manager"""
