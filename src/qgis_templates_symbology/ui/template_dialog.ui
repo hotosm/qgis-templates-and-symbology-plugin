@@ -154,9 +154,9 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="download_project_btn">
            <property name="toolTip">
-            <string>Download project used to create this template</string>
+            <string>Download the associate project for this template</string>
            </property>
            <property name="text">
             <string>Download project</string>
@@ -178,7 +178,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>Open templates inside the QGIS layout manager</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open the template inside the QGIS layout manager, removes any existing layout with similar name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Open in Layout Manager</string>

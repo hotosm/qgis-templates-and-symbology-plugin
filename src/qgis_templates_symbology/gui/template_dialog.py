@@ -5,20 +5,27 @@
 """
 
 import os
+import uuid
 
 from pathlib import Path
 
-from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork
+from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork, QtXml
+
+from qgis import processing
 
 from qgis.core import (
     Qgis,
+    QgsApplication,
+    QgsCoordinateReferenceSystem,
     QgsNetworkContentFetcherTask,
     QgsLayout,
     QgsPrintLayout,
     QgsProject,
     QgsReadWriteContext,
-    QgsCoordinateReferenceSystem,
-    QgsRectangle
+    QgsProcessing,
+    QgsProcessingFeedback,
+    QgsRectangle,
+    QgsTask
 )
 
 from qgis.gui import QgsMessageBar
@@ -28,7 +35,7 @@ from qgis.utils import iface
 from qgis.PyQt.uic import loadUiType
 
 from ..models import Template, Symbology
-from ..conf import settings_manager
+from ..conf import settings_manager, Settings
 from ..utils import log, tr
 
 from functools import partial
@@ -68,6 +75,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.populate_properties(template)
 
         self.open_layout_btn.clicked.connect(self.add_layout)
+        self.download_project_btn.clicked.connect(self.download_project)
+        self.download_result = {}
 
     def populate_properties(self, template):
         """ Populates the template dialog widgets with the
@@ -189,7 +198,9 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
     def add_thumbnail(self):
         """ Downloads and loads thumbnail"""
 
-        url = f"{REPO_URL}/templates/{self.template.properties.directory}/{self.template.properties.thumbnail}"
+        url = f"{REPO_URL}/templates/" \
+              f"{self.template.properties.directory}/" \
+              f"{self.template.properties.thumbnail}"
         request = QtNetwork.QNetworkRequest(
             QtCore.QUrl(
                 url
@@ -227,6 +238,84 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             self.main_widget.update_inputs(True)
             self.main_widget.clear_message_bar()
 
+    def download_project_file(self, url, project_file, load=False):
+        try:
+            download_folder = settings_manager.get_value(Settings.DOWNLOAD_FOLDER)
+
+            self.show_message(
+                tr("Download for file {} to {} has started."
+                   ).format(
+                    project_file,
+                    download_folder
+                ),
+                level=Qgis.Info
+            )
+            self.update_inputs(False)
+            self.show_progress(
+                f"Downloading {url}",
+                minimum=0,
+                maximum=100,
+            )
+            feedback = QgsProcessingFeedback()
+
+            feedback.progressChanged.connect(
+                self.update_progress_bar
+            )
+            feedback.progressChanged.connect(self.download_progress)
+
+            file_name = self.clean_filename(project_file)
+
+            output = os.path.join(
+                download_folder, file_name
+            ) if download_folder else QgsProcessing.TEMPORARY_OUTPUT
+            params = {'URL': url, 'OUTPUT': output}
+
+            self.download_result["file"] = output
+
+            results = processing.run(
+                "qgis:filedownloader",
+                params,
+                feedback=feedback
+            )
+
+            if results:
+                log(tr(f"Finished downloading file to {self.download_result['file']}"))
+                self.update_inputs(True)
+                self.show_message(
+                    tr(f"Finished downloading "
+                       f"file to {self.download_result['file']}"),
+                    level=Qgis.Info
+                )
+
+                if load:
+                    self.load_project(self.download_result['file'], project_file)
+
+        except Exception as e:
+            self.update_inputs(True)
+            self.show_message(
+                tr("Error in downloading file, {}").format(str(e))
+            )
+            log(tr("Error in downloading file, {}").format(str(e)))
+
+        return True
+
+    def load_project(self, path, name):
+        project_name = name.replace('_map.gpkg', '')
+        uri = f"geopackage:{path}?projectName={project_name}"
+        try:
+            QgsProject.instance().read(uri)
+            self.show_message(
+                tr(f"Successfully loaded project {project_name}"),
+                level=Qgis.Info
+            )
+            log(f"Successfully loaded project {project_name}")
+        except Exception as err:
+            self.show_message(
+                tr(f"Problem loading project {project_name}, error {err}"),
+                level=Qgis.Info
+            )
+            log(f"Problem loading project {project_name}, error {err}")
+
     def network_task(
             self,
             request,
@@ -239,9 +328,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         :param handler: Callback function to handle the response
         :type handler: Callable
-
-        :param auth_config: Authentication configuration string
-        :type auth_config: str
         """
         task = QgsNetworkContentFetcherTask(
             request
@@ -270,29 +356,138 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             contents: QtCore.QByteArray = reply.readAll()
             handler(contents)
         else:
+            self.update_inputs(True)
+            self.show_message(f"Fetching content via network, {reply.errorString()}")
             log(tr("Problem fetching response from network"))
+
+    def download_project(self, load=False):
+        """ Downloads project"""
+
+        if not settings_manager.get_value(Settings.DOWNLOAD_FOLDER):
+            self.show_message(
+                tr("Set the download folder "
+                   "first in the plugin settings tab!"
+                   )
+            )
+            return
+
+        project_name = self.template.properties.directory.replace("-templates", '')
+        project_name = project_name.replace('-', '_')
+
+        url = f"{REPO_URL}/templates/" \
+              f"{self.template.properties.directory}/" \
+              f"{project_name}.gpkg"
+
+        load = settings_manager.get_value(
+                Settings.AUTO_PROJECT_LOAD,
+                False,
+                setting_type=bool
+            )
+
+        try:
+            download_task = QgsTask.fromFunction(
+                'Download project function',
+                self.download_project_file(url, f"{project_name}.gpkg", load)
+            )
+            QgsApplication.taskManager().addTask(download_task)
+
+        except Exception as err:
+            self.update_inputs(True)
+            self.show_message("Problem running task for downloading project")
+            log(tr("An error occured when running task for"
+                   " downloading {}, error message \"{}\" ").format(
+                project_name,
+                err)
+            )
 
     def add_layout(self):
         template = self.template
         project = QgsProject.instance()
         layout = QgsPrintLayout(project)
 
-        layout_path = Path(__file__).parent.resolve() / 'data' / 'templates' /\
-                     template.properties.directory / template.name / '.qpt'
-
-        layout.setName(templates.name)
-        layout.initializeDefaults()
+        layout_path = Path(__file__).parent.parent.resolve() / 'data' / 'templates' / \
+                      template.properties.directory / f"{template.name}.qpt"
 
         log(f"Opening layout from {layout_path}")
 
-        with open(layout_path) as f:
-            template_content = f.read()
-        doc = QDomDocument()
-        doc.setContent(template_content)
-
-        _items, _value = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
-
         manager = project.layoutManager()
-        manager.addLayout(layout)
+        layout_name = template.name
 
-        iface.openLayoutDesigner(layout)
+        # Create a layout name if another layout with similar name exists and can't be removed.
+
+        existing_layout = manager.layoutByName(layout_name)
+
+        if existing_layout:
+            if not manager.removeLayout(existing_layout):
+                suffix_id = uuid.uuid4()
+                layout_name = f"{layout_name}_{str(suffix_id)}"
+
+        layout.setName(layout_name)
+
+        layout.initializeDefaults()
+
+        try:
+            with open(layout_path) as f:
+                template_content = f.read()
+            doc = QtXml.QDomDocument()
+            doc.setContent(template_content)
+
+            _items, _value = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
+
+            manager.addLayout(layout)
+            iface.openLayoutDesigner(layout)
+            self.show_message(tr(f"Layout {layout_name} has been added."))
+            log(tr(f"Layout {layout_name} has been added."))
+
+        except RuntimeError:
+            log(f"Problem opening layout {template.name}")
+
+    def clean_filename(self, filename):
+        """ Creates a safe filename by removing operating system
+        invalid filename characters.
+
+        :param filename: File name
+        :type filename: str
+
+        :returns A clean file name
+        :rtype str
+        """
+        characters = " %:/,\[]<>*?"
+
+        for character in characters:
+            if character in filename:
+                filename = filename.replace(character, '_')
+
+        return filename
+
+    def download_progress(self, value):
+        """Tracks the download progress of value and updates
+        the info message when the download has finished
+
+        :param value: Download progress value
+        :type value: int
+        """
+        if value == 100:
+            self.update_inputs(True)
+            self.show_message(
+                tr("Download for file {} has finished."
+                   ).format(
+                    self.download_result["file"]
+                ),
+                level=Qgis.Info
+            )
+
+    def update_progress_bar(self, value):
+        """Sets the value of the progress bar
+
+        :param value: Value to be set on the progress bar
+        :type value: float
+        """
+        if self.progress_bar:
+            try:
+                self.progress_bar.setValue(int(value))
+            except RuntimeError:
+                log(
+                    tr("Error setting value to a progress bar"),
+                    notify=False
+                )

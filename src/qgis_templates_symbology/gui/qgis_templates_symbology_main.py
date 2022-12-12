@@ -30,7 +30,9 @@ from ..resources import *
 
 from ..gui.template_dialog import TemplateDialog
 from ..gui.symbology_dialog import SymbologyDialog
-from ..conf import settings_manager
+from ..conf import settings_manager, Settings
+
+from ..utils import open_folder
 
 
 WidgetUi, _ = loadUiType(
@@ -64,6 +66,79 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.message_bar = QgsMessageBar()
         self.progress_bar = None
         self.prepare_message_bar()
+
+        download_folder = settings_manager.get_value(
+            Settings.DOWNLOAD_FOLDER
+        )
+        self.download_folder_btn.setFilePath(
+            download_folder
+        ) if download_folder else None
+
+        self.download_folder_btn.fileChanged.connect(
+            self.save_download_folder)
+        self.open_folder_btn.clicked.connect(self.open_download_folder)
+
+        self.project_auto_load.setChecked(
+            settings_manager.get_value(
+                Settings.AUTO_PROJECT_LOAD,
+                False,
+                setting_type=bool
+            )
+        )
+
+        self.project_auto_load.toggled.connect(self.change_auto_load_setting)
+
+    def change_auto_load_setting(self, enabled):
+
+        settings_manager.set_value(
+            Settings.AUTO_PROJECT_LOAD,
+            enabled
+        )
+
+    def save_download_folder(self, folder):
+        """ Saves the passed folder into the plugin settings
+
+        :param folder: Folder intended to be saved
+        :type folder: str
+        """
+        if folder:
+            try:
+                if not os.path.exists(folder):
+                    os.makedirs(folder)
+
+                settings_manager.set_value(
+                    Settings.DOWNLOAD_FOLDER,
+                    str(folder)
+                )
+            except PermissionError:
+                self.show_message(
+                    tr("Unable to write to {} due to permissions. "
+                       "Choose a different folder".format(
+                        folder)
+                    ),
+                    level=Qgis.Critical
+                )
+        else:
+            settings_manager.set_value(
+                Settings.DOWNLOAD_FOLDER,
+                folder
+            )
+            self.show_message(
+                tr(
+                    'Download folder has not been set, '
+                    'a system temporary folder will be used'
+                ),
+                level=Qgis.Warning
+            )
+
+    def open_download_folder(self):
+        """ Opens the current download folder"""
+        result = open_folder(
+            self.download_folder_btn.filePath()
+        )
+
+        if not result[0]:
+            self.show_message(result[1], level=Qgis.Critical)
 
     def prepare_profiles(self):
 
