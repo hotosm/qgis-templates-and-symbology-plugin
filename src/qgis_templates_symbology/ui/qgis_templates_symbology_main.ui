@@ -192,7 +192,7 @@
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>Click on an item to select the collection.</string>
+                  <string>Click on an item to select the template and double click to open template information.</string>
                  </property>
                  <property name="editTriggers">
                   <set>QAbstractItemView::NoEditTriggers</set>
@@ -305,7 +305,7 @@
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>Click on an item to select the collection.</string>
+                  <string>Click on an item to select the symbology and double click to open symbology information.</string>
                  </property>
                  <property name="editTriggers">
                   <set>QAbstractItemView::NoEditTriggers</set>

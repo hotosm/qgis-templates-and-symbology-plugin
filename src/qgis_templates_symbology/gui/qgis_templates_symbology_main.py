@@ -24,6 +24,7 @@ from ..resources import *
 
 from ..gui.template_dialog import TemplateDialog
 from ..gui.symbology_dialog import SymbologyDialog
+from ..gui.profile_dialog import ProfileDialog
 from ..conf import settings_manager, Settings
 
 from ..utils import open_folder, tr, log
