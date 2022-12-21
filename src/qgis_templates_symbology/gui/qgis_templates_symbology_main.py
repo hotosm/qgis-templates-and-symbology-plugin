@@ -94,6 +94,8 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.symbology_sort_cmb.activated.connect(self.sort_symbology)
         self.template_sort_cmb.activated.connect(self.sort_template)
 
+        self.symbology_order.toggled.connect(self.sort_symbology)
+        self.template_order.toggled.connect(self.sort_template)
 
     def sort_symbology(self):
         order = self.symbology_order.isChecked()
@@ -102,7 +104,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.symbology_proxy_model.sort(QtCore.Qt.DisplayRole, symbology_order)
 
     def sort_template(self):
-        order = self.symbology_order.isChecked()
+        order = self.template_order.isChecked()
         templates_order = QtCore.Qt.SortOrder.DescendingOrder \
             if order else QtCore.Qt.SortOrder.AscendingOrder
         self.proxy_model.sort(QtCore.Qt.DisplayRole, templates_order)
