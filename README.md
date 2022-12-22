@@ -1,7 +1,7 @@
 # QGIS Templates and Symbology plugin
 
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hotosm/qgis-templates-and-symbology-plugin/Continuous%20Integration)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/hotosm/qgis-templates-and-symbology-plugin/ci.yml?branch=master)
 ![GitHub](https://img.shields.io/github/license/hotosm/qgis-templates-and-symbology-plugin)
 
 QGIS plugin for managing map templates and symbology
