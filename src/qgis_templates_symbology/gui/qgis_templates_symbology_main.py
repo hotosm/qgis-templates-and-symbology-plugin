@@ -179,18 +179,24 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.profiles_box.clear()
         if len(existing_profiles) > 0:
             self.profiles_box.addItems(
-                profile.name for profile in existing_profiles
+                profile.title or profile.name for profile in existing_profiles
             )
             current_profile = settings_manager.get_current_profile()
             if current_profile is not None:
                 current_index = self.profiles_box. \
-                    findText(current_profile.name)
+                    findText(current_profile.title or current_profile.name)
                 self.profiles_box.setCurrentIndex(current_index)
                 templates = settings_manager.get_templates(
                     current_profile.id
                 )
                 self.model.removeRows(0, self.model.rowCount())
                 self.load_templates(templates)
+
+                symbology = settings_manager.get_symbology(
+                    current_profile.id
+                )
+                self.symbology_model.removeRows(0, self.model.rowCount())
+                self.load_symbology(symbology)
             else:
                 self.profiles_box.setCurrentIndex(0)
 
@@ -280,6 +286,11 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             )
             self.model.removeRows(0, self.model.rowCount())
             self.load_templates(templates)
+            symbology = settings_manager.get_symbology(
+                current_profile.id
+            )
+            self.symbology_model.removeRows(0, self.model.rowCount())
+            self.load_symbology(symbology)
 
         self.search_btn.setEnabled(current_profile is not None)
 
@@ -314,7 +325,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         :param templates: List of templates to be added
         :type templates: []
         """
-        self.symbology_model.removeRows(0, self.model.rowCount())
+        self.symbology_model.removeRows(0, self.symbology_model.rowCount())
 
         for symbology in symbology_list:
             name = symbology.name if symbology.name else tr("No Title") + f" ({symbology.id})"

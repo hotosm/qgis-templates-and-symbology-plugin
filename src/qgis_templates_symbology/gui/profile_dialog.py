@@ -4,7 +4,6 @@
  Profile dialog class file
 """
 
-import datetime
 import os
 import uuid
 
@@ -20,6 +19,8 @@ from ..conf import (
     ProfileSettings,
     settings_manager
 )
+
+from ..utils import tr
 
 
 DialogUi, _ = loadUiType(
@@ -44,19 +45,25 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         self.buttonBox.button(
             QtWidgets.QDialogButtonBox.Ok
         ).setEnabled(False)
+
         self.profile = profile
 
         ok_signals = [
             self.name_edit.textChanged,
             self.url_edit.textChanged,
+            self.templates_url.textChanged,
+            self.symbology_url.textChanged,
         ]
         for signal in ok_signals:
             signal.connect(self.update_ok_buttons)
 
-
         self.grid_layout = QtWidgets.QGridLayout()
         self.message_bar = QgsMessageBar()
         self.progress_bar = QtWidgets.QProgressBar()
+
+        if profile:
+            self.load_profile_settings(profile)
+            self.setWindowTitle(tr("Edit Profile"))
 
         self.prepare_message_bar()
 
@@ -141,7 +148,11 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         profile_settings = ProfileSettings(
             id=profile_id,
             name=self.name_edit.text().strip(),
-            url=self.url_edit.text().strip(),
+            path=self.url_edit.text().strip(),
+            title=self.title_le.text(),
+            description=self.description_tb.toPlainText(),
+            templates_url=self.templates_url.text(),
+            symbology_url=self.symbology_url.text(),
         )
 
         return profile_settings
@@ -150,19 +161,39 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         """
         """
         self.name_edit.setText(profile_settings.name)
-        self.url_edit.setText(profile_settings.url)
+        self.url_edit.setText(profile_settings.path)
+        self.title_le.setText(profile_settings.title)
+        self.description_tb.setText(profile_settings.description)
+        self.templates_url.setText(profile_settings.templates_url)
+        self.symbology_url.setText(profile_settings.symbology_url)
 
     def accept(self):
         """ Handles logic for adding new profiles"""
         profile_id = uuid.uuid4()
+
+        templates = []
+        symbology = []
+
         if self.profile is not None:
             profile_id = self.profile.id
-
+            templates = settings_manager.get_templates(profile_id)
+            symbology = settings_manager.get_symbology(profile_id)
+        else:
+            if self.templates_url.text() != "":
+                templates = self.fetch_templates(self.templates_url.text())
+            if self.symbology_url.text() != "":
+                symbology = self.fetch_symbology(self.symbology_url.text())
 
         profile_settings = ProfileSettings(
             id=profile_id,
             name=self.name_edit.text().strip(),
-            url=self.url_edit.text().strip(),
+            path=self.url_edit.text().strip(),
+            title=self.title_le.text(),
+            description=self.description_tb.toPlainText(),
+            templates_url=self.templates_url.text(),
+            symbology_url=self.symbology_url.text(),
+            templates=templates,
+            symbology=symbology
         )
         existing_profile_names = []
         if profile_settings.name in (
@@ -177,6 +208,14 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         settings_manager.save_profile_settings(profile_settings)
         settings_manager.set_current_profile(profile_settings.id)
         super().accept()
+
+    def fetch_templates(self, url):
+        templates = []
+        return templates
+
+    def fetch_symbology(self, url):
+        symbology = []
+        return symbology
 
     def update_ok_buttons(self):
         """ Responsible for changing the state of the

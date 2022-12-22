@@ -1,0 +1,15 @@
+{
+  "profiles": [
+    {
+      "id": "952912ff-7c5a-44f4-a712-a17846ca0d6d",
+      "name": "hot",
+      "title": "HOT Global",
+      "description": "" ,
+      "modified": "",
+      "templates_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot/templates",
+      "symbology_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot/symbology",
+      "path": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot",
+      "selected": true
+    }
+  ]
+}

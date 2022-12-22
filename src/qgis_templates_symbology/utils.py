@@ -24,8 +24,6 @@ from .conf import (
 
 from .models import Properties
 
-from .definitions.profiles import PROFILES
-
 LOCAL_ROOT_DIR = Path(__file__).parent.resolve()
 
 
@@ -110,79 +108,89 @@ def config_defaults_profiles():
     """ Initialize the plugin profiles
     """
 
-    for profile in PROFILES:
-        profile_id = uuid.UUID(profile['id'])
+    profiles_file = LOCAL_ROOT_DIR / "data/profiles.json"
 
-        templates_settings = []
-        templates_list = query_templates()
+    with profiles_file.open("r") as fh:
+        data_json = json.load(fh)
+        for profile in data_json['profiles']:
+            profile_id = uuid.UUID(profile['id'])
 
-        for template in templates_list:
-            properties = Properties(
-                extension=template.get('extension'),
-                directory=template.get('directory'),
-                template_type=template.get('type'),
-                thumbnail=template.get('thumbnail'),
-            )
-            template_setting = TemplateSettings(
-                id=template.get('id'),
-                name=template.get('name'),
-                description=template.get('description'),
-                title=template.get('title'),
-                properties=properties,
-            )
-            templates_settings.append(template_setting)
+            templates_settings = []
+            templates_list = query_templates(profile_name=profile['name'])
 
-        symbology_settings = []
-        symbology_list = query_symbology()
+            for template in templates_list:
+                properties = Properties(
+                    extension=template.get('extension'),
+                    directory=template.get('directory'),
+                    template_type=template.get('type'),
+                    thumbnail=template.get('thumbnail'),
+                )
+                template_setting = TemplateSettings(
+                    id=template.get('id'),
+                    name=template.get('name'),
+                    description=template.get('description'),
+                    title=template.get('title'),
+                    properties=properties,
+                )
+                templates_settings.append(template_setting)
 
-        for symbology in symbology_list:
-            properties = Properties(
-                extension=symbology.get('extension'),
-                directory=symbology.get('directory'),
-                template_type=symbology.get('type'),
-                thumbnail=symbology.get('thumbnail'),
-            )
-            symbology_setting = SymbologySettings(
-                id=symbology.get('id'),
-                name=symbology.get('name'),
-                description=symbology.get('description'),
-                title=symbology.get('title'),
-                properties=properties,
-            )
-            symbology_settings.append(symbology_setting)
+            symbology_settings = []
+            symbology_list = query_symbology(profile_name=profile['name'])
 
-        if not settings_manager.is_profile(
-                profile_id
-        ):
-            profile_settings = ProfileSettings(
-                id=profile_id,
-                name=profile['name'],
-                path=profile['path'],
-                templates=templates_settings,
-                symbology=symbology_settings,
-            )
-            settings_manager.save_profile_settings(profile_settings)
+            for symbology in symbology_list:
+                properties = Properties(
+                    extension=symbology.get('extension'),
+                    directory=symbology.get('directory'),
+                    template_type=symbology.get('type'),
+                    thumbnail=symbology.get('thumbnail'),
+                )
+                symbology_setting = SymbologySettings(
+                    id=symbology.get('id'),
+                    name=symbology.get('name'),
+                    description=symbology.get('description'),
+                    title=symbology.get('title'),
+                    properties=properties,
+                )
+                symbology_settings.append(symbology_setting)
 
-            if profile['selected']:
-                settings_manager.set_current_profile(profile_id)
+            if not settings_manager.is_profile(
+                    profile_id
+            ):
+                profile_settings = ProfileSettings(
+                    id=profile_id,
+                    name=profile['name'],
+                    path=profile['path'],
+                    templates=templates_settings,
+                    symbology=symbology_settings,
+                    title=profile["title"],
+                    description=profile["description"],
+                    templates_url=profile["templates_url"],
+                    symbology_url=profile["symbology_url"],
+                )
+                settings_manager.save_profile_settings(profile_settings)
+
+                if profile['selected']:
+                    settings_manager.set_current_profile(profile_id)
 
     settings_manager.set_value("default_profiles_set", True)
 
 
-def query_templates():
-    templates_directory = LOCAL_ROOT_DIR / "data/templates"
+def query_templates(profile_name=None):
+    temp_directory = f"data/{profile_name}/templates/data" \
+        if profile_name else "data/templates/data"
+    data_file = LOCAL_ROOT_DIR / temp_directory / 'data.json'
     templates_list = []
-    for template_directory in templates_directory.iterdir():
-        data_file = template_directory / 'data.json'
-        with data_file.open("r") as fh:
-            data_json = json.load(fh)
-            for template in data_json['templates']:
-                templates_list.append(template)
+    with data_file.open("r") as fh:
+        data_json = json.load(fh)
+        for template in data_json['templates']:
+            templates_list.append(template)
     return templates_list
 
 
-def query_symbology():
-    symbology_directory = LOCAL_ROOT_DIR / "data/symbology/data"
+def query_symbology(profile_name=None):
+    symb_directory = f"data/{profile_name}/symbology/data" \
+        if profile_name else "data/symbology/data"
+    symbology_directory = LOCAL_ROOT_DIR / symb_directory
     symbology_list = []
     data_file = symbology_directory / 'data.json'
     with data_file.open("r") as fh:

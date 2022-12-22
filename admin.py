@@ -244,32 +244,41 @@ def copy_source_files(
     """
     output_directory.mkdir(parents=True, exist_ok=True)
     # Copy data files
-    templates_dir = LOCAL_ROOT_DIR / "data" / "templates"
-    for child in templates_dir.iterdir():
-        if not child.is_dir():
-            continue
-        for child_temp in child.iterdir():
-            if 'gpkg' in child_temp.name or 'png' in child_temp.name or child_temp.is_dir():
-                continue
-            target_directory = (output_directory / "data" / "templates" / child.name)
+    profile_dir = LOCAL_ROOT_DIR / "data"
+    for profile_child in profile_dir.iterdir():
+        if not profile_child.is_dir():
+            target_directory = output_directory / "data"
             target_directory.mkdir(parents=True, exist_ok=True)
-            target_path = target_directory / child_temp.name
-            handler = shutil.copytree if child_temp.is_dir() else shutil.copy
-            handler(str(child_temp.resolve()), str(target_path))
-
-        # Copy data files
-        symbology_dir = LOCAL_ROOT_DIR / "data" / "symbology"
-        for child in symbology_dir.iterdir():
+            target_path = target_directory / profile_child.name
+            handler = shutil.copy
+            handler(str(profile_child.resolve()), str(target_path))
+            continue
+        templates_dir = LOCAL_ROOT_DIR / "data" / profile_child.name / "templates"
+        for child in templates_dir.iterdir():
             if not child.is_dir():
                 continue
             for child_temp in child.iterdir():
-                if 'png' in child_temp.name or child_temp.is_dir():
+                if 'gpkg' in child_temp.name or 'png' in child_temp.name or child_temp.is_dir():
                     continue
-                target_directory = (output_directory / "data" / "symbology" / child.name)
+                target_directory = (output_directory / "data" / profile_child.name / "templates" / child.name)
                 target_directory.mkdir(parents=True, exist_ok=True)
                 target_path = target_directory / child_temp.name
                 handler = shutil.copytree if child_temp.is_dir() else shutil.copy
                 handler(str(child_temp.resolve()), str(target_path))
+
+            # Copy data files
+            symbology_dir = LOCAL_ROOT_DIR / "data" / profile_child.name / "symbology"
+            for child in symbology_dir.iterdir():
+                if not child.is_dir():
+                    continue
+                for child_temp in child.iterdir():
+                    if 'png' in child_temp.name or child_temp.is_dir():
+                        continue
+                    target_directory = (output_directory / "data" / profile_child.name / "symbology" / child.name)
+                    target_directory.mkdir(parents=True, exist_ok=True)
+                    target_path = target_directory / child_temp.name
+                    handler = shutil.copytree if child_temp.is_dir() else shutil.copy
+                    handler(str(child_temp.resolve()), str(target_path))
 
     # Copy source files
     for child in (LOCAL_ROOT_DIR / "src" / SRC_NAME).iterdir():

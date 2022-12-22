@@ -56,6 +56,11 @@ class ProfileSettings:
     path: str
     templates: list
     symbology: list
+    title: str
+    description: str
+    templates_url: str
+    symbology_url: str
+
     created_date: datetime.datetime = datetime.datetime.now()
 
     @classmethod
@@ -98,6 +103,10 @@ class ProfileSettings:
             path=settings.value("path"),
             templates=templates,
             symbology=symbology,
+            title=settings.value("title"),
+            description=settings.value("description"),
+            templates_url=settings.value("templates_url"),
+            symbology_url=settings.value("symbology_url"),
             created_date=created_date,
         )
 
@@ -305,7 +314,8 @@ class SettingsManager(QtCore.QObject):
                 with qgis_settings(profile_settings_key) \
                         as profile_settings:
                     profile_name = profile_settings.value("name")
-                    if profile_name == name:
+                    profile_title = profile_settings.value("title")
+                    if profile_name == name or profile_title == name:
                         found_id = uuid.UUID(profile_id)
                         break
             else:
@@ -362,6 +372,10 @@ class SettingsManager(QtCore.QObject):
         with qgis_settings(settings_key) as settings:
             settings.setValue("name", profile_settings.name)
             settings.setValue("path", profile_settings.path)
+            settings.setValue("title", profile_settings.title)
+            settings.setValue("description", profile_settings.description)
+            settings.setValue("templates_url", profile_settings.templates_url)
+            settings.setValue("symbology_url", profile_settings.symbology_url)
             settings.setValue("created_date", created_date)
         self.profiles_settings_updated.emit()
 
