@@ -117,7 +117,7 @@
                  <item>
                   <widget class="QPushButton" name="new_profile_btn">
                    <property name="enabled">
-                    <bool>false</bool>
+                    <bool>true</bool>
                    </property>
                    <property name="toolTip">
                     <string>Create a new service profile</string>
@@ -130,7 +130,7 @@
                  <item>
                   <widget class="QPushButton" name="edit_profile_btn">
                    <property name="enabled">
-                    <bool>false</bool>
+                    <bool>true</bool>
                    </property>
                    <property name="toolTip">
                     <string>Edit selected service profile</string>
@@ -143,7 +143,7 @@
                  <item>
                   <widget class="QPushButton" name="remove_profile_btn">
                    <property name="enabled">
-                    <bool>false</bool>
+                    <bool>true</bool>
                    </property>
                    <property name="toolTip">
                     <string>Remove profile to selected service</string>

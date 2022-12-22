@@ -253,39 +253,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             symbology_list = settings_manager.get_symbology(current_profile.id)
             self.load_symbology(symbology_list)
 
-    def edit_profile(self):
-        """ Edits the passed profile and updates the profile box list.
-        """
-        current_text = self.profiles_box.currentText()
-        if current_text == "":
-            return
-        profile = settings_manager.find_profile_by_name(current_text)
-        profile_dialog = ProfileDialog(profile)
-        profile_dialog.exec_()
-        self.update_profiles_box()
-
-    def remove_profile(self):
-        """ Removes the current active profile.
-        """
-        current_text = self.profiles_box.currentText()
-        if current_text == "":
-            return
-        profile = settings_manager.find_profile_by_name(current_text)
-        reply = QtWidgets.QMessageBox.warning(
-            self,
-            tr('Templates and Symbology manager'),
-            tr('Remove the profile "{}"?').format(current_text),
-            QtWidgets.QMessageBox.Yes,
-            QtWidgets.QMessageBox.No
-        )
-        if reply == QtWidgets.QMessageBox.Yes:
-            settings_manager.delete_profile(profile.id)
-            latest_profile = settings_manager.get_latest_profile()
-            settings_manager.set_current_profile(
-                latest_profile.id
-            ) if latest_profile is not None else None
-            self.update_profiles_box()
-
     def update_profile_buttons(self):
         """ Updates the edit and remove profile buttons state
         """

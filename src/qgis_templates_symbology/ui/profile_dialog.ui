@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NewConnectionDialog</class>
- <widget class="QDialog" name="NewConnectionDialog">
+ <class>NewProfileDialog</class>
+ <widget class="QDialog" name="NewProfileDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,7 +15,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QGroupBox" name="connection_box">
+    <widget class="QGroupBox" name="profile_box">
      <property name="title">
       <string>Profile Information</string>
      </property>
@@ -93,7 +93,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>NewConnectionDialog</receiver>
+   <receiver>NewProfileDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -109,7 +109,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>NewConnectionDialog</receiver>
+   <receiver>NewProfileDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
