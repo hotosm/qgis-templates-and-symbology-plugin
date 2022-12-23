@@ -51,6 +51,48 @@ When the development work is complete the plugin will be available on the QGIS
 official plugin repository.
 
 
+### Usage
+
+The plugin can be used with the default profile that is available after install, users can also add new profiles that 
+contain different templates and symbology files.
+
+#### Default profile
+The plugin default profile has templates and symbology designed for HOT related users, the plugin enables
+- Download of profile templates and their corresponding projects.
+- Loading of the layouts into the QGIS layout designer.
+- Download of profile symbology into the filesystem.
+- Fetching for the profile new resources.
+
+![hot_profile.png](docs/assets/hot_profile.png)
+
+
+#### Adding new profile
+
+The plugin profile dialog allow creation of a new profile using a pre-defined format designed specifically to 
+be used with this plugin.
+The profile resources needs to be hosted as HTTP resources accessed via 
+`profile_host/data/{profile_name}` eg. https://github.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot
+
+Template resources should be under `profile_host/data/{profile_name}/templates` with a `data.json` file
+inside `profile_host/data/{profile_name}/templates/data` endpoint, this json file should contain a list of all templates
+for the profile. Example `data.json` file can be found here https://github.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot/templates/data/data.json
+
+Same to the symbology resources they should be under `profile_host/data/{profile_name}/symbology` with a `data.json` file
+inside `profile_host/data/{profile_name}/symbology/data` endpoint, and a json file should contain a list of all symbology and their properties
+for the profile. Example `data.json` file can be found here https://github.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot/symbology/data/data.json
+
+When creating a new profile the following details are needed.
+- Name of the profile, used to identify the profile.
+- URL of the profile, HTTP URL that will point to the profile resources.
+- Title of the profile.
+- Description about the profile resources.
+- Templates URL, url used to locate the profile templates resources.
+- Symbology URL, url used to locate the profile symbology.
+
+Example profile dialog with details
+![profile_dialog.png](docs/assets/profile_dialog.png)
+
+
 ### Development 
 
 To use the plugin for development purposes, clone the repository locally,
