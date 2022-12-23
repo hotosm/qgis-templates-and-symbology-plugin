@@ -215,10 +215,17 @@
                 </widget>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_5"/>
-               </item>
-               <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <item>
+                  <widget class="QPushButton" name="templates_fetch_btn">
+                   <property name="toolTip">
+                    <string>Fetches new templates and remove old profile templates.</string>
+                   </property>
+                   <property name="text">
+                    <string>Fetch Templates</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <spacer name="horizontalSpacer_9">
                    <property name="orientation">
@@ -281,16 +288,13 @@
                  </item>
                 </layout>
                </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_3"/>
-               </item>
               </layout>
              </widget>
             </item>
             <item>
              <widget class="QgsCollapsibleGroupBox" name="symbology_group">
               <property name="title">
-               <string>Symbology styles</string>
+               <string>Symbology</string>
               </property>
               <property name="collapsed">
                <bool>false</bool>
@@ -329,6 +333,16 @@
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout">
+                 <item>
+                  <widget class="QPushButton" name="symbology_fetch_btn">
+                   <property name="toolTip">
+                    <string>Fetches new symbology and remove old profile symbology.</string>
+                   </property>
+                   <property name="text">
+                    <string>Fetch Symbology</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <spacer name="horizontalSpacer_8">
                    <property name="orientation">
@@ -391,57 +405,8 @@
                  </item>
                 </layout>
                </item>
-               <item>
-                <layout class="QVBoxLayout" name="verticalLayout_8"/>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_5"/>
-               </item>
               </layout>
              </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <layout class="QGridLayout" name="gridLayout_3">
-              <item row="0" column="1">
-               <spacer name="horizontalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="0">
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
             </item>
            </layout>
           </widget>

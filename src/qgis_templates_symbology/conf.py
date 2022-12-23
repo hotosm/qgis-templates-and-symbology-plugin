@@ -526,12 +526,11 @@ class SettingsManager(QtCore.QObject):
             settings.setValue("directory", properties.directory)
             settings.setValue("template_type", properties.template_type)
 
-
     def save_template(self, profile, template_settings):
         """ Save the passed template settings into the plugin settings
 
         :param profile: Profile settings
-        :type profile:  TemplateSettings
+        :type profile:  ProfileSettings
 
         :param template_settings: Template settings
         :type template_settings:  TemplateSettings
@@ -612,7 +611,7 @@ class SettingsManager(QtCore.QObject):
         """ Save the passed symbology settings into the plugin settings
 
         :param profile: Profile settings
-        :type profile:  SymbologySettings
+        :type profile:  ProfileSettings
 
         :param symbology_settings: Symbology settings
         :type symbology_settings:  SymbologySettings

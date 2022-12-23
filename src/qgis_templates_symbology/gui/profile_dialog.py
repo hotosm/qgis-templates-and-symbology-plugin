@@ -6,21 +6,30 @@
 
 import os
 import uuid
+import json
+
+from functools import partial
 
 
-from qgis.PyQt import QtCore, QtGui, QtWidgets
+from qgis.PyQt import QtCore, QtNetwork, QtWidgets, QtGui
 
-from qgis.core import Qgis
+from qgis.core import Qgis, QgsNetworkContentFetcherTask
 from qgis.gui import QgsMessageBar
 
 from qgis.PyQt.uic import loadUiType
 
+from ..models import Properties, Symbology, Template
+
 from ..conf import (
     ProfileSettings,
+    SymbologySettings,
+    TemplateSettings,
     settings_manager
 )
 
-from ..utils import tr
+from ..utils import tr, log
+
+ICON_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "icons")
 
 
 DialogUi, _ = loadUiType(
@@ -47,6 +56,7 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         ).setEnabled(False)
 
         self.profile = profile
+        self.current_profile_id = None
 
         ok_signals = [
             self.name_edit.textChanged,
@@ -61,11 +71,27 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         self.message_bar = QgsMessageBar()
         self.progress_bar = QtWidgets.QProgressBar()
 
+        self.templates = []
+        self.symbology = []
+
         if profile:
             self.load_profile_settings(profile)
+            self.templates = settings_manager.get_templates(profile.id)
+            self.symbology = settings_manager.get_symbology(profile.id)
             self.setWindowTitle(tr("Edit Profile"))
 
+        self.templates_fetch_btn.clicked.connect(self.fetch_templates)
+        self.symbology_fetch_btn.clicked.connect(self.fetch_symbology)
+
         self.prepare_message_bar()
+
+        self.templates_fetch_btn.setIcon(
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionRefresh.svg"))
+        )
+
+        self.symbology_fetch_btn.setIcon(
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionRefresh.svg"))
+        )
 
     def prepare_message_bar(self):
         """ Initializes the widget message bar settings"""
@@ -171,18 +197,15 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         """ Handles logic for adding new profiles"""
         profile_id = uuid.uuid4()
 
-        templates = []
-        symbology = []
-
         if self.profile is not None:
             profile_id = self.profile.id
             templates = settings_manager.get_templates(profile_id)
             symbology = settings_manager.get_symbology(profile_id)
         else:
-            if self.templates_url.text() != "":
-                templates = self.fetch_templates(self.templates_url.text())
-            if self.symbology_url.text() != "":
-                symbology = self.fetch_symbology(self.symbology_url.text())
+            templates = self.templates
+            symbology = self.symbology
+
+        self.current_profile_id = profile_id
 
         profile_settings = ProfileSettings(
             id=profile_id,
@@ -195,6 +218,8 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
             templates=templates,
             symbology=symbology
         )
+        self.profile = profile_settings
+
         existing_profile_names = []
         if profile_settings.name in (
                 profile.name for profile in
@@ -207,15 +232,157 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
                                        f"({len(existing_profile_names)})"
         settings_manager.save_profile_settings(profile_settings)
         settings_manager.set_current_profile(profile_settings.id)
+
         super().accept()
 
-    def fetch_templates(self, url):
-        templates = []
-        return templates
+    def fetch_templates(self, url=None):
+        url = url if url else self.templates_url.text()
 
-    def fetch_symbology(self, url):
-        symbology = []
-        return symbology
+        if not url:
+            self.show_message(
+                tr("Input template URL first,"
+                   " before fetching templates.")
+            )
+            return
+
+        request = QtNetwork.QNetworkRequest(
+            QtCore.QUrl(
+                f"{url}/data/data.json"
+            )
+        )
+        self.update_profile_inputs(False)
+        self.show_progress("Loading template information...")
+
+        self.network_task(
+            request,
+            self.templates_response
+        )
+
+    def templates_response(self, content):
+        json_response = json.loads(content.data())
+
+        templates_list = json_response['templates']
+        templates_settings = []
+
+        for template in templates_list:
+            properties = Properties(
+                extension=template.get('extension'),
+                directory=template.get('directory'),
+                template_type=template.get('type'),
+                thumbnail=template.get('thumbnail'),
+            )
+            template_setting = TemplateSettings(
+                id=template.get('id'),
+                name=template.get('name'),
+                description=template.get('description'),
+                title=template.get('title'),
+                properties=properties,
+            )
+            templates_settings.append(template_setting)
+
+        self.templates = templates_settings
+
+        self.show_message(
+            tr(f"Fetched and stored {len(templates_settings)} templates"),
+            level=Qgis.Info
+        )
+        self.update_profile_inputs(True)
+
+    def symbology_response(self, content):
+        json_response = json.loads(content.data())
+        symbology_settings = []
+
+        for symbology in json_response["symbology"]:
+            properties = Properties(
+                extension=symbology.get('extension'),
+                directory=symbology.get('directory'),
+                template_type=symbology.get('type'),
+                thumbnail=symbology.get('thumbnail'),
+            )
+            symbology_setting = SymbologySettings(
+                id=symbology.get('id'),
+                name=symbology.get('name'),
+                description=symbology.get('description'),
+                title=symbology.get('title'),
+                properties=properties,
+            )
+            symbology_settings.append(symbology_setting)
+
+        self.symbology = symbology_settings
+
+        self.show_message(
+            tr(f"Fetched and stored {len(symbology_settings)} symbology"),
+            level=Qgis.Info
+        )
+        self.update_profile_inputs(True)
+
+    def fetch_symbology(self, url=None):
+
+        url = url if url else self.symbology_url.text()
+
+        if not url:
+            self.show_message(
+                tr("Input symbology url first, "
+                   "before fetching the symbology."))
+            return
+
+        request = QtNetwork.QNetworkRequest(
+            QtCore.QUrl(
+                f"{url}/data/data.json"
+            )
+        )
+
+        self.update_profile_inputs(False)
+        self.show_progress("Loading symbology information")
+
+        self.network_task(
+            request,
+            self.symbology_response
+        )
+
+    def network_task(
+            self,
+            request,
+            handler,
+    ):
+        """Fetches the response from the given request.
+
+        :param request: Network request
+        :type request: QNetworkRequest
+
+        :param handler: Callback function to handle the response
+        :type handler: Callable
+        """
+        task = QgsNetworkContentFetcherTask(
+            request
+        )
+        response_handler = partial(
+            self.response,
+            task,
+            handler
+        )
+        task.fetched.connect(response_handler)
+        task.run()
+
+    def response(
+            self,
+            task,
+            handler
+    ):
+        """Handle the return response
+
+        :param task: QGIS task that fetches network content
+        :type task:  QgsNetworkContentFetcherTask
+        """
+        reply = task.reply()
+        error = reply.error()
+        if error == QtNetwork.QNetworkReply.NoError:
+            contents: QtCore.QByteArray = reply.readAll()
+            handler(contents)
+        else:
+            self.update_profile_inputs(True)
+            self.show_message(f"Fetching content via network, {reply.errorString()}")
+            log(tr("Problem fetching response from network"))
 
     def update_ok_buttons(self):
         """ Responsible for changing the state of the

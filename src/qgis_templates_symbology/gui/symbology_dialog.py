@@ -5,11 +5,7 @@
 """
 
 import os
-import uuid
-
-from pathlib import Path
-
-from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork, QtXml
+from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork
 
 from qgis import processing
 
@@ -18,8 +14,6 @@ from qgis.core import (
     QgsApplication,
     QgsCoordinateReferenceSystem,
     QgsNetworkContentFetcherTask,
-    QgsProject,
-    QgsReadWriteContext,
     QgsProcessing,
     QgsProcessingFeedback,
     QgsRectangle,
@@ -28,11 +22,8 @@ from qgis.core import (
 
 from qgis.gui import QgsMessageBar
 
-from qgis.utils import iface
-
 from qgis.PyQt.uic import loadUiType
 
-from ..models import Template, Symbology
 from ..conf import settings_manager, Settings
 from ..utils import log, tr
 
@@ -193,7 +184,10 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
     def add_thumbnail(self):
         """ Downloads and loads thumbnail"""
 
-        url = f"{REPO_URL}/symbology/" \
+        profile = settings_manager.get_current_profile()
+        profile_name = profile.name.lower()
+
+        url = f"{REPO_URL}/{profile_name}/symbology/" \
               f"{self.symbology.properties.directory}/" \
               f"{self.symbology.properties.thumbnail}"
         request = QtNetwork.QNetworkRequest(
@@ -348,7 +342,10 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
 
         symbology_name = self.symbology.name
 
-        url = f"{REPO_URL}/symbology/" \
+        profile = settings_manager.get_current_profile()
+        profile_name = profile.name.lower()
+
+        url = f"{REPO_URL}/{profile_name}/symbology/" \
               f"{self.symbology.properties.directory}/" \
               f"{symbology_name}.{self.symbology.properties.extension}"
 

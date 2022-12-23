@@ -46,6 +46,8 @@ class Template:
     description: str = None
     license: str = None
     properties: Properties = None
+    downloaded: bool = False
+    download_path = str = None
 
 
 @dataclasses.dataclass

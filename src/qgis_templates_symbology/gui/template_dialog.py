@@ -198,7 +198,10 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
     def add_thumbnail(self):
         """ Downloads and loads thumbnail"""
 
-        url = f"{REPO_URL}/templates/" \
+        profile = settings_manager.get_current_profile()
+        profile_name = profile.name.lower()
+
+        url = f"{REPO_URL}/{profile_name}/templates/" \
               f"{self.template.properties.directory}/" \
               f"{self.template.properties.thumbnail}"
         request = QtNetwork.QNetworkRequest(
@@ -299,6 +302,70 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         return True
 
+    def download_template_file(self, url, template, add_layout=False):
+        try:
+            download_folder = settings_manager.get_value(Settings.DOWNLOAD_FOLDER)
+
+            self.show_message(
+                tr("Download for template {} to {} has started."
+                   ).format(
+                    template.name,
+                    download_folder
+                ),
+                level=Qgis.Info
+            )
+            self.update_inputs(False)
+            self.show_progress(
+                f"Downloading {url}",
+                minimum=0,
+                maximum=100,
+            )
+            feedback = QgsProcessingFeedback()
+
+            feedback.progressChanged.connect(
+                self.update_progress_bar
+            )
+            feedback.progressChanged.connect(self.download_progress)
+
+            file_name = self.clean_filename(template.name)
+
+            output = os.path.join(
+                download_folder, file_name
+            ) if download_folder else QgsProcessing.TEMPORARY_OUTPUT
+            params = {'URL': url, 'OUTPUT': output}
+
+            self.download_result["file"] = output
+
+            results = processing.run(
+                "qgis:filedownloader",
+                params,
+                feedback=feedback
+            )
+
+            if results:
+                log(tr(f"Finished downloading file to {self.download_result['file']}"))
+                self.update_inputs(True)
+                self.show_message(
+                    tr(f"Finished downloading "
+                       f"file to {self.download_result['file']}"),
+                    level=Qgis.Info
+                )
+
+                self.template.downloaded = True
+                self.template.download_path = self.download_result['file']
+
+                if add_layout:
+                    self.add_layout()
+
+        except Exception as e:
+            self.update_inputs(True)
+            self.show_message(
+                tr("Error in downloading file, {}").format(str(e))
+            )
+            log(tr("Error in downloading file, {}").format(str(e)))
+
+        return True
+
     def load_project(self, path, name):
         project_name = name.replace('_map.gpkg', '')
         uri = f"geopackage:{path}?projectName={project_name}"
@@ -357,7 +424,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             handler(contents)
         else:
             self.update_inputs(True)
-            self.show_message(f"Fetching content via network, {reply.errorString()}")
+            self.show_message(f"Problem fetching content via network, {reply.errorString()}")
             log(tr("Problem fetching response from network"))
 
     def download_project(self, load=False):
@@ -367,14 +434,18 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             self.show_message(
                 tr("Set the download folder "
                    "first in the plugin settings tab!"
-                   )
+                   ),
+                level=Qgis.Warning
             )
             return
 
         project_name = self.template.properties.directory.replace("-templates", '')
         project_name = project_name.replace('-', '_')
 
-        url = f"{REPO_URL}/templates/" \
+        profile = settings_manager.get_current_profile()
+        profile_name = profile.name.lower()
+
+        url = f"{REPO_URL}/{profile_name}/templates/" \
               f"{self.template.properties.directory}/" \
               f"{project_name}.gpkg"
 
@@ -400,13 +471,49 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 err)
             )
 
+    def download_template(self, template=None):
+        if not settings_manager.get_value(Settings.DOWNLOAD_FOLDER):
+            self.show_message(
+                tr("Set the download folder "
+                   "first in the plugin settings tab!"
+                   ),
+                level=Qgis.Warning
+            )
+            return
+
+        profile = settings_manager.get_current_profile()
+        profile_name = profile.name.lower()
+
+        url = f"{REPO_URL}/{profile_name}/templates/" \
+              f"{self.template.properties.directory}/" \
+              f"{template.name}.qpt"
+
+        try:
+            download_task = QgsTask.fromFunction(
+                'Download template function',
+                self.download_template_file(url, template, True)
+            )
+            QgsApplication.taskManager().addTask(download_task)
+
+        except Exception as err:
+            self.update_inputs(True)
+            self.show_message("Problem running task for downloading project")
+            log(tr("An error occured when running task for"
+                   " downloading {}, error message \"{}\" ").format(
+                template.name,
+                err)
+            )
+
     def add_layout(self):
         template = self.template
         project = QgsProject.instance()
         layout = QgsPrintLayout(project)
 
-        layout_path = Path(__file__).parent.parent.resolve() / 'data' / 'templates' / \
-                      template.properties.directory / f"{template.name}.qpt"
+        if template.downloaded:
+            layout_path = Path(template.download_path)
+        else:
+            self.download_template(template)
+            return
 
         log(f"Opening layout from {layout_path}")
 
@@ -436,7 +543,10 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
             manager.addLayout(layout)
             iface.openLayoutDesigner(layout)
-            self.show_message(tr(f"Layout {layout_name} has been added."))
+            self.show_message(
+                tr(f"Layout {layout_name} has been added."),
+                level=Qgis.Info
+            )
             log(tr(f"Layout {layout_name} has been added."))
 
         except RuntimeError:

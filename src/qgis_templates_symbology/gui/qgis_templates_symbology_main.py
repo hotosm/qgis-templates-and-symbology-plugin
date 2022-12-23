@@ -5,6 +5,7 @@
 """
 
 import os
+import json
 
 from functools import partial
 
@@ -12,11 +13,13 @@ from qgis.PyQt import (
     QtCore,
     QtGui,
     QtWidgets,
+    QtNetwork,
 )
 from qgis.PyQt.uic import loadUiType
 
 from qgis.core import (
     Qgis,
+    QgsNetworkContentFetcherTask
 )
 from qgis.gui import QgsMessageBar
 
@@ -25,7 +28,9 @@ from ..resources import *
 from ..gui.template_dialog import TemplateDialog
 from ..gui.symbology_dialog import SymbologyDialog
 from ..gui.profile_dialog import ProfileDialog
-from ..conf import settings_manager, Settings
+from ..conf import settings_manager, Settings, SymbologySettings, TemplateSettings
+
+from ..models import Properties
 
 from ..utils import open_folder, tr, log
 
@@ -97,6 +102,9 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
         self.symbology_order.toggled.connect(self.sort_symbology)
         self.template_order.toggled.connect(self.sort_template)
+
+        self.templates_fetch_btn.clicked.connect(self.fetch_templates)
+        self.symbology_fetch_btn.clicked.connect(self.fetch_symbology)
 
     def sort_symbology(self):
         order = self.symbology_order.isChecked()
@@ -195,7 +203,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
                 symbology = settings_manager.get_symbology(
                     current_profile.id
                 )
-                self.symbology_model.removeRows(0, self.model.rowCount())
+                self.symbology_model.removeRows(0, self.symbology_model.rowCount())
                 self.load_symbology(symbology)
             else:
                 self.profiles_box.setCurrentIndex(0)
@@ -289,7 +297,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             symbology = settings_manager.get_symbology(
                 current_profile.id
             )
-            self.symbology_model.removeRows(0, self.model.rowCount())
+            self.symbology_model.removeRows(0, self.symbology_model.rowCount())
             self.load_symbology(symbology)
 
         self.search_btn.setEnabled(current_profile is not None)
@@ -320,15 +328,16 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         template_dialog.exec_()
 
     def load_symbology(self, symbology_list):
-        """ Adds the templates into the tree view
+        """ Adds the symbology into the tree view
 
-        :param templates: List of templates to be added
-        :type templates: []
+        :param symbology_list: List of symbology to be added
+        :type symbology_list: []
         """
         self.symbology_model.removeRows(0, self.symbology_model.rowCount())
 
         for symbology in symbology_list:
-            name = symbology.name if symbology.name else tr("No Title") + f" ({symbology.id})"
+            name = symbology.name if symbology.name \
+                else tr("No Title") + f" ({symbology.id})"
             item = QtGui.QStandardItem(name)
             item.setData(symbology, 1)
             self.symbology_model.appendRow(item)
@@ -345,7 +354,8 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.model.removeRows(0, self.model.rowCount())
 
         for template in templates:
-            name = template.name if template.name else tr("No Title") + f" ({template.id})"
+            name = template.name if template.name \
+                else tr("No Title") + f" ({template.id})"
             item = QtGui.QStandardItem(name)
             item.setData(template, 1)
             self.model.appendRow(item)
@@ -428,3 +438,213 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             alignment=QtCore.Qt.AlignTop
         )
         self.central_widget.layout().insertLayout(0, self.grid_layout)
+
+    def fetch_templates(self, url=None):
+        profile = settings_manager.get_current_profile()
+        url = url if url else profile.templates_url
+
+        if not url:
+            self.show_message(
+                tr("Set the profile template url"
+                   " first, before fetching templates.")
+            )
+            return
+
+        request = QtNetwork.QNetworkRequest(
+            QtCore.QUrl(
+                f"{url}/data/data.json"
+            )
+        )
+        self.update_inputs(False)
+        self.show_progress("Loading template information...")
+
+        self.network_task(
+            request,
+            self.templates_response
+        )
+
+    def templates_response(self, content):
+
+        try:
+            json_response = json.loads(content.data())
+
+            templates_list = json_response['templates']
+            templates_settings = []
+
+            for template in templates_list:
+                properties = Properties(
+                    extension=template.get('extension'),
+                    directory=template.get('directory'),
+                    template_type=template.get('type'),
+                    thumbnail=template.get('thumbnail'),
+                )
+                template_setting = TemplateSettings(
+                    id=template.get('id'),
+                    name=template.get('name'),
+                    description=template.get('description'),
+                    title=template.get('title'),
+                    properties=properties,
+                )
+                templates_settings.append(template_setting)
+
+            profile = settings_manager.get_current_profile()
+
+            if len(templates_settings) > 0:
+                profile.symbology = []
+                settings_manager.save_profile_settings(profile)
+            else:
+                self.show_message(
+                    tr(f"Found {len(templates_settings)} templates"),
+                    level=Qgis.Info
+                )
+                self.update_inputs(True)
+                return
+
+            for template in templates_settings:
+                settings_manager.save_symbology(profile, template)
+
+            templates = settings_manager.get_templates(
+                profile.id
+            )
+            self.model.removeRows(0, self.model.rowCount())
+            self.load_templates(templates)
+
+            self.show_message(
+                tr(f"Fetched {len(templates_settings)} templates"),
+                level=Qgis.Info
+            )
+        except Exception as e:
+            self.show_message(
+                tr(f"Problem parsing template information"),
+                level=Qgis.Critical
+            )
+            log(tr(f"Problem parsing template information. Error info {e}"))
+        finally:
+            self.update_inputs(True)
+
+    def symbology_response(self, content):
+        try:
+            json_response = json.loads(content.data())
+            symbology_settings = []
+
+            for symbology in json_response["symbology"]:
+                properties = Properties(
+                    extension=symbology.get('extension'),
+                    directory=symbology.get('directory'),
+                    template_type=symbology.get('type'),
+                    thumbnail=symbology.get('thumbnail'),
+                )
+                symbology_setting = SymbologySettings(
+                    id=symbology.get('id'),
+                    name=symbology.get('name'),
+                    description=symbology.get('description'),
+                    title=symbology.get('title'),
+                    properties=properties,
+                )
+                symbology_settings.append(symbology_setting)
+
+            profile = settings_manager.get_current_profile()
+
+            if len(symbology_settings) > 0:
+                profile.symbology = []
+                settings_manager.save_profile_settings(profile)
+            else:
+                self.show_message(
+                    tr(f"Found {len(symbology_settings)} symbology"),
+                    level=Qgis.Info
+                )
+                self.update_inputs(True)
+                return
+
+            for symbology in symbology_settings:
+                settings_manager.save_symbology(profile, symbology)
+
+            symbology = settings_manager.get_symbology(
+                profile.id
+            )
+            self.symbology_model.removeRows(0, self.symbology_model.rowCount())
+            self.load_symbology(symbology)
+
+            self.show_message(
+                tr(f"Fetched {len(symbology_settings)} symbology"),
+                level=Qgis.Info
+            )
+        except Exception as e:
+            self.show_message(
+                tr(f"Problem parsing symbology information"),
+                level=Qgis.Critical
+            )
+            log(tr(f"Problem parsing symbology information. Error info {e}"))
+
+        finally:
+            self.update_inputs(True)
+
+    def fetch_symbology(self, url=None):
+        profile = settings_manager.get_current_profile()
+        url = url if url else profile.symbology_url
+
+        if not url:
+            self.show_message(
+                tr("Set the profile symbology url first,"
+                   " before fetching the symbology.")
+            )
+            return
+
+        request = QtNetwork.QNetworkRequest(
+            QtCore.QUrl(
+                f"{url}/data/data.json"
+            )
+        )
+
+        self.update_inputs(False)
+        self.show_progress("Loading symbology information")
+
+        self.network_task(
+            request,
+            self.symbology_response
+        )
+
+    def network_task(
+            self,
+            request,
+            handler,
+    ):
+        """Fetches the response from the given request.
+
+        :param request: Network request
+        :type request: QNetworkRequest
+
+        :param handler: Callback function to handle the response
+        :type handler: Callable
+        """
+        task = QgsNetworkContentFetcherTask(
+            request
+        )
+        response_handler = partial(
+            self.response,
+            task,
+            handler
+        )
+        task.fetched.connect(response_handler)
+        task.run()
+
+    def response(
+            self,
+            task,
+            handler
+    ):
+        """Handle the return response
+
+        :param task: QGIS task that fetches network content
+        :type task:  QgsNetworkContentFetcherTask
+        """
+        reply = task.reply()
+        error = reply.error()
+        if error == QtNetwork.QNetworkReply.NoError:
+            contents: QtCore.QByteArray = reply.readAll()
+            handler(contents)
+        else:
+            self.update_inputs(True)
+            self.show_message(f"Fetching content via network, {reply.errorString()}")
+            log(tr("Problem fetching response from network"))
+
