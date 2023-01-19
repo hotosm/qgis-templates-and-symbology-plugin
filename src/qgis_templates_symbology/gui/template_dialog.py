@@ -423,6 +423,9 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             contents: QtCore.QByteArray = reply.readAll()
             handler(contents)
         else:
+            if self.main_widget:
+                self.main_widget.update_inputs(True)
+                self.main_widget.clear_message_bar()
             self.update_inputs(True)
             self.show_message(f"Problem fetching content via network, {reply.errorString()}")
             log(tr("Problem fetching response from network"))
