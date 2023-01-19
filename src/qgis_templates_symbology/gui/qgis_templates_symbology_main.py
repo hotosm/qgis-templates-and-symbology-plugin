@@ -58,7 +58,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
 
-
         self.symbology_model = QtGui.QStandardItemModel()
         self.symbology_model.setHorizontalHeaderLabels(['Title'])
         self.symbology_proxy_model = QtCore.QSortFilterProxyModel()
@@ -105,6 +104,8 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
         self.templates_fetch_btn.clicked.connect(self.fetch_templates)
         self.symbology_fetch_btn.clicked.connect(self.fetch_symbology)
+
+        self.profiles_box.activated.connect(self.update_current_profile)
 
     def sort_symbology(self):
         order = self.symbology_order.isChecked()
@@ -300,9 +301,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             self.symbology_model.removeRows(0, self.symbology_model.rowCount())
             self.load_symbology(symbology)
 
-        self.search_btn.setEnabled(current_profile is not None)
-
-
     def symbology_tree_double_clicked(self, index):
         """ Opens the symbology dialog when an entry from the
         symbology view tree has been double clicked.
@@ -445,7 +443,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
         if not url:
             self.show_message(
-                tr("Set the profile template url"
+                tr(f"Set the {profile.name} profile template url"
                    " first, before fetching templates.")
             )
             return
@@ -490,7 +488,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             profile = settings_manager.get_current_profile()
 
             if len(templates_settings) > 0:
-                profile.symbology = []
+                profile.templates = []
                 settings_manager.save_profile_settings(profile)
             else:
                 self.show_message(
@@ -501,7 +499,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
                 return
 
             for template in templates_settings:
-                settings_manager.save_symbology(profile, template)
+                settings_manager.save_template(profile, template)
 
             templates = settings_manager.get_templates(
                 profile.id
@@ -585,7 +583,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
         if not url:
             self.show_message(
-                tr("Set the profile symbology url first,"
+                tr(f"Set the {profile.name} profile symbology url first,"
                    " before fetching the symbology.")
             )
             return
