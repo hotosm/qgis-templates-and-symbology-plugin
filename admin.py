@@ -257,6 +257,8 @@ def copy_source_files(
         for child in templates_dir.iterdir():
             if not child.is_dir():
                 continue
+            if child.name != "data":
+                continue
             for child_temp in child.iterdir():
                 if 'gpkg' in child_temp.name or 'png' in child_temp.name or child_temp.is_dir():
                     continue
@@ -270,6 +272,8 @@ def copy_source_files(
             symbology_dir = LOCAL_ROOT_DIR / "data" / profile_child.name / "symbology"
             for child in symbology_dir.iterdir():
                 if not child.is_dir():
+                    continue
+                if child.name != "data":
                     continue
                 for child_temp in child.iterdir():
                     if 'png' in child_temp.name or child_temp.is_dir():
