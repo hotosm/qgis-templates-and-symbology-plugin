@@ -10,7 +10,7 @@ QGIS plugin for managing map templates and symbology
 
 During the development phase the plugin is available to install via 
 a dedicated plugin repository 
-[https://raw.githubusercontent.com//hotosm/qgis-templates-and-symbology-plugin/release/docs/repository/plugins.xml](https://raw.githubusercontent.com//hotosm/qgis-templates-and-symbology-plugin/release/docs/repository/plugins.xml)
+[https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/release/docs/repository/plugins.xml](https://raw.githubusercontent.com//hotosm/qgis-templates-and-symbology-plugin/release/docs/repository/plugins.xml)
 
 #### Install from QGIS plugin repository
 
