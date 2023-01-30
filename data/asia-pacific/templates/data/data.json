@@ -1,0 +1,324 @@
+{
+  "templates": [
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "text_heavy_landscape_a1_global",
+        "title": "Text heavy landscape A1 global",
+        "description": "Text heavy landscape global",
+        "directory": "text-heavy-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a1_global.png"
+    },
+    {
+        "id": "32e60882-9a01-4129-814a-85b3f6374c2d",
+        "name": "text_heavy_landscape_a2_global",
+        "title": "Text heavy landscape A2 global",
+        "description": "Text heavy landscape global",
+        "directory": "text-heavy-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a2_global.png"
+    },
+    {
+        "id": "8617f85f-e7e4-46e5-967b-c7b283de1405",
+        "name": "text_heavy_landscape_a3_global",
+        "title": "Text heavy landscape A3 global",
+        "description": "Text heavy landscape global",
+        "directory": "text-heavy-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a3_global.png"
+    },
+    {
+        "id": "82592b6b-33e9-4a42-be03-38c015f26c0b",
+        "name": "text_heavy_landscape_a4_global",
+        "title": "Text heavy landscape A4 global",
+        "description": "Text heavy landscape global",
+        "directory": "text-heavy-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a4_global.png"
+    },
+    {
+        "id": "f407e96e-53ad-4c47-940e-688e3e256b54",
+        "name": "text_heavy_landscape_a1_hub",
+        "title": "Text heavy landscape A1 hub",
+        "description": "Text heavy landscape hub",
+        "directory": "text-heavy-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a1_hub.png"
+    },
+    {
+        "id": "4cfce182-30a3-4518-8baf-f22b45df9e01",
+        "name": "text_heavy_landscape_a2_hub",
+        "title": "Text heavy landscape A2 hub",
+        "description": "Text heavy landscape hub",
+        "directory": "text-heavy-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a2_hub.png"
+    },
+    {
+        "id": "4a1ff359-00bd-4234-93c1-323ef47c7971",
+        "name": "text_heavy_landscape_a3_hub",
+        "title": "Text heavy landscape A3 hub",
+        "description": "Text heavy landscape hub",
+        "directory": "text-heavy-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a3_hub.png"
+    },
+    {
+        "id": "76f9d265-0ca3-4210-bb98-1a89f3915e90",
+        "name": "text_heavy_landscape_a4_hub",
+        "title": "Text heavy landscape A4 hub",
+        "description": "Text heavy landscape hub",
+        "directory": "text-heavy-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a4_hub.png"
+    },
+    {
+        "id": "66540417-7402-401c-b4d3-66fdcc04f47f",
+        "name": "text_heavy_portrait_a1_global",
+        "title": "Text heavy portrait A1 global",
+        "description": "Text heavy portrait global",
+        "directory": "text-heavy-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_portrait_a1_global.png"
+    },
+    {
+        "id": "9626e2b2-ed8a-403f-8230-b37a491212c3",
+        "name": "text_heavy_portrait_a2_global",
+        "title": "Text heavy portrait A2 global",
+        "description": "Text heavy portrait global",
+        "directory": "text-heavy-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_portrait_a2_global.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "text_heavy_portrait_a3_global",
+        "title": "Text heavy portrait A3 global",
+        "description": "Text heavy portrait global",
+        "directory": "text-heavy-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_portrait_a3_global.png"
+    },
+    {
+        "id": "a8fe4068-ed4d-47f2-83fd-a74724380af5",
+        "name": "text_heavy_portrait_a4_global",
+        "title": "Text heavy portrait A4 global",
+        "description": "Text heavy portrait global",
+        "directory": "text-heavy-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_portrait_a4_global.png"
+    },
+    {
+        "id": "f0ea468d-dff8-415c-af84-d20913931799",
+        "name": "text_heavy_portrait_a1_hub",
+        "title": "Text heavy portrait A1 hub",
+        "description": "Text heavy portrait hub",
+        "directory": "text-heavy-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_portrait_a1_hub.png"
+    },
+    {
+        "id": "d15f4f32-3536-47e7-8eb9-798d703d1624",
+        "name": "text_heavy_portrait_a2_hub",
+        "title": "Text heavy portrait A2 hub",
+        "description": "Text heavy portrait hub",
+        "directory": "text-heavy-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_portrait_a2_hub.png"
+    },
+    {
+        "id": "c86d9240-49f4-4ed3-a6bf-1d118f798508",
+        "name": "text_heavy_portrait_a3_hub",
+        "title": "Text heavy portrait A3 hub",
+        "description": "Text heavy portrait hub",
+        "directory": "text-heavy-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_portrait_a3_hub.png"
+    },
+    {
+        "id": "16b33443-31db-42d6-801b-22cbb3d86282",
+        "name": "text_heavy_portrait_a4_hub",
+        "title": "Text heavy portrait A4 hub",
+        "description": "Text heavy portrait hub",
+        "directory": "text-heavy-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_portrait_a4_hub.png"
+    },
+    {
+        "id": "901a46bd-36f5-4e7b-956b-d50bfe6ec42a",
+        "name": "thematic_landscape_a1_global",
+        "title": "Thematic landscape A1 global",
+        "description": "Thematic landscape global",
+        "directory": "thematic-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscape_a1_global.png"
+    },
+    {
+        "id": "d95ebd16-0f08-491a-a7d7-5b2f98319a59",
+        "name": "thematic_landscape_a2_global",
+        "title": "Thematic landscape A2 global",
+        "description": "Thematic landscape global",
+        "directory": "thematic-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscape_a2_global.png"
+    },
+    {
+        "id": "aed65d23-b114-4d10-a11b-51b08608feec",
+        "name": "thematic_landscape_a3_global",
+        "title": "Thematic landscape A3 global",
+        "description": "Thematic landscape global",
+        "directory": "thematic-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscape_a3_global.png"
+    },
+    {
+        "id": "0e71b0c3-a462-48b3-8fd7-48cbb40adfdf",
+        "name": "thematic_landscape_a4_global",
+        "title": "Thematic landscape A4 global",
+        "description": "Thematic landscape global",
+        "directory": "thematic-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscape_a4_global.png"
+    },
+    {
+        "id": "91c41c85-6875-4528-9495-6cd10cfcc5c6",
+        "name": "thematic_landscape_a1_hub",
+        "title": "Thematic landscape A1 hub",
+        "description": "Thematic landscape hub",
+        "directory": "thematic-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscape_a1_hub.png"
+    },
+    {
+        "id": "74c75d02-4f04-492d-89d2-f93979f2acb6",
+        "name": "thematic_landscape_a2_hub",
+        "title": "Thematic landscape A2 hub",
+        "description": "Thematic landscape hub",
+        "directory": "thematic-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscape_a2_hub.png"
+    },
+    {
+        "id": "87293a1a-9fa0-4606-93bf-a473b402fa3c",
+        "name": "thematic_landscape_a3_hub",
+        "title": "Thematic landscape A3 hub",
+        "description": "Thematic landscape hub",
+        "directory": "thematic-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscape_a3_hub.png"
+    },
+    {
+        "id": "35ed3ec1-9426-4c2a-970b-fbe39e8d55e6",
+        "name": "thematic_landscape_a4_hub",
+        "title": "Thematic landscape A4 hub",
+        "description": "Thematic landscape hub",
+        "directory": "thematic-map-templates",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscape_a4_hub.png"
+    },
+    {
+        "id": "70baa7fe-7529-4638-b25b-259d11e9320b",
+        "name": "thematic_portrait_a1_global",
+        "title": "Thematic portrait A1 global",
+        "description": "Thematic portrait global",
+        "directory": "thematic-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portrait_a1_global.png"
+    },
+    {
+        "id": "76ec8dc2-3abd-41a0-bf51-b8e5d445e470",
+        "name": "thematic_portrait_a2_global",
+        "title": "Thematic portrait A2 global",
+        "description": "Thematic portrait global",
+        "directory": "thematic-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portrait_a2_global.png"
+    },
+    {
+        "id": "92b9563c-1aa1-4bac-a934-f65ab1ff0927",
+        "name": "thematic_portrait_a3_global",
+        "title": "Thematic portrait A3 global",
+        "description": "Thematic portrait global",
+        "directory": "thematic-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portrait_a3_global.png"
+    },
+    {
+        "id": "c905e276-52e2-4b59-a4ac-ac35e1e07cae",
+        "name": "thematic_portrait_a4_global",
+        "title": "Thematic portrait A4 global",
+        "description": "Thematic portrait global",
+        "directory": "thematic-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portrait_a4_global.png"
+    },
+    {
+        "id": "92b9563c-1aa1-4bac-a934-f65ab1ff0927",
+        "name": "thematic_portrait_a1_hub",
+        "title": "Thematic portrait A1 hub",
+        "description": "Thematic portrait hub",
+        "directory": "thematic-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portrait_a1_hub.png"
+    },
+    {
+        "id": "c905e276-52e2-4b59-a4ac-ac35e1e07cae",
+        "name": "thematic_portrait_a2_hub",
+        "title": "Thematic portrait A2 hub",
+        "description": "Thematic portrait hub",
+        "directory": "thematic-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portrait_a2_hub.png"
+    },
+    {
+        "id": "2666a46e-5e56-4521-9147-bcd5f61e85a7",
+        "name": "thematic_portrait_a3_hub",
+        "title": "Thematic portrait A3 hub",
+        "description": "Thematic portrait hub",
+        "directory": "thematic-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portrait_a3_hub.png"
+    },
+    {
+        "id": "2bb241f4-9fb3-4b8b-a8cf-c6be23d8dc79",
+        "name": "thematic_portrait_a4_hub",
+        "title": "Thematic portrait A4 hub",
+        "description": "Thematic portrait hub",
+        "directory": "thematic-map-templates",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portrait_a4_hub.png"
+    }
+  ]
+}
