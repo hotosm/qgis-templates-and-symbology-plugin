@@ -5,7 +5,7 @@
         "name": "text_heavy_landscape_a1_asiapacific",
         "title": "Text heavy landscape A1 Asia Pacific",
         "description": "Text heavy landscape Asia Pacific",
-        "directory": "text-heavy-map-templates",
+        "directory": "text_heavy_landscape",
         "type": "landscape",
         "extension": "qpt",
         "thumbnail": "text_heavy_landscape_a1_asiapacific.png"
@@ -15,7 +15,7 @@
         "name": "text_heavy_landscape_a2_asiapacific",
         "title": "Text heavy landscape A2 Asia Pacific",
         "description": "Text heavy landscape Asia Pacific",
-        "directory": "text-heavy-map-templates",
+        "directory": "text_heavy_landscape",
         "type": "landscape",
         "extension": "qpt",
         "thumbnail": "text_heavy_landscape_a2_asiapacific.png"
@@ -25,7 +25,7 @@
         "name": "text_heavy_landscape_a3_asiapacific",
         "title": "Text heavy landscape A3 Asia Pacific",
         "description": "Text heavy landscape Asia Pacific",
-        "directory": "text-heavy-map-templates",
+        "directory": "text_heavy_landscape",
         "type": "landscape",
         "extension": "qpt",
         "thumbnail": "text_heavy_landscape_a3_asiapacific.png"
@@ -35,7 +35,7 @@
         "name": "text_heavy_landscape_a4_asiapacific",
         "title": "Text heavy landscape A4 Asia Pacific",
         "description": "Text heavy landscape Asia Pacific",
-        "directory": "text-heavy-map-templates",
+        "directory": "text_heavy_landscape",
         "type": "landscape",
         "extension": "qpt",
         "thumbnail": "text_heavy_landscape_a4_asiapacific.png"
