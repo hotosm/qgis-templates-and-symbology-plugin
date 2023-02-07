@@ -185,9 +185,10 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
         """ Downloads and loads thumbnail"""
 
         profile = settings_manager.get_current_profile()
+        repo_url = profile.path
         profile_name = profile.name.lower()
 
-        url = f"{REPO_URL}/{profile_name}/symbology/" \
+        url = f"{repo_url}/{profile_name}/symbology/" \
               f"{self.symbology.properties.directory}/" \
               f"{self.symbology.properties.thumbnail}"
         request = QtNetwork.QNetworkRequest(
@@ -343,9 +344,10 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
         symbology_name = self.symbology.name
 
         profile = settings_manager.get_current_profile()
+        repo_url = profile.path
         profile_name = profile.name.lower()
 
-        url = f"{REPO_URL}/{profile_name}/symbology/" \
+        url = f"{repo_url}/{profile_name}/symbology/" \
               f"{self.symbology.properties.directory}/" \
               f"{symbology_name}.{self.symbology.properties.extension}"
 
