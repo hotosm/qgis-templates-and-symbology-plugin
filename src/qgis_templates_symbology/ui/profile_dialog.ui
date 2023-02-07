@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>715</width>
-    <height>318</height>
+    <height>322</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -90,10 +90,17 @@
       <item row="4" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLineEdit" name="templates_url"/>
+         <widget class="QLineEdit" name="templates_url">
+          <property name="toolTip">
+           <string>URL for the profile templates</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="templates_fetch_btn">
+          <property name="toolTip">
+           <string>Click to fetch profile templates</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -111,10 +118,17 @@
       <item row="5" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QLineEdit" name="symbology_url"/>
+         <widget class="QLineEdit" name="symbology_url">
+          <property name="toolTip">
+           <string>URL for the profile symbology</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="symbology_fetch_btn">
+          <property name="toolTip">
+           <string>Click to fetch profile symbology</string>
+          </property>
           <property name="text">
            <string/>
           </property>

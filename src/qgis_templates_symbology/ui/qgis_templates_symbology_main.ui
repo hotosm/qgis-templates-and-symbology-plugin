@@ -503,6 +503,9 @@
            </item>
            <item>
             <widget class="QCheckBox" name="project_auto_load">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="toolTip">
               <string>Enable or disable automatic loading of QGIS projects after downloading them.</string>
              </property>
