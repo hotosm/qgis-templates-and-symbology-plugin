@@ -1,0 +1,95 @@
+{
+  "symbology": [
+
+{
+        "id": "1f675162-a13f-11ed-a8fc-0242ac120002",
+        "name": "archivo",
+        "title": "",
+        "description": "Font",
+        "directory": "fonts",
+        "type": "font",
+        "extension": "zip",
+        "thumbnail": "archivo.png"
+    },
+    {
+        "id": "1f67554a-a13f-11ed-a8fc-0242ac120002",
+        "name": "barlow_condensed",
+        "title": "",
+        "description": "Font",
+        "directory": "fonts",
+        "type": "font",
+        "extension": "zip",
+        "thumbnail": "barlow_condensed.png"
+    },
+	 {
+        "id": "1f675720-a13f-11ed-a8fc-0242ac120002",
+        "name": "OCHA-Humanitarian-Icons-main",
+        "title": "",
+        "description": "Symbol library",
+        "directory": "symbol-libraries",
+        "type": "library",
+        "extension": "zip",
+        "thumbnail": "OCHA-Humanitarian-Icons-main.png"
+    },
+    {
+        "id": "1f675b8a-a13f-11ed-a8fc-0242ac120002",
+        "name": "human_caused_hazards",
+        "title": "",
+        "description": "Symbol library",
+        "directory": "symbol-libraries",
+        "type": "library",
+        "extension": "zip",
+        "thumbnail": "human_caused_hazards.png"
+    },
+    {
+        "id": "1f675d56-a13f-11ed-a8fc-0242ac120002",
+        "name": "maki_icons",
+        "title": "",
+        "description": "Symbol library",
+        "directory": "symbol-libraries",
+        "type": "library",
+        "extension": "zip",
+        "thumbnail": "maki_icons.png"
+    },
+	{
+        "id": "1f675f22-a13f-11ed-a8fc-0242ac120002",
+        "name": "natural_hazards",
+        "title": "",
+        "description": "Symbol library",
+        "directory": "symbol-libraries",
+        "type": "library",
+        "extension": "zip",
+        "thumbnail": "natural_hazards.png"
+    },
+	{
+        "id": "1f6760d0-a13f-11ed-a8fc-0242ac120002",
+        "name": "styles",
+        "title": "",
+        "description": "styles and symbology",
+        "directory": "styles",
+        "type": "colour_scale",
+        "extension": "xml",
+        "thumbnail": "styles.png"
+    },
+	{
+        "id": "1f67624c-a13f-11ed-a8fc-0242ac120002",
+        "name": "roads",
+        "title": "",
+        "description": "style for roads",
+        "directory": "styles",
+        "type": "roads",
+        "extension": "sld",
+        "thumbnail": "roads.png"
+    },
+	{
+        "id": "1f6764c2-a13f-11ed-a8fc-0242ac120002",
+        "name": "broken_roads",
+        "title": "",
+        "description": "style for broken roads",
+        "directory": "styles",
+        "type": "broken_roads",
+        "extension": "xml",
+        "thumbnail": "broken_roads.png"
+        }
+  ]
+}
