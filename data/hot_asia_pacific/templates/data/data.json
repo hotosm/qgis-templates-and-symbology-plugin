@@ -1,0 +1,45 @@
+{
+  "templates": [
+    {
+        "id": "32a63d1e-6be3-4c05-89e7-929e62daf38c",
+        "name": "text_heavy_landscape_a1_asiapacific",
+        "title": "Text heavy landscape A1 Asia Pacific",
+        "description": "Text heavy landscape Asia Pacific",
+        "directory": "text_heavy_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a1_asiapacific.png"
+    },
+    {
+        "id": "41027524-990f-47b3-8d90-9d9dad879855'",
+        "name": "text_heavy_landscape_a2_asiapacific",
+        "title": "Text heavy landscape A2 Asia Pacific",
+        "description": "Text heavy landscape Asia Pacific",
+        "directory": "text_heavy_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a2_asiapacific.png"
+    },
+    {
+        "id": "1404db70-9d27-430f-b03f-bb8fd956aea7'",
+        "name": "text_heavy_landscape_a3_asiapacific",
+        "title": "Text heavy landscape A3 Asia Pacific",
+        "description": "Text heavy landscape Asia Pacific",
+        "directory": "text_heavy_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a3_asiapacific.png"
+    },
+    {
+        "id": "01fd9a6f-3745-4a0c-9228-46d8d6c9a087",
+        "name": "text_heavy_landscape_a4_asiapacific",
+        "title": "Text heavy landscape A4 Asia Pacific",
+        "description": "Text heavy landscape Asia Pacific",
+        "directory": "text_heavy_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "text_heavy_landscape_a4_asiapacific.png"
+    }
+
+  ]
+}

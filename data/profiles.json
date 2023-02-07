@@ -10,6 +10,17 @@
       "symbology_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot/symbology",
       "path": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot",
       "selected": true
+    },
+    {
+      "id": "273a4fb8-6f59-4667-991d-6ff88b185613",
+      "name": "hot_asia_pacific",
+      "title": "HOT Asia Pacific Region",
+      "description": "" ,
+      "modified": "",
+      "templates_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_asia_pacific/templates",
+      "symbology_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_asia_pacific/symbology",
+      "path": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_asia_pacific",
+      "selected": false
     }
   ]
 }
