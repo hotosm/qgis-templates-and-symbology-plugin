@@ -11,7 +11,7 @@ from pathlib import Path
 
 from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork, QtXml
 
-from qgis import processing
+import processing
 
 from qgis.core import (
     Qgis,
