@@ -151,15 +151,14 @@
         "thumbnail": "thematic_portraita3_latinamerica.png"
     },
     {
-        "id": "968dfc76-9c56-4ab4-8439-97426c02e63b",
-        "name": "thematic_portraita4_latinamerica",
-        "title": "thematic portrait A4 latinamerica",
-        "description": "thematic portrait A4 latinamerica",
-        "directory": "thematic-map-template_portrait",
-        "type": "portrait",
-        "extension": "qpt",
-        "thumbnail": "thematic_portraita4_latinamerica.png"
-    },
-    
+      "id": "968dfc76-9c56-4ab4-8439-97426c02e63b",
+      "name": "thematic_portraita4_latinamerica",
+      "title": "thematic portrait A4 latinamerica",
+      "description": "thematic portrait A4 latinamerica",
+      "directory": "thematic-map-template_portrait",
+      "type": "portrait",
+      "extension": "qpt",
+      "thumbnail": "thematic_portraita4_latinamerica.png"
+    }
   ]
 }
