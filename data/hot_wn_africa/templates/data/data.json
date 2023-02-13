@@ -1,0 +1,165 @@
+{
+  "templates": [
+    {
+        "id": "ed6375bf-c960-41a5-88e8-6fc9010e833b",
+        "name": "textheavy_landscapea4_wnafrica",
+        "title": "text heavy landscape A4 wnafrica",
+        "description": "text heavy landscape A4 wnafrica",
+        "directory": "text-heavy-map-template_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "textheavy_landscapea4_wnafrica.png"
+    },
+    {
+        "id": "8c630a27-9004-47a1-ad65-af2905731291",
+        "name": "textheavy_landscapea1_wnafrica",
+        "title": "text heavy landscape A1 wnafrica",
+        "description": "text heavy landscape A1 wnafrica",
+        "directory": "text-heavy-map-template_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "textheavy_landscapea1_wnafrica.png"
+    },
+    {
+        "id": "8f6a1288-c4d8-4762-a53e-482e059d593a",
+        "name": "textheavy_landscapea2_wnafrica",
+        "title": "text heavy landscape A2 wnafrica",
+        "description": "text heavy landscape A2 wnafrica",
+        "directory": "text-heavy-map-template_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "textheavy_landscapea2_wnafrica.png"
+    },
+    {
+        "id": "97127cf0-dc52-4b38-a20b-aa759518e4c4",
+       "name": "textheavy_landscapea3_wnafrica",
+        "title": "text heavy landscape A3 wnafrica",
+        "description": "text heavy landscape A3 wnafrica",
+        "directory": "text-heavy-map-template_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "textheavy_landscapea3_wnafrica.png"
+    },
+    {
+        "id": "ff87b08f-e133-473c-b909-b3a5ccd8cd15",
+        "name": "textheavy_portraita1_wnafrica",
+        "title": "text heavy portrait A1 wnafrica",
+        "description": "text heavy portrait A1 wnafrica",
+        "directory": "text-heavy-map-template_portrait",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "textheavy_portraita1_wnafrica.png"
+    },
+    {
+        "id": "2736cdce-97e9-4b5a-8867-2edee97f76a0",
+       "name": "textheavy_portraita2_wnafrica",
+        "title": "text heavy portrait A2 wnafrica",
+        "description": "text heavy portrait A2 wnafrica",
+        "directory": "text-heavy-map-template_portrait",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "textheavy_portraita2_wnafrica.png"
+    },
+    {
+        "id": "fed5efbf-3fe2-46fb-81dc-7c4700a09be5",
+         "name": "textheavy_portraita3_wnafrica",
+        "title": "text heavy portrait A3 wnafrica",
+        "description": "text heavy portrait A3 wnafrica",
+        "directory": "text-heavy-map-template_portrait",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "textheavy_portraita3_wnafrica.png"
+    },
+    {
+        "id": "c3b3e1a0-32db-408c-bd9c-90705c86d805",
+        "name": "textheavy_portraita4_wnafrica",
+        "title": "text heavy portrait A4 wnafrica",
+        "description": "text heavy portrait A4 wnafrica",
+        "directory": "text-heavy-map-template_portrait",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "textheavy_portraita4_wnafrica.png"
+    },
+    {
+        "id": "ff12e7c6-029c-4800-8b85-07e50f301158",
+        "name": "thematic_landscapea1_wnafrica",
+        "title": "thematic landscape A1 wnafrica",
+        "description": "thematic landscape A1 wnafrica",
+        "directory": "thematic-map-template_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscapea1_wnafrica.png"
+    },
+    {
+        "id": "0477793a-4863-4ee3-b089-e24ba67e9b74",
+        "name": "thematic_landscapea2_wnafrica",
+        "title": "thematic landscape A2 wnafrica",
+        "description": "thematic landscape A2 wnafrica",
+        "directory": "thematic-map-template_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscapea2_wnafrica.png"
+    },
+    {
+        "id": "7a727a34-99d1-4f43-98c6-19e4a75b298b",
+        "name": "thematic_landscapea3_wnafrica",
+        "title": "thematic landscape A3 wnafrica",
+        "description": "thematic landscape A3 wnafrica",
+        "directory": "thematic-map-template_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscapea3_wnafrica.png"
+    },
+    {
+        "id": "7a727a34-99d1-4f43-98c6-19e4a75b298b",
+        "name": "thematic_landscapea4_wnafrica",
+        "title": "thematic landscape A4 wnafrica",
+        "description": "thematic landscape A4 wnafrica",
+        "directory": "thematic-map-template_landscape",
+        "type": "landscape",
+        "extension": "qpt",
+        "thumbnail": "thematic_landscapea4_wnafrica.png"
+    },
+    {
+        "id": "ee00deff-933a-4e05-a2b6-86de36f43af4",
+        "name": "thematic_portraita1_wnafrica",
+        "title": "thematic portrait A1 wnafrica",
+        "description": "thematic portrait A1 wnafrica",
+        "directory": "thematic-map-template_portrait",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portraita1_wnafrica.png"
+    },
+    {
+        "id": "06521fdc-8b0d-4fbe-bd65-20cb7eb40276",
+        "name": "thematic_portraita2_wnafrica",
+        "title": "thematic portrait A2 wnafrica",
+        "description": "thematic portrait A2 wnafrica",
+        "directory": "thematic-map-template_portrait",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portraita2_wnafrica.png"
+    },
+    {
+        "id": "ad3b4c36-5027-40c5-a7c2-f27cb262d996",
+       "name": "thematic_portraita3_wnafrica",
+        "title": "thematic portrait A3 wnafrica",
+        "description": "thematic portrait A3 wnafrica",
+        "directory": "thematic-map-template_portrait",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portraita3_wnafrica.png"
+    },
+    {
+        "id": "1c787b51-c5f0-4378-aa96-993ba87bf43e",
+        "name": "thematic_portraita4_wnafrica",
+        "title": "thematic portrait A4 wnafrica",
+        "description": "thematic portrait A4 wnafrica",
+        "directory": "thematic-map-template_portrait",
+        "type": "portrait",
+        "extension": "qpt",
+        "thumbnail": "thematic_portraita4_wnafrica.png"
+    },
+    
+  ]
+}
