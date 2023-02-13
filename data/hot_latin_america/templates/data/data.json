@@ -8,7 +8,7 @@
         "directory": "text-heavy-map-template_landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "text-heavy_landscapea4_latinamerica.png"
+        "thumbnail": "text_heavy_landscapea4_latinamerica.png"
     },
     {
         "id": "78c9e02a-c835-441a-87ee-376220599dd9",
@@ -38,7 +38,8 @@
         "directory": "text-heavy-map-template_landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea3_latinamerica.png"
+        "thumbnail": "textheavy_landscapea3_latinamerica.png",
+        "thumbnail": "textheavy_landscapea3_latin america.png"
     },
     {
         "id": "f1ec91ff-8076-4b87-a2eb-46280828e105",
