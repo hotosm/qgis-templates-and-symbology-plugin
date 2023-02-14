@@ -18,6 +18,7 @@ from qgis.core import (
     QgsApplication,
     QgsCoordinateReferenceSystem,
     QgsNetworkContentFetcherTask,
+    QgsMargins,
     QgsLayout,
     QgsPrintLayout,
     QgsProject,
@@ -25,7 +26,8 @@ from qgis.core import (
     QgsProcessing,
     QgsProcessingFeedback,
     QgsRectangle,
-    QgsTask
+    QgsTask,
+    QgsUnitTypes
 )
 
 from qgis.gui import QgsMessageBar
@@ -548,7 +550,18 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             _items, _value = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
 
             manager.addLayout(layout)
+
+            layout.refresh()
+
+            # Make sure the map items stay on the original page size
+            page_collection = layout.pageCollection()
+            page_collection.resizeToContents(
+                QgsMargins(),
+                QgsUnitTypes.LayoutMillimeters
+            )
+
             iface.openLayoutDesigner(layout)
+
             self.show_message(
                 tr(f"Layout {layout_name} has been added."),
                 level=Qgis.Info
