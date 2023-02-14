@@ -43,7 +43,7 @@
               </sizepolicy>
              </property>
              <property name="toolTip">
-              <string>Detailed multi-line description to fully explain the collection.</string>
+              <string>Detailed multi-line description to fully explain the template</string>
              </property>
              <property name="readOnly">
               <bool>true</bool>
@@ -53,7 +53,7 @@
            <item row="0" column="1">
             <widget class="QLineEdit" name="name_le">
              <property name="toolTip">
-              <string>Identifier for the collection that is unique across the provider.</string>
+              <string>Template name</string>
              </property>
              <property name="readOnly">
               <bool>true</bool>
@@ -63,7 +63,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="name_la">
              <property name="toolTip">
-              <string>Identifier for the collection that is unique across the provider.</string>
+              <string>Template name</string>
              </property>
              <property name="text">
               <string>Name</string>
@@ -79,7 +79,7 @@
               </sizepolicy>
              </property>
              <property name="toolTip">
-              <string>A short descriptive one-line title for the collection.</string>
+              <string>A short descriptive of the template.</string>
              </property>
              <property name="readOnly">
               <bool>true</bool>
@@ -89,7 +89,7 @@
            <item row="1" column="0">
             <widget class="QLabel" name="title_la">
              <property name="toolTip">
-              <string>A short descriptive one-line title for the collection.</string>
+              <string>A short descriptive of the template.</string>
              </property>
              <property name="text">
               <string>Title</string>
@@ -99,7 +99,7 @@
            <item row="2" column="0">
             <widget class="QLabel" name="description_la">
              <property name="toolTip">
-              <string>Detailed multi-line description to fully explain the collection.</string>
+              <string>Detailed multi-line description to fully explain the template</string>
              </property>
              <property name="text">
               <string>Description</string>
@@ -127,9 +127,6 @@
               </property>
               <property name="text">
                <string/>
-              </property>
-              <property name="pixmap">
-               <pixmap>../../../../../../Pictures/templates_sample.png</pixmap>
               </property>
              </widget>
             </item>
@@ -200,7 +197,7 @@
        <item>
         <widget class="QLabel" name="extension_la">
          <property name="toolTip">
-          <string>Identifier for the collection that is unique across the provider.</string>
+          <string>Template format extension</string>
          </property>
          <property name="text">
           <string>Template extension</string>
@@ -210,7 +207,7 @@
        <item>
         <widget class="QLineEdit" name="extension_le">
          <property name="toolTip">
-          <string>Identifier for the collection that is unique across the provider.</string>
+          <string>Template format extension</string>
          </property>
          <property name="readOnly">
           <bool>true</bool>
@@ -220,7 +217,7 @@
        <item>
         <widget class="QLabel" name="template_type_la">
          <property name="toolTip">
-          <string>A short descriptive one-line title for the collection.</string>
+          <string>Template type, can be landscape or potrait.</string>
          </property>
          <property name="text">
           <string>Template type</string>
@@ -236,7 +233,7 @@
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>A short descriptive one-line title for the collection.</string>
+          <string>Template type, can be landscape or potrait.</string>
          </property>
          <property name="readOnly">
           <bool>true</bool>
@@ -246,7 +243,7 @@
        <item>
         <widget class="QLabel" name="thumbnail_la">
          <property name="toolTip">
-          <string>A short descriptive one-line title for the collection.</string>
+          <string/>
          </property>
          <property name="text">
           <string>Thumbnail</string>
@@ -262,7 +259,7 @@
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>A short descriptive one-line title for the collection.</string>
+          <string/>
          </property>
          <property name="readOnly">
           <bool>true</bool>
@@ -272,7 +269,7 @@
        <item>
         <widget class="QLabel" name="license_la">
          <property name="toolTip">
-          <string>Detailed multi-line description to fully explain the collection.</string>
+          <string/>
          </property>
          <property name="text">
           <string>License</string>
@@ -288,7 +285,7 @@
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>Detailed multi-line description to fully explain the collection.</string>
+          <string/>
          </property>
          <property name="readOnly">
           <bool>true</bool>

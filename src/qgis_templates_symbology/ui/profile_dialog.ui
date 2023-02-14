@@ -32,6 +32,9 @@
         <property name="toolTip">
          <string>Name of the profile</string>
         </property>
+        <property name="statusTip">
+         <string>Name of the profile, that will be an identifier for the profile</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -68,7 +71,11 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="title_le"/>
+       <widget class="QLineEdit" name="title_le">
+        <property name="toolTip">
+         <string>Profile title that will be used to display the profile.</string>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="description_la">
@@ -78,7 +85,11 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QTextEdit" name="description_tb"/>
+       <widget class="QTextEdit" name="description_tb">
+        <property name="whatsThis">
+         <string>Description about the profile</string>
+        </property>
+       </widget>
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="templates_url_la">
@@ -99,7 +110,7 @@
         <item>
          <widget class="QPushButton" name="templates_fetch_btn">
           <property name="toolTip">
-           <string>Click to fetch profile templates</string>
+           <string>Fetch information about the profile templates</string>
           </property>
           <property name="text">
            <string/>
@@ -127,7 +138,7 @@
         <item>
          <widget class="QPushButton" name="symbology_fetch_btn">
           <property name="toolTip">
-           <string>Click to fetch profile symbology</string>
+           <string>Fetch information about profile symbology</string>
           </property>
           <property name="text">
            <string/>

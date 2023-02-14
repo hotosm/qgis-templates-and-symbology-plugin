@@ -175,7 +175,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QgsCollapsibleGroupBox" name="collections_group">
+             <widget class="QgsCollapsibleGroupBox" name="templates_group">
               <property name="title">
                <string>Templates</string>
               </property>
