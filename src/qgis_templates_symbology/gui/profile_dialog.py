@@ -86,11 +86,11 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         self.prepare_message_bar()
 
         self.templates_fetch_btn.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "mActionRefresh.svg"))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionIdentify.svg"))
         )
 
         self.symbology_fetch_btn.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "mActionRefresh.svg"))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionIdentify.svg"))
         )
 
     def prepare_message_bar(self):
