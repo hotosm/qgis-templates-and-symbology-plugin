@@ -202,9 +202,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         profile = settings_manager.get_current_profile()
         repo_url = profile.path
-        profile_name = profile.name.lower()
 
-        url = f"{repo_url}/{profile_name}/templates/" \
+        url = f"{repo_url}/templates/" \
               f"{self.template.properties.directory}/" \
               f"{self.template.properties.thumbnail}"
         request = QtNetwork.QNetworkRequest(
@@ -450,9 +449,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         profile = settings_manager.get_current_profile()
         profile_url = profile.path
-        profile_name = profile.name.lower()
 
-        url = f"{profile_url}/{profile_name}/templates/" \
+        url = f"{profile_url}/templates/" \
               f"{self.template.properties.directory}/" \
               f"{project_name}.gpkg"
 
@@ -490,9 +488,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         profile = settings_manager.get_current_profile()
         repo_url = profile.path
-        profile_name = profile.name.lower()
 
-        url = f"{repo_url}/{profile_name}/templates/" \
+        url = f"{repo_url}/templates/" \
               f"{self.template.properties.directory}/" \
               f"{template.name}.qpt"
 
