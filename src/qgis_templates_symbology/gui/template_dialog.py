@@ -20,6 +20,8 @@ from qgis.core import (
     QgsNetworkContentFetcherTask,
     QgsMargins,
     QgsLayout,
+    QgsLayoutItemMap,
+    QgsLayoutItemScaleBar,
     QgsPrintLayout,
     QgsProject,
     QgsReadWriteContext,
@@ -543,7 +545,23 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             doc = QtXml.QDomDocument()
             doc.setContent(template_content)
 
-            _items, _value = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
+            _items, _value = layout.loadFromTemplate(
+                doc,
+                QgsReadWriteContext(),
+                False
+            )
+
+            map_scale_bar = None
+            layout_map = None
+
+            for item in _items:
+                if isinstance(item, QgsLayoutItemScaleBar):
+                    map_scale_bar = item
+                if isinstance(item, QgsLayoutItemMap):
+                    layout_map = item
+
+            if map_scale_bar is not None and layout_map is not None:
+                map_scale_bar.setLinkedMap(layout_map)
 
             manager.addLayout(layout)
 
