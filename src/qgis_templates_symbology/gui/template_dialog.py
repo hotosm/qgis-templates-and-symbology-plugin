@@ -77,7 +77,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.populate_properties(template)
 
         self.open_layout_btn.clicked.connect(self.add_layout)
-        self.download_project_btn.clicked.connect(self.download_project)
         self.download_result = {}
 
     def populate_properties(self, template):
