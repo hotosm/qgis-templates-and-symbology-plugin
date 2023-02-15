@@ -86,11 +86,11 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         self.prepare_message_bar()
 
         self.templates_fetch_btn.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "mActionRefresh.svg"))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionIdentify.svg"))
         )
 
         self.symbology_fetch_btn.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "mActionRefresh.svg"))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionIdentify.svg"))
         )
 
     def prepare_message_bar(self):
@@ -283,7 +283,7 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         self.templates = templates_settings
 
         self.show_message(
-            tr(f"Fetched and stored {len(templates_settings)} templates"),
+            tr(f"Profile has {len(templates_settings)} templates"),
             level=Qgis.Info
         )
         self.update_profile_inputs(True)
@@ -311,13 +311,12 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         self.symbology = symbology_settings
 
         self.show_message(
-            tr(f"Fetched and stored {len(symbology_settings)} symbology"),
+            tr(f"Profile has {len(symbology_settings)} symbology"),
             level=Qgis.Info
         )
         self.update_profile_inputs(True)
 
     def fetch_symbology(self, url=None):
-
         url = url if url else self.symbology_url.text()
 
         if not url:

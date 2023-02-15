@@ -18,6 +18,7 @@ from qgis.core import (
     QgsApplication,
     QgsCoordinateReferenceSystem,
     QgsNetworkContentFetcherTask,
+    QgsMargins,
     QgsLayout,
     QgsPrintLayout,
     QgsProject,
@@ -25,7 +26,8 @@ from qgis.core import (
     QgsProcessing,
     QgsProcessingFeedback,
     QgsRectangle,
-    QgsTask
+    QgsTask,
+    QgsUnitTypes
 )
 
 from qgis.gui import QgsMessageBar
@@ -200,9 +202,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         profile = settings_manager.get_current_profile()
         repo_url = profile.path
-        profile_name = profile.name.lower()
 
-        url = f"{repo_url}/{profile_name}/templates/" \
+        url = f"{repo_url}/templates/" \
               f"{self.template.properties.directory}/" \
               f"{self.template.properties.thumbnail}"
         request = QtNetwork.QNetworkRequest(
@@ -448,9 +449,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         profile = settings_manager.get_current_profile()
         profile_url = profile.path
-        profile_name = profile.name.lower()
 
-        url = f"{profile_url}/{profile_name}/templates/" \
+        url = f"{profile_url}/templates/" \
               f"{self.template.properties.directory}/" \
               f"{project_name}.gpkg"
 
@@ -488,9 +488,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         profile = settings_manager.get_current_profile()
         repo_url = profile.path
-        profile_name = profile.name.lower()
 
-        url = f"{repo_url}/{profile_name}/templates/" \
+        url = f"{repo_url}/templates/" \
               f"{self.template.properties.directory}/" \
               f"{template.name}.qpt"
 
@@ -548,7 +547,18 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             _items, _value = layout.loadFromTemplate(doc, QgsReadWriteContext(), False)
 
             manager.addLayout(layout)
+
+            layout.refresh()
+
+            # Make sure the map items stay on the original page size
+            page_collection = layout.pageCollection()
+            page_collection.resizeToContents(
+                QgsMargins(),
+                QgsUnitTypes.LayoutMillimeters
+            )
+
             iface.openLayoutDesigner(layout)
+
             self.show_message(
                 tr(f"Layout {layout_name} has been added."),
                 level=Qgis.Info
