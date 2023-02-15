@@ -560,7 +560,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 if isinstance(item, QgsLayoutItemMap):
                     layout_map = item
 
-            if map_scale_bar is not None and layout_map is not None:
+            if map_scale_bar is not None and \
+                    layout_map is not None:
                 map_scale_bar.setLinkedMap(layout_map)
 
             manager.addLayout(layout)
