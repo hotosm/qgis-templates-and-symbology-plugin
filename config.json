@@ -16,7 +16,7 @@
     "author": "Kartoza",
     "email": "info@kartoza.com",
     "description": "QGIS plugin for managing map templates and symbology",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "changelog": ""
   }
 }
