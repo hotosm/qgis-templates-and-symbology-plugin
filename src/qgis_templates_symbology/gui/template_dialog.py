@@ -589,7 +589,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
             _items, _value = layout.loadFromTemplate(
                 doc,
-                QgsReadWriteContext()
+                QgsReadWriteContext(),
+                False
             )
 
             map_scale_bar = None
@@ -646,7 +647,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             #
             # layout.refresh()
 
-            iface.openLayoutDesigner(layout)
+            designer = iface.openLayoutDesigner(layout)
 
             self.show_message(
                 tr(f"Layout {layout_name} has been added."),
