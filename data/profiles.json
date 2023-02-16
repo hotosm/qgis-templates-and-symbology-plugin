@@ -32,6 +32,30 @@
       "symbology_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_es_africa/symbology",
       "path": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_es_africa",
       "selected": false
+    },
+
+    {
+      "id": "40722730-a5cf-41f6-9849-9442547c8ee9",
+      "name": "hot_latin_america",
+      "title": "HOT Latin America hub",
+      "description": "" ,
+      "modified": "",
+      "templates_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_latin_america/templates",
+      "symbology_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_latin_america/symbology",
+      "path": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_latin_america",
+      "selected": false
+    },
+
+    {
+      "id": "b08bdb2f-876f-4da2-b5a3-fb8f39ddf0b9'",
+      "name": "hot_wn_africa",
+      "title": "HOT West North Africa hub",
+      "description": "" ,
+      "modified": "",
+      "templates_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_wn_africa/templates",
+      "symbology_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_wn_africa/symbology",
+      "path": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_wn_africa",
+      "selected": false
     }
   ]
 }

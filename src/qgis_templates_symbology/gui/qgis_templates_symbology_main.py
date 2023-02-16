@@ -86,16 +86,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             self.save_download_folder)
         self.open_folder_btn.clicked.connect(self.open_download_folder)
 
-        self.project_auto_load.setChecked(
-            settings_manager.get_value(
-                Settings.AUTO_PROJECT_LOAD,
-                False,
-                setting_type=bool
-            )
-        )
-
-        self.project_auto_load.toggled.connect(self.change_auto_load_setting)
-
         self.symbology_sort_cmb.activated.connect(self.sort_symbology)
         self.template_sort_cmb.activated.connect(self.sort_template)
 
