@@ -75,6 +75,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         self.grid_layout = QtWidgets.QGridLayout()
         self.message_bar = QgsMessageBar()
+        self.progress_bar = QtWidgets.QProgressBar()
         self.prepare_message_bar()
 
         self.profile = settings_manager.get_current_profile()
@@ -241,7 +242,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         """
         self.message_bar.clearWidgets()
         message_bar_item = self.message_bar.createMessage(message)
-        self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.progress_bar.setMinimum(minimum)
         self.progress_bar.setMaximum(maximum)
