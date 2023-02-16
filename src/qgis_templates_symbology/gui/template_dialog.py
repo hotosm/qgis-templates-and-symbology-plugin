@@ -589,8 +589,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
             _items, _value = layout.loadFromTemplate(
                 doc,
-                QgsReadWriteContext(),
-                False
+                QgsReadWriteContext()
             )
 
             map_scale_bar = None
@@ -639,11 +638,13 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             manager.addLayout(layout)
 
             # Make sure the map items stay on the original page size
-            page_collection = layout.pageCollection()
-            page_collection.resizeToContents(
-                QgsMargins(),
-                QgsUnitTypes.LayoutMillimeters
-            )
+            # page_collection = layout.pageCollection()
+            # page_collection.resizeToContents(
+            #     QgsMargins(),
+            #     QgsUnitTypes.LayoutMillimeters
+            # )
+            #
+            # layout.refresh()
 
             iface.openLayoutDesigner(layout)
 
