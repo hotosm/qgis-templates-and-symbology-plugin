@@ -9,6 +9,8 @@ import uuid
 
 from pathlib import Path
 
+from functools import partial
+
 from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork, QtXml
 
 import processing
@@ -20,7 +22,9 @@ from qgis.core import (
     QgsNetworkContentFetcherTask,
     QgsMargins,
     QgsLayout,
+    QgsLayoutItemLabel,
     QgsLayoutItemMap,
+    QgsLayoutItemPicture,
     QgsLayoutItemScaleBar,
     QgsPrintLayout,
     QgsProject,
@@ -81,6 +85,45 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.open_layout_btn.clicked.connect(self.add_layout)
         self.download_result = {}
 
+        if not self.template.downloaded:
+            self.download_template(
+                self.template,
+                add_layout=False,
+                prepare_layout=True,
+                notify=False
+            )
+        else:
+            self.prepare_layout_properties()
+
+        self.template_title.textChanged.connect(self.save_template_custom_properties)
+        self.template_subheading.textChanged.connect(self.save_template_custom_properties)
+        self.template_narrative.textChanged.connect(self.save_template_custom_properties)
+        self.logo_path.fileChanged.connect(self.save_template_custom_properties)
+        self.hot_logo_path.fileChanged.connect(self.save_template_custom_properties)
+        self.partner_logo_path.fileChanged.connect(self.save_template_custom_properties)
+
+        reset_properties_partial = partial(self.prepare_layout_properties, True)
+        self.reset_properties_btn.clicked.connect(reset_properties_partial)
+
+    def save_template_custom_properties(self):
+
+        custom_properties = {
+            'heading': self.template_title.text(),
+            'subheading': self.template_subheading.text(),
+            'narrative': self.template_narrative.toPlainText(),
+            'hub_logo': self.logo_path.filePath(),
+            'hot_logo': self.hot_logo_path.filePath(),
+            'partner_logo': self.partner_logo_path.filePath(),
+        }
+
+        profile = settings_manager.get_current_profile()
+
+        settings_manager.save_custom_template_properties(
+            custom_properties,
+            self.template.id,
+            profile.id
+        )
+
     def populate_properties(self, template):
         """ Populates the template dialog widgets with the
         respective information from passed template.
@@ -90,9 +133,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         """
         template = template
         if template:
-            self.title_le.setText(template.title)
             self.name_le.setText(template.name)
-            self.description_le.setText(template.description)
             self.extension_le.setText(template.properties.extension)
             self.template_type_le.setText(template.properties.template_type)
 
@@ -100,6 +141,59 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 self.license_le.setText(template.license)
 
         self.update_inputs(True)
+
+    def prepare_layout_properties(self, reset=False):
+
+        if self.template.downloaded:
+            layout_path = self.template.download_path
+
+            project = QgsProject.instance()
+            layout = QgsPrintLayout(project)
+
+            try:
+                with open(layout_path) as f:
+                    template_content = f.read()
+                doc = QtXml.QDomDocument()
+                doc.setContent(template_content)
+
+                _items, _value = layout.loadFromTemplate(
+                    doc,
+                    QgsReadWriteContext(),
+                    False
+                )
+                for item in _items:
+                    if isinstance(item, QgsLayoutItemLabel):
+                        if 'Title' in item.id():
+                            self.template_title.setText(item.text())
+                        if 'Sub-heading' in item.id():
+                            self.template_subheading.setText(item.text())
+                        if 'Narrative' in item.id():
+                            self.template_narrative.setText(item.text())
+                self.logo_path.setFilePath('')
+                self.hot_logo_path.setFilePath('')
+                self.partner_logo_path.setFilePath('')
+            except Exception as e:
+                log(f"Error preparing layout properties {e}")
+
+        if not reset:
+            profile = settings_manager.get_current_profile()
+            custom_properties = settings_manager.get_templates_custom_properties(
+                self.template.id,
+                profile.id
+            )
+            if custom_properties['heading'] is not None:
+                self.template_title.setText(custom_properties['heading'])
+            if custom_properties['subheading'] is not None:
+                self.template_subheading.setText(custom_properties['subheading'])
+            if custom_properties['narrative'] is not None:
+                self.template_narrative.setText(custom_properties['narrative'])
+            if custom_properties['hub_logo'] is not None:
+                self.logo_path.setFilePath(custom_properties['hub_logo'])
+            if custom_properties['hot_logo'] is not None:
+                self.hot_logo_path.setFilePath(custom_properties['hot_logo'])
+            if custom_properties['partner_logo'] is not None:
+                self.partner_logo_path.setFilePath(custom_properties['partner_logo'])
+
 
     def prepare_message_bar(self):
         """ Initializes the widget message bar settings"""
@@ -244,85 +338,32 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             self.main_widget.update_inputs(True)
             self.main_widget.clear_message_bar()
 
-    def download_project_file(self, url, project_file, load=False):
+    def download_template_file(
+            self,
+            url,
+            template,
+            add_layout=False,
+            prepare_layout=False,
+            notify=True
+    ):
         try:
             download_folder = settings_manager.get_value(Settings.DOWNLOAD_FOLDER)
 
-            self.show_message(
-                tr("Download for file {} to {} has started."
-                   ).format(
-                    project_file,
-                    download_folder
-                ),
-                level=Qgis.Info
-            )
-            self.update_inputs(False)
-            self.show_progress(
-                f"Downloading {url}",
-                minimum=0,
-                maximum=100,
-            )
-            feedback = QgsProcessingFeedback()
-
-            feedback.progressChanged.connect(
-                self.update_progress_bar
-            )
-            feedback.progressChanged.connect(self.download_progress)
-
-            file_name = self.clean_filename(project_file)
-
-            output = os.path.join(
-                download_folder, file_name
-            ) if download_folder else QgsProcessing.TEMPORARY_OUTPUT
-            params = {'URL': url, 'OUTPUT': output}
-
-            self.download_result["file"] = output
-
-            results = processing.run(
-                "qgis:filedownloader",
-                params,
-                feedback=feedback
-            )
-
-            if results:
-                log(tr(f"Finished downloading file to {self.download_result['file']}"))
-                self.update_inputs(True)
+            if notify:
                 self.show_message(
-                    tr(f"Finished downloading "
-                       f"file to {self.download_result['file']}"),
+                    tr("Download for template {} to {} has started."
+                       ).format(
+                        template.name,
+                        download_folder
+                    ),
                     level=Qgis.Info
                 )
-
-                if load:
-                    self.load_project(self.download_result['file'], project_file)
-
-        except Exception as e:
-            self.update_inputs(True)
-            self.show_message(
-                tr("Error in downloading file, {}").format(str(e))
-            )
-            log(tr("Error in downloading file, {}").format(str(e)))
-
-        return True
-
-    def download_template_file(self, url, template, add_layout=False):
-        try:
-            download_folder = settings_manager.get_value(Settings.DOWNLOAD_FOLDER)
-
-            self.show_message(
-                tr("Download for template {} to {} has started."
-                   ).format(
-                    template.name,
-                    download_folder
-                ),
-                level=Qgis.Info
-            )
-            self.update_inputs(False)
-            self.show_progress(
-                f"Downloading {url}",
-                minimum=0,
-                maximum=100,
-            )
+                self.update_inputs(False)
+                self.show_progress(
+                    f"Downloading {url}",
+                    minimum=0,
+                    maximum=100,
+                )
             feedback = QgsProcessingFeedback()
 
             feedback.progressChanged.connect(
@@ -347,18 +388,22 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
             if results:
                 log(tr(f"Finished downloading file to {self.download_result['file']}"))
-                self.update_inputs(True)
-                self.show_message(
-                    tr(f"Finished downloading "
-                       f"file to {self.download_result['file']}"),
-                    level=Qgis.Info
-                )
+                if notify:
+                    self.update_inputs(True)
+                    self.show_message(
+                        tr(f"Finished downloading "
+                           f"file to {self.download_result['file']}"),
+                        level=Qgis.Info
+                    )
 
                 self.template.downloaded = True
                 self.template.download_path = self.download_result['file']
 
                 if add_layout:
                     self.add_layout()
+
+                if prepare_layout:
+                    self.prepare_layout_properties()
 
         except Exception as e:
             self.update_inputs(True)
@@ -368,23 +413,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             log(tr("Error in downloading file, {}").format(str(e)))
 
         return True
-
-    def load_project(self, path, name):
-        project_name = name.replace('_map.gpkg', '')
-        uri = f"geopackage:{path}?projectName={project_name}"
-        try:
-            QgsProject.instance().read(uri)
-            self.show_message(
-                tr(f"Successfully loaded project {project_name}"),
-                level=Qgis.Info
-            )
-            log(f"Successfully loaded project {project_name}")
-        except Exception as err:
-            self.show_message(
-                tr(f"Problem loading project {project_name}, error {err}"),
-                level=Qgis.Info
-            )
-            log(f"Problem loading project {project_name}, error {err}")
 
     def network_task(
             self,
@@ -477,7 +505,13 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 err)
             )
 
-    def download_template(self, template=None):
+    def download_template(
+            self,
+            template=None,
+            add_layout=False,
+            prepare_layout=False,
+            notify=True
+    ):
         if not settings_manager.get_value(Settings.DOWNLOAD_FOLDER):
             self.show_message(
                 tr("Set the download folder "
@@ -497,13 +531,19 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         try:
             download_task = QgsTask.fromFunction(
                 'Download template function',
-                self.download_template_file(url, template, True)
+                self.download_template_file(
+                    url,
+                    template,
+                    add_layout,
+                    prepare_layout,
+                    notify
+                )
             )
             QgsApplication.taskManager().addTask(download_task)
 
         except Exception as err:
             self.update_inputs(True)
-            self.show_message("Problem running task for downloading project")
+            self.show_message("Problem running task for downloading template")
             log(tr("An error occured when running task for"
                    " downloading {}, error message \"{}\" ").format(
                 template.name,
@@ -515,10 +555,13 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         project = QgsProject.instance()
         layout = QgsPrintLayout(project)
 
+        self.open_layout_btn.setEnabled(False)
+        self.show_progress("Opening layout...")
+
         if template.downloaded:
             layout_path = Path(template.download_path)
         else:
-            self.download_template(template)
+            self.download_template(template, add_layout=True, prepare_layout=False)
             return
 
         log(f"Opening layout from {layout_path}")
@@ -558,15 +601,44 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 if isinstance(item, QgsLayoutItemScaleBar):
                     map_scale_bar = item
                 if isinstance(item, QgsLayoutItemMap):
-                    layout_map = item
+                    if item.id() is not None and\
+                            'inset' not in item.id():
+                        layout_map = item
+
+                if isinstance(item, QgsLayoutItemPicture):
+                    hub_path_exists = (self.logo_path.filePath() and
+                                        self.logo_path.filePath() is not "")
+                    hot_path_exists = (self.hot_logo_path.filePath() and
+                                       self.hot_logo_path.filePath() is not "")
+                    partner_path_exists = (self.partner_logo_path.filePath() and
+                                       self.partner_logo_path.filePath() is not "")
+                    if 'hub' in item.id() and \
+                        hub_path_exists:
+                        item.setPicturePath(self.logo_path.filePath())
+                    if 'partner logo' in item.id() and \
+                        partner_path_exists:
+                        item.setPicturePath(self.partner_logo_path.filePath())
+                    if 'HOTOSM logo' in item.id() and \
+                        hot_path_exists:
+                        item.setPicturePath(self.hot_logo_path.filePath())
+
+
+                if isinstance(item, QgsLayoutItemLabel):
+                    if 'Title' in item.id() and \
+                            self.template_title.text() is not None:
+                        item.setText(self.template_title.text())
+                    if 'Sub-heading' in item.id() and \
+                            self.template_subheading.text() is not None:
+                        item.setText(self.template_subheading.text())
+                    if 'Narrative' in item.id() and \
+                            self.template_narrative.toPlainText() is not None:
+                        item.setText(self.template_narrative.toPlainText())
 
             if map_scale_bar is not None and \
                     layout_map is not None:
                 map_scale_bar.setLinkedMap(layout_map)
 
             manager.addLayout(layout)
-
-            layout.refresh()
 
             # Make sure the map items stay on the original page size
             page_collection = layout.pageCollection()
@@ -585,6 +657,9 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         except RuntimeError:
             log(f"Problem opening layout {template.name}")
+            self.message_bar.clearWidgets()
+
+        self.open_layout_btn.setEnabled(True)
 
     def clean_filename(self, filename):
         """ Creates a safe filename by removing operating system

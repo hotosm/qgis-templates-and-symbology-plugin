@@ -5,6 +5,7 @@
 """
 
 import os
+import shutil
 from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork
 
 from qgis import processing
@@ -64,6 +65,32 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
         self.download_symbology_btn.clicked.connect(self.download_symbology)
         self.download_result = {}
 
+        self.add_to_qgis_btn.clicked.connect(self.add_to_icons_path)
+
+    def add_to_icons_path(self):
+        if self.symbology.downloaded:
+            path = self.symbology.download_path
+
+            try:
+                directory = os.path.dirname(path)
+                filename = os.path.basename(path)
+
+                icon_path = os.path.join(directory, filename)
+                second_icon_path = os.path.join(icon_path, filename)
+
+                shutil.unpack_archive(path, directory)
+
+                svg_paths = QgsApplication.svgPaths()
+                svg_paths.append(icon_path)
+                svg_paths.append(second_icon_path)
+                QgsApplication.setSvgPaths(svg_paths)
+
+            except Exception as e:
+                log(f"Problem adding icons to QGIS, {e}")
+        else:
+            self.download_symbology(add_symbology=True)
+            return
+
     def populate_properties(self, symbology):
         """ Populates the symbology dialog widgets with the
         respective information from passed symbology.
@@ -78,6 +105,9 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
             self.description_le.setText(symbology.description)
             self.extension_le.setText(symbology.properties.extension)
             self.symbology_type_le.setText(symbology.properties.template_type)
+
+            if symbology.properties.template_type != 'library':
+                self.add_to_qgis_btn.setEnabled(False)
 
             if symbology.license:
                 self.license_le.setText(symbology.license)
@@ -186,9 +216,8 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
 
         profile = settings_manager.get_current_profile()
         repo_url = profile.path
-        profile_name = profile.name.lower()
 
-        url = f"{repo_url}/{profile_name}/symbology/" \
+        url = f"{repo_url}/symbology/" \
               f"{self.symbology.properties.directory}/" \
               f"{self.symbology.properties.thumbnail}"
         request = QtNetwork.QNetworkRequest(
@@ -228,7 +257,14 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
             self.main_widget.update_inputs(True)
             self.main_widget.clear_message_bar()
 
-    def download_symbology_file(self, url, project_file, load=False):
+    def download_symbology_file(
+            self,
+            symbology,
+            url,
+            project_file,
+            add_symbology=False,
+            load=False
+    ):
         try:
             download_folder = settings_manager.get_value(Settings.DOWNLOAD_FOLDER)
 
@@ -276,6 +312,13 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
                        f"file to {self.download_result['file']}"),
                     level=Qgis.Info
                 )
+
+                symbology.downloaded = True
+                symbology.download_path = self.download_result['file']
+
+                if add_symbology and \
+                    symbology.properties.template_type == 'library':
+                    self.add_to_icons_path()
 
         except Exception as e:
             self.update_inputs(True)
@@ -330,7 +373,7 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
             self.show_message(f"Fetching content via network, {reply.errorString()}")
             log(tr("Problem fetching response from network"))
 
-    def download_symbology(self, load=False):
+    def download_symbology(self, add_symbology=True, load=False):
         """ Downloads symbology"""
 
         if not settings_manager.get_value(Settings.DOWNLOAD_FOLDER):
@@ -345,9 +388,8 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
 
         profile = settings_manager.get_current_profile()
         repo_url = profile.path
-        profile_name = profile.name.lower()
 
-        url = f"{repo_url}/{profile_name}/symbology/" \
+        url = f"{repo_url}/symbology/" \
               f"{self.symbology.properties.directory}/" \
               f"{symbology_name}.{self.symbology.properties.extension}"
 
@@ -355,8 +397,10 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
             download_task = QgsTask.fromFunction(
                 'Download symbology function',
                 self.download_symbology_file(
+                    self.symbology,
                     url,
-                    f"{symbology_name}.{self.symbology.properties.extension}"
+                    f"{symbology_name}.{self.symbology.properties.extension}",
+                    add_symbology
                 )
             )
             QgsApplication.taskManager().addTask(download_task)
