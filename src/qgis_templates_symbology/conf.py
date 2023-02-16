@@ -197,6 +197,7 @@ class SettingsManager(QtCore.QObject):
     SELECTED_PROFILE_KEY: str = "selected_profile"
     TEMPLATE_GROUP_NAME: str = "templates"
     SYMBOLOGY_GROUP_NAME: str = "symbology"
+    TEMPLATE_CUSTOM_PROPERTIES: str = "custom_properties"
 
     settings = QgsSettings()
 
@@ -355,7 +356,7 @@ class SettingsManager(QtCore.QObject):
         settings_key = self._get_profile_settings_base(
             profile_settings.id
         )
-        created_date = profile_settings.created_date.\
+        created_date = profile_settings.created_date. \
             strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         if profile_settings.templates:
             for template in profile_settings.templates:
@@ -389,7 +390,7 @@ class SettingsManager(QtCore.QObject):
             self.clear_current_profile()
         with qgis_settings(
                 f"{self.BASE_GROUP_NAME}/"
-                f"{self.PROFILE_GROUP_NAME}")\
+                f"{self.PROFILE_GROUP_NAME}") \
                 as settings:
             settings.remove(str(identifier))
         self.profiles_settings_updated.emit()
@@ -483,7 +484,6 @@ class SettingsManager(QtCore.QObject):
                f"{self.PROFILE_GROUP_NAME}/" \
                f"{str(identifier)}"
 
-
     def _get_template_settings_base(
             self,
             profile_identifier,
@@ -516,6 +516,18 @@ class SettingsManager(QtCore.QObject):
             settings.setValue("directory", properties.directory)
             settings.setValue("template_type", properties.template_type)
 
+    def save_custom_template_properties(self, custom_properties, template_id, profile_id):
+        templates_key = self._get_template_settings_base(profile_id, template_id)
+        custom_properties_key = f"{templates_key}/{self.TEMPLATE_CUSTOM_PROPERTIES}"
+
+        with qgis_settings(custom_properties_key) as settings:
+            settings.setValue("heading", custom_properties.get('heading'))
+            settings.setValue("subheading", custom_properties.get('subheading'))
+            settings.setValue("narrative", custom_properties.get('narrative'))
+            settings.setValue("hub_logo", custom_properties.get('hub_logo'))
+            settings.setValue("hot_logo", custom_properties.get('hot_log'))
+            settings.setValue("partner_logo", custom_properties.get('partner_logo'))
+
     def save_symbology_properties(self, properties, symbology_id, profile_id):
         symbology_key = self._get_symbology_settings_base(profile_id, symbology_id)
         properties_key = f"{symbology_key}/properties"
@@ -525,6 +537,21 @@ class SettingsManager(QtCore.QObject):
             settings.setValue("thumbnail", properties.thumbnail)
             settings.setValue("directory", properties.directory)
             settings.setValue("template_type", properties.template_type)
+
+    def get_templates_custom_properties(self, template_id, profile_id):
+        result = {}
+        templates_key = self._get_template_settings_base(profile_id, template_id)
+        custom_properties_key = f"{templates_key}/{self.TEMPLATE_CUSTOM_PROPERTIES}"
+        with qgis_settings(
+                custom_properties_key
+        ) as prop_settings:
+            result['heading'] = prop_settings.value("heading", None)
+            result['subheading'] = prop_settings.value("subheading", None)
+            result['narrative'] = prop_settings.value("narrative", None)
+            result['hub_logo'] = prop_settings.value("hub_logo", None)
+            result['hot_logo'] = prop_settings.value("hot_logo", None)
+            result['partner_logo'] = prop_settings.value("partner_logo", None)
+        return result
 
     def save_template(self, profile, template_settings):
         """ Save the passed template settings into the plugin settings
@@ -551,7 +578,6 @@ class SettingsManager(QtCore.QObject):
             settings.setValue("id", template_settings.id)
             settings.setValue("title", template_settings.title)
             settings.setValue("description", template_settings.description)
-
 
     def get_templates(self, profile_identifier):
         """ Gets all the available templates settings in the
@@ -633,8 +659,7 @@ class SettingsManager(QtCore.QObject):
             settings.setValue("id", symbology_settings.id)
             settings.setValue("title", symbology_settings.title)
             settings.setValue("description", symbology_settings.description)
-            
-    
+
     def get_symbology(self, profile_identifier):
         """ Gets all the available symbology settings in the
         provided profile

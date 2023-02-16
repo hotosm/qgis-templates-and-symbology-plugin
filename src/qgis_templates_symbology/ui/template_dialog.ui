@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>962</width>
-    <height>520</height>
+    <width>964</width>
+    <height>470</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabIdentificationDialog">
       <attribute name="title">
@@ -34,20 +34,163 @@
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="1">
           <layout class="QGridLayout" name="gridLayout_5">
-           <item row="2" column="1">
-            <widget class="QTextEdit" name="description_le">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="name_la">
              <property name="toolTip">
-              <string>Detailed multi-line description to fully explain the template</string>
+              <string>Template name</string>
              </property>
-             <property name="readOnly">
-              <bool>true</bool>
+             <property name="text">
+              <string>Template name</string>
              </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="6" column="0" colspan="2">
+            <widget class="QGroupBox" name="groupBox">
+             <property name="toolTip">
+              <string>Contain layout properties that can be modified.</string>
+             </property>
+             <property name="title">
+              <string>Adjust layout properties</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="2" column="0">
+               <widget class="QLabel" name="description_la">
+                <property name="toolTip">
+                 <string>When set it changes the layout narrative</string>
+                </property>
+                <property name="text">
+                 <string>Description</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QgsFileWidget" name="logo_path">
+                <property name="toolTip">
+                 <string>Select the hub logo to use in the template. Logo can be from local or remote location(using http).</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>Partner logo</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_4">
+                <property name="toolTip">
+                 <string>Set the layout sub heading</string>
+                </property>
+                <property name="text">
+                 <string>Sub-heading</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <spacer name="horizontalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="reset_properties_btn">
+                  <property name="toolTip">
+                   <string>Reset properties values to the original template values.</string>
+                  </property>
+                  <property name="text">
+                   <string>Reset </string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>HOTOSM logo</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="template_title">
+                <property name="toolTip">
+                 <string>Set the layout heading</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QgsFileWidget" name="hot_logo_path"/>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_2">
+                <property name="toolTip">
+                 <string>Set the layout heading</string>
+                </property>
+                <property name="text">
+                 <string>Heading</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label">
+                <property name="toolTip">
+                 <string>Select the hub logo to use in the template. Logo can be from local or remote location(using http).</string>
+                </property>
+                <property name="text">
+                 <string>Hub logo</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QgsFileWidget" name="partner_logo_path"/>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="template_subheading">
+                <property name="toolTip">
+                 <string>Set the layout sub heading</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QTextEdit" name="template_narrative">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>When set it changes the layout narrative</string>
+                </property>
+                <property name="readOnly">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item row="0" column="1">
@@ -57,52 +200,6 @@
              </property>
              <property name="readOnly">
               <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="name_la">
-             <property name="toolTip">
-              <string>Template name</string>
-             </property>
-             <property name="text">
-              <string>Name</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="title_le">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>A short descriptive of the template.</string>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="title_la">
-             <property name="toolTip">
-              <string>A short descriptive of the template.</string>
-             </property>
-             <property name="text">
-              <string>Title</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="description_la">
-             <property name="toolTip">
-              <string>Detailed multi-line description to fully explain the template</string>
-             </property>
-             <property name="text">
-              <string>Description</string>
              </property>
             </widget>
            </item>
@@ -399,6 +496,11 @@
    <extends>QgsCollapsibleGroupBox</extends>
    <header>qgsextentgroupbox.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QgsFileWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsfilewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
