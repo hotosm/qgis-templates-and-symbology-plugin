@@ -75,6 +75,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
         self.grid_layout = QtWidgets.QGridLayout()
         self.message_bar = QgsMessageBar()
+        self.progress_bar = QtWidgets.QProgressBar()
         self.prepare_message_bar()
 
         self.profile = settings_manager.get_current_profile()
@@ -194,7 +195,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             if custom_properties['partner_logo'] is not None:
                 self.partner_logo_path.setFilePath(custom_properties['partner_logo'])
 
-
     def prepare_message_bar(self):
         """ Initializes the widget message bar settings"""
         self.message_bar.setSizePolicy(
@@ -242,7 +242,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         """
         self.message_bar.clearWidgets()
         message_bar_item = self.message_bar.createMessage(message)
-        self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.progress_bar.setMinimum(minimum)
         self.progress_bar.setMaximum(maximum)
@@ -484,10 +483,10 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
               f"{project_name}.gpkg"
 
         load = settings_manager.get_value(
-                Settings.AUTO_PROJECT_LOAD,
-                False,
-                setting_type=bool
-            )
+            Settings.AUTO_PROJECT_LOAD,
+            False,
+            setting_type=bool
+        )
 
         try:
             download_task = QgsTask.fromFunction(
@@ -590,8 +589,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
             _items, _value = layout.loadFromTemplate(
                 doc,
-                QgsReadWriteContext(),
-                False
+                QgsReadWriteContext()
             )
 
             map_scale_bar = None
@@ -601,27 +599,26 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 if isinstance(item, QgsLayoutItemScaleBar):
                     map_scale_bar = item
                 if isinstance(item, QgsLayoutItemMap):
-                    if item.id() is not None and\
+                    if item.id() is not None and \
                             'inset' not in item.id():
                         layout_map = item
 
                 if isinstance(item, QgsLayoutItemPicture):
                     hub_path_exists = (self.logo_path.filePath() and
-                                        self.logo_path.filePath() is not "")
+                                       self.logo_path.filePath() is not "")
                     hot_path_exists = (self.hot_logo_path.filePath() and
                                        self.hot_logo_path.filePath() is not "")
                     partner_path_exists = (self.partner_logo_path.filePath() and
-                                       self.partner_logo_path.filePath() is not "")
+                                           self.partner_logo_path.filePath() is not "")
                     if 'hub' in item.id() and \
-                        hub_path_exists:
+                            hub_path_exists:
                         item.setPicturePath(self.logo_path.filePath())
                     if 'partner logo' in item.id() and \
-                        partner_path_exists:
+                            partner_path_exists:
                         item.setPicturePath(self.partner_logo_path.filePath())
                     if 'HOTOSM logo' in item.id() and \
-                        hot_path_exists:
+                            hot_path_exists:
                         item.setPicturePath(self.hot_logo_path.filePath())
-
 
                 if isinstance(item, QgsLayoutItemLabel):
                     if 'Title' in item.id() and \
@@ -641,11 +638,13 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             manager.addLayout(layout)
 
             # Make sure the map items stay on the original page size
-            page_collection = layout.pageCollection()
-            page_collection.resizeToContents(
-                QgsMargins(),
-                QgsUnitTypes.LayoutMillimeters
-            )
+            # page_collection = layout.pageCollection()
+            # page_collection.resizeToContents(
+            #     QgsMargins(),
+            #     QgsUnitTypes.LayoutMillimeters
+            # )
+            #
+            # layout.refresh()
 
             iface.openLayoutDesigner(layout)
 
@@ -702,11 +701,14 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         :param value: Value to be set on the progress bar
         :type value: float
         """
-        if self.progress_bar:
-            try:
+
+        try:
+            if self.progress_bar:
                 self.progress_bar.setValue(int(value))
-            except RuntimeError:
-                log(
-                    tr("Error setting value to a progress bar"),
-                    notify=False
-                )
+        except RuntimeError:
+            log(
+                tr("Error setting value to a progress bar"),
+                notify=False
+            )
+        except Exception as e:
+            log(f"Problem accessing progress bar, {e}")
