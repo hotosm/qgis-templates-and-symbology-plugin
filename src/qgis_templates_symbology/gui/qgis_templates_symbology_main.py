@@ -479,6 +479,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
             if len(templates_settings) > 0:
                 profile.templates = []
+                settings_manager.delete_templates(profile.id)
                 settings_manager.save_profile_settings(profile)
             else:
                 self.show_message(
@@ -535,6 +536,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
             if len(symbology_settings) > 0:
                 profile.symbology = []
+                settings_manager.delete_symbology(profile.id)
                 settings_manager.save_profile_settings(profile)
             else:
                 self.show_message(

@@ -165,14 +165,14 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 )
                 for item in _items:
                     if isinstance(item, QgsLayoutItemLabel):
-                        if 'Title' in item.id():
+                        if 'map_heading' == item.id():
                             self.template_title.setText(item.text())
-                        if 'Sub-heading' in item.id():
+                        if 'map_sub_heading' == item.id():
                             self.template_subheading.setText(item.text())
-                        if 'Narrative' in item.id():
+                        if 'map_narrative' == item.id():
                             self.template_narrative.setText(item.text())
                     if isinstance(item, QgsLayoutItemMap):
-                        if 'Map 1' in item.id():
+                        if 'main_map' == item.id():
                             self.set_extent(item.extent())
                 self.logo_path.setFilePath('')
                 self.hot_logo_path.setFilePath('')
@@ -266,10 +266,10 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
     def set_extent(self, extent):
         """ Sets the templates spatial and temporal extents
 
-        :param extent: Instance that contain spatial and temporal extents
+        :param extent: Spatial extent
         :type extent: models.Extent
         """
-        spatial_extent = extent.spatial
+        spatial_extent = extent
         if spatial_extent:
             self.spatialExtentSelector.setOutputCrs(
                 QgsCoordinateReferenceSystem("EPSG:4326")
@@ -609,10 +609,10 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                     map_scale_bar = item
                 if isinstance(item, QgsLayoutItemMap):
                     if item.id() is not None and \
-                            'Map 1' in item.id():
+                           'main_map' == item.id():
                         layout_map = item
                     if item.id() is not None and \
-                            'inset' in item.id().lower():
+                            'inset_map' == item.id():
                         inset_map = item
 
                 if isinstance(item, QgsLayoutItemPicture):
@@ -622,24 +622,24 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                                        self.hot_logo_path.filePath() is not "")
                     partner_path_exists = (self.partner_logo_path.filePath() and
                                            self.partner_logo_path.filePath() is not "")
-                    if 'hub' in item.id() and \
+                    if 'map_hub_logo' == item.id() and \
                             hub_path_exists:
                         item.setPicturePath(self.logo_path.filePath())
-                    if 'partner logo' in item.id() and \
+                    if 'map_partner_logo' == item.id() and \
                             partner_path_exists:
                         item.setPicturePath(self.partner_logo_path.filePath())
-                    if 'HOTOSM logo' in item.id() and \
+                    if 'map_main_logo' == item.id() and \
                             hot_path_exists:
                         item.setPicturePath(self.hot_logo_path.filePath())
 
                 if isinstance(item, QgsLayoutItemLabel):
-                    if 'Title' in item.id() and \
+                    if 'map_heading' == item.id() and \
                             self.template_title.text() is not None:
                         item.setText(self.template_title.text())
-                    if 'Sub-heading' in item.id() and \
+                    if 'map_sub_heading' == item.id() and \
                             self.template_subheading.text() is not None:
                         item.setText(self.template_subheading.text())
-                    if 'Narrative' in item.id() and \
+                    if 'map_narrative' == item.id() and \
                             self.template_narrative.toPlainText() is not None:
                         item.setText(self.template_narrative.toPlainText())
 
@@ -684,8 +684,8 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             )
             log(tr(f"Layout {layout_name} has been added."))
 
-        except RuntimeError:
-            log(f"Problem opening layout {template.name}")
+        except Exception as e:
+            log(f"Problem opening layout {template.name}, error {e}")
             self.message_bar.clearWidgets()
             self.show_message(f"Couldn't open the layout {template.name}")
 

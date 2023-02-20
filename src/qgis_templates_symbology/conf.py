@@ -16,6 +16,8 @@ from qgis.PyQt import (
 )
 from qgis.core import QgsRectangle, QgsSettings
 
+from qgis.core import Qgis, QgsMessageLog
+
 from .models import Properties, Symbology, Template
 
 
@@ -611,6 +613,22 @@ class SettingsManager(QtCore.QObject):
                     )
         return result
 
+    def delete_templates(self, identifier):
+        profile = self.get_profile_settings(identifier)
+        for template in profile.templates:
+            self.delete_template(identifier, template.id)
+        self.profiles_settings_updated.emit()
+
+    def delete_template(self, identifier, template_id):
+        with qgis_settings(
+                f"{self.BASE_GROUP_NAME}/"
+                f"{self.PROFILE_GROUP_NAME}/"
+                f"{str(identifier)}/"
+                f"{self.TEMPLATE_GROUP_NAME}"
+            ) \
+                as settings:
+            settings.remove(str(template_id))
+
     def _get_symbology_settings_base(
             self,
             profile_identifier,
@@ -692,40 +710,21 @@ class SettingsManager(QtCore.QObject):
                     )
         return result
 
+    def delete_symbology(self, identifier):
+        profile = self.get_profile_settings(identifier)
+        for symbology in profile.symbology:
+            self.delete_template(identifier, symbology.id)
+        self.profiles_settings_updated.emit()
 
-from qgis.core import Qgis, QgsMessageLog
-
-
-def log(
-        message: str,
-        name: str = "qgis_templates_symbology",
-        info: bool = True,
-        notify: bool = True,
-):
-    """ Logs the message into QGIS logs using qgis_templates_symbology as the default
-    log instance.
-    If notify_user is True, user will be notified about the log.
-
-    :param message: The log message
-    :type message: str
-
-    :param name: Name of te log instance, qgis_templates_symbology is the default
-    :type message: str
-
-    :param info: Whether the message is about info or a
-    warning
-    :type info: bool
-
-    :param notify: Whether to notify user about the log
-    :type notify: bool
-     """
-    level = Qgis.Info if info else Qgis.Warning
-    QgsMessageLog.logMessage(
-        message,
-        name,
-        level=level,
-        notifyUser=notify,
-    )
+    def delete_symbology(self, identifier, symbology_id):
+        with qgis_settings(
+                f"{self.BASE_GROUP_NAME}/"
+                f"{self.PROFILE_GROUP_NAME}/"
+                f"{str(identifier)}/"
+                f"{self.SYMBOLOGY_GROUP_NAME}"
+        ) \
+                as settings:
+            settings.remove(str(symbology_id))
 
 
 settings_manager = SettingsManager()
