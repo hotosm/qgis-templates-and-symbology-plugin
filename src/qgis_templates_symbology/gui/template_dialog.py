@@ -28,10 +28,11 @@ from qgis.core import (
     QgsLayoutItemScaleBar,
     QgsPrintLayout,
     QgsProject,
-    QgsReadWriteContext,
     QgsProcessing,
     QgsProcessingFeedback,
+    QgsReadWriteContext,
     QgsRectangle,
+    QgsScaleBarSettings,
     QgsTask,
     QgsUnitTypes
 )
@@ -170,6 +171,9 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                             self.template_subheading.setText(item.text())
                         if 'Narrative' in item.id():
                             self.template_narrative.setText(item.text())
+                    if isinstance(item, QgsLayoutItemMap):
+                        if 'Map 1' in item.id():
+                            self.set_extent(item.extent())
                 self.logo_path.setFilePath('')
                 self.hot_logo_path.setFilePath('')
                 self.partner_logo_path.setFilePath('')
@@ -240,13 +244,16 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         :param maximum: Maximum value that can be set on the progress bar
         :type maximum: int
         """
-        self.message_bar.clearWidgets()
-        message_bar_item = self.message_bar.createMessage(message)
-        self.progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
-        self.progress_bar.setMinimum(minimum)
-        self.progress_bar.setMaximum(maximum)
-        message_bar_item.layout().addWidget(self.progress_bar)
-        self.message_bar.pushWidget(message_bar_item, Qgis.Info)
+        try:
+            self.message_bar.clearWidgets()
+            message_bar_item = self.message_bar.createMessage(message)
+            self.progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+            self.progress_bar.setMinimum(minimum)
+            self.progress_bar.setMaximum(maximum)
+            message_bar_item.layout().addWidget(self.progress_bar)
+            self.message_bar.pushWidget(message_bar_item, Qgis.Info)
+        except RuntimeError as e:
+            log(f"Problem showing operation progress, {e}")
 
     def update_inputs(self, enabled):
         """ Updates the inputs widgets state in the dialog.
@@ -595,14 +602,18 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
             map_scale_bar = None
             layout_map = None
+            inset_map = None
 
             for item in _items:
                 if isinstance(item, QgsLayoutItemScaleBar):
                     map_scale_bar = item
                 if isinstance(item, QgsLayoutItemMap):
                     if item.id() is not None and \
-                            'inset' not in item.id():
+                            'Map 1' in item.id():
                         layout_map = item
+                    if item.id() is not None and \
+                            'inset' in item.id().lower():
+                        inset_map = item
 
                 if isinstance(item, QgsLayoutItemPicture):
                     hub_path_exists = (self.logo_path.filePath() and
@@ -632,22 +643,40 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                             self.template_narrative.toPlainText() is not None:
                         item.setText(self.template_narrative.toPlainText())
 
-            if map_scale_bar is not None and \
-                    layout_map is not None:
-                map_scale_bar.setLinkedMap(layout_map)
+            layout_map.zoomToExtent(iface.mapCanvas().extent())
+            crs = QgsCoordinateReferenceSystem('EPSG:4326')
+            inset_map.setCrs(crs)
+            # #
+            # map_scale_bar.setUnits(QgsUnitTypes.DistanceKilometers)
+            #
+            # log(f"map scale bar units {map_scale_bar.units()} kilometers is {QgsUnitTypes.DistanceKilometers}")
+            # # map_scale_bar.setSegmentSizeMode(
+            # #     QgsScaleBarSettings.SegmentSizeFitWidth
+            # # )
+            # #
+            # # map_scale_bar.setMaximumBarWidth(40)
+            # # map_scale_bar.setMinimumBarWidth(10)
+            # # map_scale_bar.refresh()
+            # # map_scale_bar.redraw()
+            #
+            # layout_map.refresh()
+            #
+            # log(f"map scale bar units {map_scale_bar.units()}")
+            # layout.refresh()
 
             manager.addLayout(layout)
 
             # Make sure the map items stay on the original page size
             # page_collection = layout.pageCollection()
             # page_collection.resizeToContents(
-            #     QgsMargins(),
+            #     QgsMargins(0, 0, 0, 0),
             #     QgsUnitTypes.LayoutMillimeters
             # )
             #
-            # layout.refresh()
 
             designer = iface.openLayoutDesigner(layout)
+
+            map_scale_bar.setUnits(QgsUnitTypes.DistanceFeet)
 
             self.show_message(
                 tr(f"Layout {layout_name} has been added."),
@@ -658,6 +687,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         except RuntimeError:
             log(f"Problem opening layout {template.name}")
             self.message_bar.clearWidgets()
+            self.show_message(f"Couldn't open the layout {template.name}")
 
         self.open_layout_btn.setEnabled(True)
 
