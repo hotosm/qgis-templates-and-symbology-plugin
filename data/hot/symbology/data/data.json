@@ -1,127 +1,8 @@
 {
   "symbology": [
+
     {
-        "id": "95a91962-fbaa-4b23-b248-9de2be6b70df",
-        "name": "diverging_brownblue",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "gpl",
-        "thumbnail": "diverging_brownblue.png"
-    },
-    {
-        "id": "00039f2d-fc2a-4002-a396-f28f46101ff0",
-        "name": "diverging_brownteal",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "gpl",
-        "thumbnail": "diverging_brownteal.png"
-    },
-    {
-        "id": "821b199b-39f3-4363-b91e-618b95733e8d",
-        "name": "diverging_redblue",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "gpl",
-        "thumbnail": "diverging_redblue.png"
-    },
-    {
-        "id": "2098d7dc-9f54-4e3e-bddf-c7b58fb56efd",
-        "name": "diverging_redgreen",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "gpl",
-        "thumbnail": "diverging_redgren.png"
-    },
-    {
-        "id": "0bcb4a2b-f990-4688-bf38-0653499a672f",
-        "name": "inset_map",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "qml",
-        "thumbnail": "inset_map.png"
-    },
-    {
-        "id": "6a36e2fd-9499-48f5-a71a-8baa47466719",
-        "name": "world_map",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "qml",
-        "thumbnail": "world_map.png"
-    },
-    {
-        "id": "efbd3716-93d3-43b7-86ac-37e1be49177c",
-        "name": "rainbow",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "xml",
-        "thumbnail": "rainbow.png"
-    },
-    {
-        "id": "8e6808ad-ee3f-4e5d-9844-fc97aa11b95d",
-        "name": "sequential_bluegreen",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "gpl",
-        "thumbnail": "sequential_bluegreen.png"
-    },
-    {
-        "id": "f41cc3fd-c1c6-4069-957e-554d0d3ecfb2",
-        "name": "sequential_brown",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "gpl",
-        "thumbnail": "sequential_brown.png"
-    },
-    {
-        "id": "78fa6e28-2fcd-489d-9f89-72ffcebc4f59",
-        "name": "sequential_green",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "xml",
-        "thumbnail": "sequential_green.png"
-    },
-    {
-        "id": "e9739828-6452-4e22-ba19-0bedd367924a",
-        "name": "sequential_red_orange_yellow",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "gpl",
-        "thumbnail": "sequential_red_orange_yellow.png"
-    },
-    {
-        "id": "e9739828-6452-4e22-ba19-0bedd367924a",
-        "name": "sequential_teal",
-        "title": "",
-        "description": "Colour scale pallete",
-        "directory": "colour-scales",
-        "type": "colour_scale",
-        "extension": "xml",
-        "thumbnail": "sequential_teal.png"
-    },
-    {
-        "id": "23321b98-ace6-4f8d-86f3-f5dfd3a1e074",
+        "id": "666a92c2-8bbc-416a-a29c-37e5226004df",
         "name": "archivo",
         "title": "",
         "description": "Font",
@@ -131,7 +12,7 @@
         "thumbnail": "archivo.png"
     },
     {
-        "id": "0c73d3d3-55ec-4f6a-b71e-c87ea10652ba",
+        "id": "66982a6f-65e6-42ec-b259-ce9142df3810",
         "name": "barlow_condensed",
         "title": "",
         "description": "Font",
@@ -141,44 +22,74 @@
         "thumbnail": "barlow_condensed.png"
     },
     {
-        "id": "be471a96-b7d7-40b6-be8c-187fc35cbbca",
-        "name": "points",
+        "id": "980531d7-9cdb-4c9d-8196-fc166c9162cf",
+        "name": "OCHA-Humanitarian-Icons-main",
         "title": "",
-        "description": "Points",
-        "directory": "points",
-        "type": "point",
+        "description": "Symbol library",
+        "directory": "symbol-libraries",
+        "type": "library",
+        "extension": "zip",
+        "thumbnail": "OCHA-Humanitarian-Icons-main.png"
+    },
+    {
+        "id": "c9394852-e839-415e-a4ac-98f139ff86d4",
+        "name": "human_caused_hazards",
+        "title": "",
+        "description": "Symbol library",
+        "directory": "symbol-libraries",
+        "type": "library",
+        "extension": "zip",
+        "thumbnail": "human_caused_hazards.png"
+    },
+    {
+        "id": "621b5143-b4c6-4a81-81ec-6c5009309c9a",
+        "name": "maki_icons",
+        "title": "",
+        "description": "Symbol library",
+        "directory": "symbol-libraries",
+        "type": "library",
+        "extension": "zip",
+        "thumbnail": "maki_icons.png"
+    },
+	{
+        "id": "554a8bf1-c1a9-485a-a917-853bf40ede8c",
+        "name": "natural_hazards",
+        "title": "",
+        "description": "Symbol library",
+        "directory": "symbol-libraries",
+        "type": "library",
+        "extension": "zip",
+        "thumbnail": "natural_hazards.png"
+    },
+	{
+        "id": "0e549018-2079-41ee-a4f9-6d845fca9ed6",
+        "name": "styles",
+        "title": "",
+        "description": "styles and symbology",
+        "directory": "styles",
+        "type": "colour_scale",
         "extension": "xml",
-        "thumbnail": "points.png"
+        "thumbnail": "styles.png"
     },
-    {
-        "id": "4a4d4215-9dca-4051-aab4-997b74ec413c",
-        "name": "iconoir",
+	{
+        "id": "0508d438-aae6-4145-b7e0-87c6a2618d21",
+        "name": "roads",
         "title": "",
-        "description": "Symbol library",
-        "directory": "symbol-libraries",
-        "type": "library",
-        "extension": "zip",
-        "thumbnail": "iconoir.png"
+        "description": "style for roads",
+        "directory": "styles",
+        "type": "roads",
+        "extension": "sld",
+        "thumbnail": "roads.png"
     },
-    {
-        "id": "f6b681d5-2c8d-4c12-a837-92d5e921629f",
-        "name": "icons",
+	{
+        "id": "c99e3f65-d522-4809-8b4a-db0c0a5f6ff6",
+        "name": "broken_roads",
         "title": "",
-        "description": "Symbol library",
-        "directory": "symbol-libraries",
-        "type": "library",
-        "extension": "zip",
-        "thumbnail": "icons.png"
-    },
-    {
-        "id": "d18a05b2-deef-4aa0-8343-f4481f925381",
-        "name": "remix_icons",
-        "title": "",
-        "description": "Symbol library",
-        "directory": "symbol-libraries",
-        "type": "library",
-        "extension": "zip",
-        "thumbnail": "remix_icons.png"
+        "description": "style for broken roads",
+        "directory": "styles",
+        "type": "broken_roads",
+        "extension": "xml",
+        "thumbnail": "broken_roads.png"
     }
   ]
 }
