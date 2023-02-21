@@ -5,7 +5,7 @@
         "name": "textheavy_landscapea4_global",
         "title": "text heavy landscape A4 global",
         "description": "text heavy landscape A4 global",
-        "directory": "hot",
+        "directory": "text-heavy-map-template_landscape",
         "type": "landscape",
         "extension": "qpt",
         "thumbnail": "textheavy_landscapea4_global.png"

@@ -46,6 +46,7 @@ from qgis.PyQt.uic import loadUiType
 from ..models import Template, Symbology
 from ..conf import settings_manager, Settings
 from ..utils import log, tr
+from ..constants import THUMBNAIL_WIDTH_REDUCTION, THUMBNAIL_HEIGHT_REDUCTION
 
 from functools import partial
 
@@ -278,28 +279,12 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 QgsCoordinateReferenceSystem("EPSG:4326")
             )
 
-            bbox = spatial_extent.bbox[0] \
-                if spatial_extent.bbox and isinstance(spatial_extent.bbox, list) \
-                else None
-
-            original_extent = QgsRectangle(
-                bbox[0],
-                bbox[1],
-                bbox[2],
-                bbox[3]
-            ) if bbox and isinstance(bbox, list) else QgsRectangle()
+            original_extent = spatial_extent if spatial_extent else QgsRectangle()
             self.spatialExtentSelector.setOriginalExtent(
                 original_extent,
                 QgsCoordinateReferenceSystem("EPSG:4326")
             )
             self.spatialExtentSelector.setOutputExtentFromOriginal()
-
-        temporal_extents = extent.temporal
-        if temporal_extents:
-            pass
-        else:
-            self.from_date.clear()
-            self.to_date.clear()
 
     def add_thumbnail(self):
         """ Downloads and loads thumbnail"""
@@ -337,10 +322,21 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         if thumbnail_image:
             thumbnail_pixmap = QtGui.QPixmap.fromImage(thumbnail_image)
 
-            self.image_la.setPixmap(thumbnail_pixmap.scaled(
-                500,
-                350,
-                QtCore.Qt.IgnoreAspectRatio)
+            pixmap_width = thumbnail_pixmap.width()
+            pixmap_height = thumbnail_pixmap.height()
+
+            target_width = pixmap_width - \
+                           (pixmap_width * THUMBNAIL_WIDTH_REDUCTION)
+            target_height = pixmap_height - \
+                            (pixmap_height * THUMBNAIL_HEIGHT_REDUCTION)
+
+            self.image_la.setPixmap(
+                thumbnail_pixmap.scaled(
+                    int(target_width),
+                    int(target_height),
+                    QtCore.Qt.KeepAspectRatio,
+                    QtCore.Qt.SmoothTransformation
+                )
             )
 
         if self.main_widget:

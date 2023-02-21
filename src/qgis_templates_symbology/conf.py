@@ -710,10 +710,10 @@ class SettingsManager(QtCore.QObject):
                     )
         return result
 
-    def delete_symbology(self, identifier):
+    def delete_all_symbology(self, identifier):
         profile = self.get_profile_settings(identifier)
         for symbology in profile.symbology:
-            self.delete_template(identifier, symbology.id)
+            self.delete_symbology(identifier, symbology.id)
         self.profiles_settings_updated.emit()
 
     def delete_symbology(self, identifier, symbology_id):

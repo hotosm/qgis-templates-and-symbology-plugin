@@ -392,19 +392,24 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         :param maximum: Maximum value that can be set on the progress bar
         :type maximum: int
         """
-        self.message_bar.clearWidgets()
-        message_bar_item = self.message_bar.createMessage(message)
-        self.progress_bar = QtWidgets.QProgressBar()
-        self.progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
-        self.progress_bar.setMinimum(minimum)
-        self.progress_bar.setMaximum(maximum)
 
-        message_bar_item.layout().addWidget(self.progress_bar)
+        try:
+            self.message_bar.clearWidgets()
+            message_bar_item = self.message_bar.createMessage(message)
+            self.progress_bar = QtWidgets.QProgressBar()
+            self.progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+            self.progress_bar.setMinimum(minimum)
+            self.progress_bar.setMaximum(maximum)
 
-        if len(self.active_tasks) > 0:
-            message_bar_item.layout().addWidget(self.cancel_button)
+            message_bar_item.layout().addWidget(self.progress_bar)
 
-        self.message_bar.pushWidget(message_bar_item, Qgis.Info)
+            # if len(self.active_tasks) > 0:
+            #     message_bar_item.layout().addWidget(self.cancel_button)
+
+            self.message_bar.pushWidget(message_bar_item, Qgis.Info)
+
+        except Exception as e:
+            log(f"Error showing progress bar, {e}")
 
     def update_progress_bar(self, value):
         """Sets the value of the progress bar
@@ -461,13 +466,15 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
                 f"{url}/data/data.json"
             )
         )
+
+        self.show_progress("Loading template information...")
+
         self.update_inputs(False)
 
         self.network_task(
             request,
             self.templates_response
         )
-        self.show_progress("Loading template information...")
 
     def templates_response(self, content):
 
@@ -521,13 +528,13 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
                 level=Qgis.Info
             )
         except Exception as e:
-            self.show_message(
-                tr(f"Problem parsing template information"),
-                level=Qgis.Critical
-            )
             log(tr(f"Problem parsing template information. Error info {e}"))
         finally:
             self.update_inputs(True)
+            self.show_message(
+                tr(f"Finished fetching templates"),
+                level=Qgis.Info
+            )
 
     def symbology_response(self, content):
         try:
@@ -554,7 +561,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
 
             if len(symbology_settings) > 0:
                 profile.symbology = []
-                settings_manager.delete_symbology(profile.id)
+                settings_manager.delete_all_symbology(profile.id)
                 settings_manager.save_profile_settings(profile)
             else:
                 self.show_message(
@@ -578,14 +585,14 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
                 level=Qgis.Info
             )
         except Exception as e:
-            self.show_message(
-                tr(f"Problem parsing symbology information"),
-                level=Qgis.Critical
-            )
             log(tr(f"Problem parsing symbology information. Error info {e}"))
 
         finally:
             self.update_inputs(True)
+            self.show_message(
+                tr(f"Finished fetching symbology"),
+                level=Qgis.Info
+            )
 
     def fetch_symbology(self, url=None):
         profile = settings_manager.get_current_profile()
@@ -604,14 +611,14 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             )
         )
 
+        self.show_progress("Loading symbology information")
+
         self.update_inputs(False)
 
         self.network_task(
             request,
             self.symbology_response
         )
-
-        self.show_progress("Loading symbology information")
 
     def network_task(
             self,
