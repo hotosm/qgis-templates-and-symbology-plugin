@@ -73,6 +73,14 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.grid_layout = QtWidgets.QGridLayout()
         self.message_bar = QgsMessageBar()
         self.progress_bar = None
+
+        self.cancel_button = QtWidgets.QPushButton()
+        self.cancel_button.setText(tr('Cancel'))
+
+        self.cancel_button.clicked.connect(self.cancel_tasks)
+
+        self.active_tasks = []
+
         self.prepare_message_bar()
 
         download_folder = settings_manager.get_value(
@@ -96,6 +104,11 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.symbology_fetch_btn.clicked.connect(self.fetch_symbology)
 
         self.profiles_box.activated.connect(self.update_current_profile)
+
+    def cancel_tasks(self):
+        for task in self.active_tasks:
+            if task.canCancel():
+                task.cancel()
 
     def sort_symbology(self):
         order = self.symbology_order.isChecked()
@@ -385,7 +398,12 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         self.progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.progress_bar.setMinimum(minimum)
         self.progress_bar.setMaximum(maximum)
+
         message_bar_item.layout().addWidget(self.progress_bar)
+
+        if len(self.active_tasks) > 0:
+            message_bar_item.layout().addWidget(self.cancel_button)
+
         self.message_bar.pushWidget(message_bar_item, Qgis.Info)
 
     def update_progress_bar(self, value):
@@ -444,12 +462,12 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             )
         )
         self.update_inputs(False)
-        self.show_progress("Loading template information...")
 
         self.network_task(
             request,
             self.templates_response
         )
+        self.show_progress("Loading template information...")
 
     def templates_response(self, content):
 
@@ -587,12 +605,13 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         )
 
         self.update_inputs(False)
-        self.show_progress("Loading symbology information")
 
         self.network_task(
             request,
             self.symbology_response
         )
+
+        self.show_progress("Loading symbology information")
 
     def network_task(
             self,
@@ -610,12 +629,15 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
         task = QgsNetworkContentFetcherTask(
             request
         )
+        self.active_tasks.append(task)
         response_handler = partial(
             self.response,
             task,
             handler
         )
         task.fetched.connect(response_handler)
+        self.active_tasks.append(task)
+
         task.run()
 
     def response(

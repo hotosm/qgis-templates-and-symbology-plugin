@@ -88,6 +88,9 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.download_result = {}
 
         if not self.template.downloaded:
+            if self.main_widget:
+                self.main_widget.update_inputs(False)
+
             self.download_template(
                 self.template,
                 add_layout=False,
@@ -395,7 +398,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             if results:
                 log(tr(f"Finished downloading file to {self.download_result['file']}"))
                 if notify:
-                    self.update_inputs(True)
                     self.show_message(
                         tr(f"Finished downloading "
                            f"file to {self.download_result['file']}"),
@@ -411,8 +413,15 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 if prepare_layout:
                     self.prepare_layout_properties()
 
+            self.update_inputs(True)
+            if self.main_widget:
+                self.main_widget.update_inputs(True)
+            self.message_bar.clearWidgets()
+
         except Exception as e:
             self.update_inputs(True)
+            if self.main_widget:
+                self.main_widget.update_inputs(True)
             self.show_message(
                 tr("Error in downloading file, {}").format(str(e))
             )
@@ -643,36 +652,39 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                             self.template_narrative.toPlainText() is not None:
                         item.setText(self.template_narrative.toPlainText())
 
-            layout_map.zoomToExtent(iface.mapCanvas().extent())
+            if layout_map is not None:
+                layout_map.zoomToExtent(iface.mapCanvas().extent())
+
             crs = QgsCoordinateReferenceSystem('EPSG:4326')
             inset_map.setCrs(crs)
-            # #
-            # map_scale_bar.setUnits(QgsUnitTypes.DistanceKilometers)
-            #
-            # log(f"map scale bar units {map_scale_bar.units()} kilometers is {QgsUnitTypes.DistanceKilometers}")
-            # # map_scale_bar.setSegmentSizeMode(
-            # #     QgsScaleBarSettings.SegmentSizeFitWidth
-            # # )
-            # #
-            # # map_scale_bar.setMaximumBarWidth(40)
-            # # map_scale_bar.setMinimumBarWidth(10)
-            # # map_scale_bar.refresh()
-            # # map_scale_bar.redraw()
-            #
-            # layout_map.refresh()
-            #
-            # log(f"map scale bar units {map_scale_bar.units()}")
-            # layout.refresh()
 
             manager.addLayout(layout)
 
             # Make sure the map items stay on the original page size
-            # page_collection = layout.pageCollection()
-            # page_collection.resizeToContents(
-            #     QgsMargins(0, 0, 0, 0),
-            #     QgsUnitTypes.LayoutMillimeters
-            # )
-            #
+            page_collection = layout.pageCollection()
+
+            scale_width = map_scale_bar.sizeWithUnits().width()
+            position = map_scale_bar.positionWithUnits().x()
+
+            map_scale_width = layout_map.sizeWithUnits().width()
+            map_position = layout_map.positionWithUnits().x()
+
+            scale_loc = scale_width + position
+            map_loc = map_scale_width + map_position
+
+            if (scale_loc > (map_loc + 5)):
+                scale_target_width = map_loc - position \
+                    if map_loc > position else None
+                size_sc = map_scale_bar.sizeWithUnits()
+                size_sc.setWidth(scale_target_width)
+                map_scale_bar.setFixedSize(size_sc)
+                map_scale_bar.refreshItemSize()
+
+            page_collection.resizeToContents(
+                QgsMargins(0, 0, 0, 0),
+                QgsUnitTypes.LayoutMillimeters
+            )
+            layout.refresh()
 
             designer = iface.openLayoutDesigner(layout)
 

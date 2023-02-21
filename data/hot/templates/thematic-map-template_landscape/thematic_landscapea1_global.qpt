@@ -1206,7 +1206,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem frame="false" positionOnPage="160.137,556.119,mm" opacity="1" valign="128" visibility="1" templateUuid="{7f35d234-301b-43cb-9d06-5beeafd4c22e}" background="false" type="65641" excludeFromExports="0" halign="4" size="179.253,36.6673,mm" labelText="Coordinate System [%item_variables('Map 1')['map_crs_description']%], [%item_variables('Map 1')['map_crs']%]" id="map_coordinate_system" frameJoinStyle="miter" positionLock="false" referencePoint="0" marginY="0" htmlState="0" outlineWidthM="0.3,mm" zValue="5" itemRotation="0" blendMode="0" uuid="{7f35d234-301b-43cb-9d06-5beeafd4c22e}" groupUuid="" marginX="0" position="160.137,556.119,mm">
+ <LayoutItem frame="false" positionOnPage="160.137,556.119,mm" opacity="1" valign="128" visibility="1" templateUuid="{7f35d234-301b-43cb-9d06-5beeafd4c22e}" background="false" type="65641" excludeFromExports="0" halign="4" size="179.253,36.6673,mm" labelText="Coordinate System [%item_variables('main_map')['map_crs_description']%], [%item_variables('main_map')['map_crs']%]" id="map_coordinate_system" frameJoinStyle="miter" positionLock="false" referencePoint="0" marginY="0" htmlState="0" outlineWidthM="0.3,mm" zValue="5" itemRotation="0" blendMode="0" uuid="{7f35d234-301b-43cb-9d06-5beeafd4c22e}" groupUuid="" marginX="0" position="160.137,556.119,mm">
   <FrameColor red="0" blue="0" green="0" alpha="255" />
   <BackgroundColor red="255" blue="255" green="255" alpha="255" />
   <LayoutObject>
