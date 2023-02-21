@@ -325,10 +325,22 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             pixmap_width = thumbnail_pixmap.width()
             pixmap_height = thumbnail_pixmap.height()
 
-            target_width = pixmap_width - \
-                           (pixmap_width * THUMBNAIL_WIDTH_REDUCTION)
-            target_height = pixmap_height - \
-                            (pixmap_height * THUMBNAIL_HEIGHT_REDUCTION)
+            target_width = int(pixmap_width)
+            target_height = int(pixmap_height)
+
+            if target_width > target_height:
+                target_width = 500
+                target_height = 350
+            elif target_height > target_width:
+                target_width = 350
+                target_height = 500
+            else:
+                target_width = pixmap_width - \
+                               (pixmap_width * THUMBNAIL_WIDTH_REDUCTION)
+                target_height = pixmap_height - \
+                                (pixmap_height * THUMBNAIL_HEIGHT_REDUCTION)
+
+            log(f" Target height {target_height}, target width {target_width}")
 
             self.image_la.setPixmap(
                 thumbnail_pixmap.scaled(

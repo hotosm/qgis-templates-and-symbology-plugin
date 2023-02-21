@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>964</width>
-    <height>470</height>
+    <width>860</width>
+    <height>478</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -130,7 +130,7 @@
               <item row="4" column="0">
                <widget class="QLabel" name="label_5">
                 <property name="text">
-                 <string>HOTOSM logo</string>
+                 <string>Organization logo</string>
                 </property>
                </widget>
               </item>
@@ -295,23 +295,61 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QLabel" name="extension_la">
-         <property name="toolTip">
-          <string>Template format extension</string>
-         </property>
+        <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Template extension</string>
+          <string>Template spatial and  temporal extent</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="extension_le">
-         <property name="toolTip">
-          <string>Template format extension</string>
+        <widget class="QgsExtentGroupBox" name="spatialExtentSelector">
+         <property name="title">
+          <string>Spatial extent</string>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item>
+        <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
+         <property name="title">
+          <string>Temporal extent</string>
          </property>
+         <property name="collapsed">
+          <bool>false</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_12">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_19">
+            <item>
+             <widget class="QLabel" name="label_38">
+              <property name="text">
+               <string>From</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QgsDateTimeEdit" name="from_date_3">
+              <property name="allowNull">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_20">
+            <item>
+             <widget class="QLabel" name="label_39">
+              <property name="text">
+               <string>To</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QgsDateTimeEdit" name="to_date_3"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -341,25 +379,19 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="thumbnail_la">
+        <widget class="QLabel" name="extension_la">
          <property name="toolTip">
-          <string/>
+          <string>Template format extension</string>
          </property>
          <property name="text">
-          <string>Thumbnail</string>
+          <string>Template extension</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="thumbnail_le">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QLineEdit" name="extension_le">
          <property name="toolTip">
-          <string/>
+          <string>Template format extension</string>
          </property>
          <property name="readOnly">
           <bool>true</bool>
@@ -367,101 +399,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="license_la">
-         <property name="toolTip">
-          <string/>
-         </property>
-         <property name="text">
-          <string>License</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTextEdit" name="license_le">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="toolTip">
-          <string/>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tabExtentDialog">
-      <attribute name="title">
-       <string>Resources</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_9">
-       <item>
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Template spatial and  temporal extent</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QgsExtentGroupBox" name="spatialExtentSelector">
-         <property name="title">
-          <string>Spatial extent</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
-         <property name="title">
-          <string>Temporal extent</string>
-         </property>
-         <property name="collapsed">
-          <bool>false</bool>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_10">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_15">
-            <item>
-             <widget class="QLabel" name="label_33">
-              <property name="text">
-               <string>From</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QgsDateTimeEdit" name="from_date"/>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_16">
-            <item>
-             <widget class="QLabel" name="label_34">
-              <property name="text">
-               <string>To</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QgsDateTimeEdit" name="to_date"/>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_35">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_4">
+        <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
