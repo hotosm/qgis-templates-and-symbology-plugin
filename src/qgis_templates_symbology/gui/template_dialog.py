@@ -358,21 +358,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         try:
             download_folder = settings_manager.get_value(Settings.DOWNLOAD_FOLDER)
 
-            if notify:
-                self.show_message(
-                    tr("Download for template {} to {} has started."
-                       ).format(
-                        template.name,
-                        download_folder
-                    ),
-                    level=Qgis.Info
-                )
-                self.update_inputs(False)
-                self.show_progress(
-                    f"Downloading {url}",
-                    minimum=0,
-                    maximum=100,
-                )
             feedback = QgsProcessingFeedback()
 
             feedback.progressChanged.connect(
@@ -387,7 +372,21 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             ) if download_folder else QgsProcessing.TEMPORARY_OUTPUT
             params = {'URL': url, 'OUTPUT': output}
 
-            self.download_result["file"] = output
+            if notify:
+                self.show_message(
+                    tr("Download for template {} to {} has started."
+                       ).format(
+                        template.name,
+                        output
+                    ),
+                    level=Qgis.Info
+                )
+                self.update_inputs(False)
+                self.show_progress(
+                    f"Downloading {url}",
+                    minimum=0,
+                    maximum=100,
+                )
 
             results = processing.run(
                 "qgis:filedownloader",
@@ -396,6 +395,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             )
 
             if results:
+                self.download_result['file'] = results['OUTPUT']
                 log(tr(f"Finished downloading file to {self.download_result['file']}"))
                 if notify:
                     self.show_message(
@@ -405,7 +405,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                     )
 
                 self.template.downloaded = True
-                self.template.download_path = self.download_result['file']
+                self.template.download_path = results['OUTPUT']
 
                 if add_layout:
                     self.add_layout()
@@ -476,50 +476,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             self.show_message(f"Problem fetching content via network, {reply.errorString()}")
             log(tr("Problem fetching response from network"))
 
-    def download_project(self, load=False):
-        """ Downloads project"""
-
-        if not settings_manager.get_value(Settings.DOWNLOAD_FOLDER):
-            self.show_message(
-                tr("Set the download folder "
-                   "first in the plugin settings tab!"
-                   ),
-                level=Qgis.Warning
-            )
-            return
-
-        project_name = self.template.properties.directory.replace("-templates", '')
-        project_name = project_name.replace('-', '_')
-
-        profile = settings_manager.get_current_profile()
-        profile_url = profile.path
-
-        url = f"{profile_url}/templates/" \
-              f"{self.template.properties.directory}/" \
-              f"{project_name}.gpkg"
-
-        load = settings_manager.get_value(
-            Settings.AUTO_PROJECT_LOAD,
-            False,
-            setting_type=bool
-        )
-
-        try:
-            download_task = QgsTask.fromFunction(
-                'Download project function',
-                self.download_project_file(url, f"{project_name}.gpkg", load)
-            )
-            QgsApplication.taskManager().addTask(download_task)
-
-        except Exception as err:
-            self.update_inputs(True)
-            self.show_message("Problem running task for downloading project")
-            log(tr("An error occured when running task for"
-                   " downloading {}, error message \"{}\" ").format(
-                project_name,
-                err)
-            )
-
     def download_template(
             self,
             template=None,
@@ -527,15 +483,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             prepare_layout=False,
             notify=True
     ):
-        if not settings_manager.get_value(Settings.DOWNLOAD_FOLDER):
-            self.show_message(
-                tr("Set the download folder "
-                   "first in the plugin settings tab!"
-                   ),
-                level=Qgis.Warning
-            )
-            return
-
         profile = settings_manager.get_current_profile()
         repo_url = profile.path
 
@@ -695,8 +642,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
 
             designer = iface.openLayoutDesigner(layout)
 
-            map_scale_bar.setUnits(QgsUnitTypes.DistanceFeet)
-
             self.show_message(
                 tr(f"Layout {layout_name} has been added."),
                 level=Qgis.Info
@@ -738,9 +683,9 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         if value == 100:
             self.update_inputs(True)
             self.show_message(
-                tr("Download for file {} has finished."
+                tr("Download for template {} file has finished."
                    ).format(
-                    self.download_result["file"]
+                    self.template.name
                 ),
                 level=Qgis.Info
             )
