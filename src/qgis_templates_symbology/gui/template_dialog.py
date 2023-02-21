@@ -661,7 +661,11 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             manager.addLayout(layout)
 
             # Make sure the map items stay on the original page size
+            # and the scale bar is always in line with the main map
             page_collection = layout.pageCollection()
+
+            map_scale_bar.setUnits(QgsUnitTypes.DistanceKilometers)
+            map_scale_bar.refresh()
 
             scale_width = map_scale_bar.sizeWithUnits().width()
             position = map_scale_bar.positionWithUnits().x()
@@ -672,6 +676,9 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             scale_loc = scale_width + position
             map_loc = map_scale_width + map_position
 
+            # if scale bar is not inline with the main map
+            # we are changing its width, hence resizing page content will
+            # make every layout item to fall within the page size.
             if (scale_loc > (map_loc + 5)):
                 scale_target_width = map_loc - position \
                     if map_loc > position else None
