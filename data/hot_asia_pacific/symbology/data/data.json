@@ -83,13 +83,13 @@
     },
 	{
         "id": "0859f028-972f-4823-8f9e-0a1074378fde",
-        "name": "broken_roads",
+        "name": "broken_road",
         "title": "",
         "description": "style for broken roads",
         "directory": "styles",
-        "type": "broken_roads",
+        "type": "broken_road",
         "extension": "xml",
-        "thumbnail": "broken_roads.png"
+        "thumbnail": "broken_road.png"
         }
   ]
 }

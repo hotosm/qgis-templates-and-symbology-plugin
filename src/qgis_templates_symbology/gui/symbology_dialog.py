@@ -6,6 +6,7 @@
 
 import os
 import shutil
+from pathlib import Path
 from qgis.PyQt import QtCore, QtGui, QtWidgets, QtNetwork
 
 from qgis import processing
@@ -18,11 +19,11 @@ from qgis.core import (
     QgsProcessing,
     QgsProcessingFeedback,
     QgsRectangle,
+    QgsStyle,
     QgsTask
 )
 
 from qgis.gui import QgsMessageBar
-
 from qgis.PyQt.uic import loadUiType
 
 from ..conf import settings_manager, Settings
@@ -34,7 +35,7 @@ DialogUi, _ = loadUiType(
     os.path.join(os.path.dirname(__file__), "../ui/symbology_dialog.ui")
 )
 
-from ..constants import REPO_URL
+from ..constants import REPO_URL, ICON_EXTENSION
 
 
 class SymbologyDialog(QtWidgets.QDialog, DialogUi):
@@ -65,31 +66,95 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
         self.download_symbology_btn.clicked.connect(self.download_symbology)
         self.download_result = {}
 
-        self.add_to_qgis_btn.clicked.connect(self.add_to_icons_path)
+        self.add_to_qgis_btn.clicked.connect(self.add_symbology)
 
-    def add_to_icons_path(self):
+    def add_symbology(self):
         if self.symbology.downloaded:
-            path = self.symbology.download_path
-
-            try:
-                directory = os.path.dirname(path)
-                filename = os.path.basename(path)
-
-                icon_path = os.path.join(directory, filename)
-                second_icon_path = os.path.join(icon_path, filename)
-
-                shutil.unpack_archive(path, directory)
-
-                svg_paths = QgsApplication.svgPaths()
-                svg_paths.append(icon_path)
-                svg_paths.append(second_icon_path)
-                QgsApplication.setSvgPaths(svg_paths)
-
-            except Exception as e:
-                log(f"Problem adding icons to QGIS, {e}")
+            if self.symbology.properties.template_type == 'library':
+                self.add_to_icons_path()
+            elif self.symbology.properties.extension == 'xml':
+                self.add_style_to_manager()
         else:
             self.download_symbology(add_symbology=True)
             return
+
+    def add_to_icons_path(self):
+        path = self.symbology.download_path
+
+        try:
+            directory = os.path.dirname(path)
+            filename = Path(path).stem
+
+            shutil.unpack_archive(path, directory)
+
+            icon_path = os.path.join(directory, filename)
+            second_icon_path = os.path.join(icon_path, filename)
+
+            svg_paths = QgsApplication.svgPaths()
+            message = None
+
+            if self.check_file_exists(
+                    icon_path,
+                    ICON_EXTENSION
+            ):
+                if icon_path not in svg_paths:
+                    svg_paths.append(icon_path)
+                    message = f" Added {icon_path} " \
+                              f"into the QGIS symbol library path"
+                else:
+                    message = f" Path {icon_path} " \
+                              f"already exists in the " \
+                              f"QGIS symbol library path"
+
+            if self.check_file_exists(
+                    second_icon_path,
+                    ICON_EXTENSION
+            ):
+                if second_icon_path not in svg_paths:
+                    svg_paths.append(second_icon_path)
+                    message = f" Added {second_icon_path} " \
+                              f"into the QGIS symbol library path"
+                else:
+                    message = f" Path {second_icon_path} " \
+                              f"already exists in the " \
+                              f"QGIS symbol library path"
+
+            QgsApplication.setSvgPaths(svg_paths)
+            self.show_message(message, level=Qgis.Info) if message else None
+
+        except Exception as e:
+            log(f"Problem adding icons to QGIS, error {e}")
+
+    def add_style_to_manager(self):
+        try:
+            path = self.symbology.download_path
+            extension = os.path.splitext(path)[1]
+
+            if extension == '.xml':
+                qstyles = QgsStyle.defaultStyle()
+                qstyles.importXml(path)
+
+                self.show_message(
+                    f" Added style {path} "
+                    f"into the QGIS symbology",
+                    level=Qgis.Info
+                )
+            else:
+                raise NotImplementedError
+
+        except Exception as e:
+            log(f"Problem adding style into QGIS, error {e}")
+
+    def check_file_exists(self, path, extension):
+        """
+        Checks if path contains files with the passed extension.
+        """
+        if not os.path.isdir(path):
+            return False
+        for icon_file_name in os.listdir(path):
+            if icon_file_name.endswith(extension):
+                return True
+        return False
 
     def populate_properties(self, symbology):
         """ Populates the symbology dialog widgets with the
@@ -106,8 +171,12 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
             self.extension_le.setText(symbology.properties.extension)
             self.symbology_type_le.setText(symbology.properties.template_type)
 
-            if symbology.properties.template_type != 'library':
-                self.add_to_qgis_btn.setEnabled(False)
+            self.add_to_qgis_btn.setEnabled(False)
+
+            if (symbology.properties.template_type == 'library'
+                and symbology.properties.extension == 'zip') or \
+                    symbology.properties.extension == 'xml':
+                self.add_to_qgis_btn.setEnabled(True)
 
             if symbology.license:
                 self.license_le.setText(symbology.license)
@@ -316,9 +385,8 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
                 symbology.downloaded = True
                 symbology.download_path = self.download_result['file']
 
-                if add_symbology and \
-                    symbology.properties.template_type == 'library':
-                    self.add_to_icons_path()
+                if add_symbology:
+                    self.add_symbology()
 
         except Exception as e:
             self.update_inputs(True)

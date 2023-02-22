@@ -617,9 +617,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             # and the scale bar is always in line with the main map
             page_collection = layout.pageCollection()
 
-            map_scale_bar.setUnits(QgsUnitTypes.DistanceKilometers)
-            map_scale_bar.refresh()
-
             scale_width = map_scale_bar.sizeWithUnits().width()
             position = map_scale_bar.positionWithUnits().x()
 
@@ -639,6 +636,9 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 size_sc.setWidth(scale_target_width)
                 map_scale_bar.setFixedSize(size_sc)
                 map_scale_bar.refreshItemSize()
+
+            map_scale_bar.setUnits(QgsUnitTypes.DistanceKilometers)
+            map_scale_bar.refresh()
 
             page_collection.resizeToContents(
                 QgsMargins(0, 0, 0, 0),
