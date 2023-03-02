@@ -74,6 +74,8 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
                 self.add_to_icons_path()
             elif self.symbology.properties.extension == 'xml':
                 self.add_style_to_manager()
+            elif self.symbology.properties.template_type == 'font':
+                self.add_fonts()
         else:
             self.download_symbology(add_symbology=True)
             return
@@ -145,6 +147,29 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
         except Exception as e:
             log(f"Problem adding style into QGIS, error {e}")
 
+    def add_fonts(self):
+        try:
+            path = self.symbology.download_path
+
+            directory = os.path.dirname(path)
+            filename = Path(path).stem
+
+            icon_path = os.path.join(directory, filename)
+
+            shutil.unpack_archive(path, icon_path)
+
+            if os.path.isdir(icon_path):
+                font_manager = QgsApplication.fontManager()
+                font_manager.addUserFontDirectory(icon_path)
+
+                self.show_message(
+                    f" Added fonts {icon_path} "
+                    f"into the QGIS font user directory list",
+                    level=Qgis.Info
+                )
+        except Exception as e:
+            log(f"Problem adding fonts into QGIS, error {e}")
+
     def check_file_exists(self, path, extension):
         """
         Checks if path contains files with the passed extension.
@@ -175,7 +200,9 @@ class SymbologyDialog(QtWidgets.QDialog, DialogUi):
 
             if (symbology.properties.template_type == 'library'
                 and symbology.properties.extension == 'zip') or \
-                    symbology.properties.extension == 'xml':
+                    symbology.properties.extension == 'xml' or (
+                symbology.properties.template_type == 'font'
+            ):
                 self.add_to_qgis_btn.setEnabled(True)
 
             if symbology.license:

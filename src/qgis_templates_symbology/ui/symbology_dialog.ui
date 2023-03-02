@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>962</width>
-    <height>482</height>
+    <width>756</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -115,7 +115,7 @@
          <item>
           <widget class="QPushButton" name="download_symbology_btn">
            <property name="toolTip">
-            <string>Download the associate project for this template</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Download the symbology files into the filesystem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Download symbology</string>
@@ -125,7 +125,7 @@
          <item>
           <widget class="QPushButton" name="add_to_qgis_btn">
            <property name="toolTip">
-            <string>Add symbology into QGIS styles, applicable for icons only.</string>
+            <string>Add symbology into QGIS styles, applicable for all symbology except sld styles.</string>
            </property>
            <property name="text">
             <string>Add to QGIS</string>
