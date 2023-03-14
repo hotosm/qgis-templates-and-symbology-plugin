@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>860</width>
-    <height>478</height>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,13 +66,17 @@
               <string>Adjust layout properties</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
-              <item row="2" column="0">
-               <widget class="QLabel" name="description_la">
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="template_subheading">
                 <property name="toolTip">
-                 <string>When set it changes the layout narrative</string>
+                 <string>Set the layout sub heading</string>
                 </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_6">
                 <property name="text">
-                 <string>Description</string>
+                 <string>Partner logo</string>
                 </property>
                </widget>
               </item>
@@ -83,12 +87,48 @@
                 </property>
                </widget>
               </item>
-              <item row="5" column="0">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Partner logo</string>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="template_title">
+                <property name="toolTip">
+                 <string>Set the layout heading</string>
                 </property>
                </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_2">
+                <property name="toolTip">
+                 <string>Set the layout heading</string>
+                </property>
+                <property name="text">
+                 <string>Heading</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QgsFileWidget" name="hot_logo_path"/>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label">
+                <property name="toolTip">
+                 <string>Select the hub logo to use in the template. Logo can be from local or remote location(using http).</string>
+                </property>
+                <property name="text">
+                 <string>Hub logo</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="description_la">
+                <property name="toolTip">
+                 <string>When set it changes the layout narrative</string>
+                </property>
+                <property name="text">
+                 <string>Description</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QgsFileWidget" name="partner_logo_path"/>
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="label_4">
@@ -100,7 +140,7 @@
                 </property>
                </widget>
               </item>
-              <item row="6" column="1">
+              <item row="7" column="1">
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
                  <spacer name="horizontalSpacer_3">
@@ -134,46 +174,6 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="template_title">
-                <property name="toolTip">
-                 <string>Set the layout heading</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="QgsFileWidget" name="hot_logo_path"/>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_2">
-                <property name="toolTip">
-                 <string>Set the layout heading</string>
-                </property>
-                <property name="text">
-                 <string>Heading</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label">
-                <property name="toolTip">
-                 <string>Select the hub logo to use in the template. Logo can be from local or remote location(using http).</string>
-                </property>
-                <property name="text">
-                 <string>Hub logo</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="1">
-               <widget class="QgsFileWidget" name="partner_logo_path"/>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="template_subheading">
-                <property name="toolTip">
-                 <string>Set the layout sub heading</string>
-                </property>
-               </widget>
-              </item>
               <item row="2" column="1">
                <widget class="QTextEdit" name="template_narrative">
                 <property name="sizePolicy">
@@ -189,6 +189,16 @@
                  <bool>false</bool>
                 </property>
                </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>Inset map layer</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QgsMapLayerComboBox" name="map_layers"/>
               </item>
              </layout>
             </widget>
@@ -439,6 +449,11 @@
    <class>QgsFileWidget</class>
    <extends>QWidget</extends>
    <header>qgsfilewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsMapLayerComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsmaplayercombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

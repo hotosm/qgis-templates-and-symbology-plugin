@@ -609,7 +609,26 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 layout_map.zoomToExtent(iface.mapCanvas().extent())
 
             crs = QgsCoordinateReferenceSystem('EPSG:4326')
+            selected_layer = self.map_layers.currentLayer()
+
+            log(tr(f"Selected layer {selected_layer}"))
+            print(f"Selected layer {selected_layer}")
+
+            if selected_layer is not None:
+                inset_map.setLayers([selected_layer])
+                inset_map.setKeepLayerSet(True)
+                inset_map.refresh()
+
+                log(f"Inset map layers {inset_map.layers()}")
+                print(f"Inset map layers {inset_map.layers()}")
+                log(f"Inset map setKeep {inset_map.keepLayerSet()}")
+                print(f"Inset map setKeep {inset_map.keepLayerSet()}")
+
             inset_map.setCrs(crs)
+            inset_map.refresh()
+
+            copy_inset = inset_map
+            layout.addLayoutItem(copy_inset)
 
             manager.addLayout(layout)
 
