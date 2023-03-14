@@ -34,6 +34,7 @@ from qgis.core import (
     QgsRectangle,
     QgsScaleBarSettings,
     QgsTask,
+    QgsTextFormat,
     QgsUnitTypes
 )
 
@@ -608,27 +609,20 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             if layout_map is not None:
                 layout_map.zoomToExtent(iface.mapCanvas().extent())
 
-            crs = QgsCoordinateReferenceSystem('EPSG:4326')
             selected_layer = self.map_layers.currentLayer()
 
-            log(tr(f"Selected layer {selected_layer}"))
-            print(f"Selected layer {selected_layer}")
+            if inset_map is not None:
+                inset_map.setMapRotation(0)
+                if selected_layer is not None:
+                    inset_map.setLayers([selected_layer])
+                    inset_map.zoomToExtent(selected_layer.extent())
 
-            if selected_layer is not None:
-                inset_map.setLayers([selected_layer])
-                inset_map.setKeepLayerSet(True)
-                inset_map.refresh()
+                    inset_map.setKeepLayerSet(True)
 
-                log(f"Inset map layers {inset_map.layers()}")
-                print(f"Inset map layers {inset_map.layers()}")
-                log(f"Inset map setKeep {inset_map.keepLayerSet()}")
-                print(f"Inset map setKeep {inset_map.keepLayerSet()}")
+                    if inset_map.followVisibilityPreset():
+                        inset_map.setFollowVisibilityPreset(False)
 
-            inset_map.setCrs(crs)
-            inset_map.refresh()
-
-            copy_inset = inset_map
-            layout.addLayoutItem(copy_inset)
+                    inset_map.refresh()
 
             manager.addLayout(layout)
 
@@ -636,27 +630,33 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             # and the scale bar is always in line with the main map
             page_collection = layout.pageCollection()
 
-            scale_width = map_scale_bar.sizeWithUnits().width()
-            position = map_scale_bar.positionWithUnits().x()
+            # scale_width = map_scale_bar.sizeWithUnits().width()
+            # position = map_scale_bar.positionWithUnits().x()
+            #
+            # map_scale_width = layout_map.sizeWithUnits().width()
+            # map_position = layout_map.positionWithUnits().x()
+            #
+            # scale_loc = scale_width + position
+            # map_loc = map_scale_width + map_position
+            #
+            # # if scale bar is not inline with the main map
+            # # we are changing its width, hence resizing page content will
+            # # make every layout item to fall within the page size.
+            # if (scale_loc > (map_loc + 5)):
+            #     scale_target_width = map_loc - position \
+            #         if map_loc > position else None
+            #     size_sc = map_scale_bar.sizeWithUnits()
+            #     size_sc.setWidth(scale_target_width)
+            #     map_scale_bar.setFixedSize(size_sc)
+            #     map_scale_bar.refreshItemSize()
 
-            map_scale_width = layout_map.sizeWithUnits().width()
-            map_position = layout_map.positionWithUnits().x()
-
-            scale_loc = scale_width + position
-            map_loc = map_scale_width + map_position
-
-            # if scale bar is not inline with the main map
-            # we are changing its width, hence resizing page content will
-            # make every layout item to fall within the page size.
-            if (scale_loc > (map_loc + 5)):
-                scale_target_width = map_loc - position \
-                    if map_loc > position else None
-                size_sc = map_scale_bar.sizeWithUnits()
-                size_sc.setWidth(scale_target_width)
-                map_scale_bar.setFixedSize(size_sc)
-                map_scale_bar.refreshItemSize()
-
-            map_scale_bar.setUnits(QgsUnitTypes.DistanceKilometers)
+            map_scale_bar.setSegmentSizeMode(QgsScaleBarSettings.SegmentSizeFitWidth)
+            map_scale_bar.setMinimumBarWidth(50)
+            map_scale_bar.setMaximumBarWidth(70)
+            map_scale_bar.setHeight(3)
+            text_format = QgsTextFormat()
+            text_format.setSize(20)
+            map_scale_bar.setTextFormat(text_format)
             map_scale_bar.refresh()
 
             page_collection.resizeToContents(

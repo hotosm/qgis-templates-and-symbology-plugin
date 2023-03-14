@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>860</width>
-    <height>480</height>
+    <height>501</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -83,7 +83,7 @@
               <item row="3" column="1">
                <widget class="QgsFileWidget" name="logo_path">
                 <property name="toolTip">
-                 <string>Select the hub logo to use in the template. Logo can be from local or remote location(using http).</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select another image to replace the default hub logo in the template, image link can also be used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -105,7 +105,11 @@
                </widget>
               </item>
               <item row="4" column="1">
-               <widget class="QgsFileWidget" name="hot_logo_path"/>
+               <widget class="QgsFileWidget" name="hot_logo_path">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select another image to replace the default organization logo in the template, image link can also be used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
               <item row="3" column="0">
                <widget class="QLabel" name="label">
@@ -128,7 +132,11 @@
                </widget>
               </item>
               <item row="5" column="1">
-               <widget class="QgsFileWidget" name="partner_logo_path"/>
+               <widget class="QgsFileWidget" name="partner_logo_path">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select another image to replace the default partner logo in the template, image link can also be used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="label_4">
@@ -192,13 +200,20 @@
               </item>
               <item row="6" column="0">
                <widget class="QLabel" name="label_7">
+                <property name="toolTip">
+                 <string>Select layer that will used and shown in the inset map.</string>
+                </property>
                 <property name="text">
                  <string>Inset map layer</string>
                 </property>
                </widget>
               </item>
               <item row="6" column="1">
-               <widget class="QgsMapLayerComboBox" name="map_layers"/>
+               <widget class="QgsMapLayerComboBox" name="map_layers">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select layer that will used and shown in the inset map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
