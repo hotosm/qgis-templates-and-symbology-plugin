@@ -2,164 +2,84 @@
   "templates": [
     {
         "id": "12c8914a-36e1-4fc3-bf59-efe8ad21026f",
-        "name": "text_heavy_landscapea4_latinamerica",
-        "title": "text heavy landscape A4 latinamerica",
-        "description": "text heavy landscape A4 latinamerica",
-        "directory": "text-heavy-map-template_landscape",
+        "name": "textheavy_landscapea1_latin_america_and_caribbean_hub",
+        "title": "Latin America and Caribbean Hub A1 Landscape",
+        "description": "Latin America and Caribbean Hub A1 Landscape",
+        "directory": "text-heavy-landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "text_heavy_landscapea4_latinamerica.png"
+        "thumbnail": "textheavy_landscapea1_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "78c9e02a-c835-441a-87ee-376220599dd9",
-        "name": "textheavy_landscapea1_latinamerica",
-        "title": "text heavy landscape A1 latinamerica",
-        "description": "text heavy landscape A1 latinamerica",
-        "directory": "text-heavy-map-template_landscape",
+       "name": "textheavy_landscapea2_latin_america_and_caribbean_hub",
+        "title": "Latin America and Caribbean Hub A2 Landscape",
+        "description": "Latin America and Caribbean Hub A2 Landscape",
+        "directory": "text-heavy-landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea1_latinamerica.png"
+        "thumbnail": "textheavy_landscapea2_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "5ae80989-f504-4336-b43f-4967232e6d8d",
-        "name": "textheavy_landscapea2_latinamerica",
-        "title": "text heavy landscape A2 latinamerica",
-        "description": "text heavy landscape A2 latinamerica",
-        "directory": "text-heavy-map-template_landscape",
+     "name": "textheavy_landscapea3_latin_america_and_caribbean_hub",
+        "title": "Latin America and Caribbean Hub A3 Landscape",
+        "description": "Latin America and Caribbean Hub A3 Landscape",
+        "directory": "text-heavy-landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea2_latinamerica.png"
+        "thumbnail": "textheavy_landscapea3_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "96e3cf0d-7323-488a-97bd-a7820a69c7f7",
-       "name": "textheavy_landscapea3_latinamerica",
-        "title": "text heavy landscape A3 latinamerica",
-        "description": "text heavy landscape A3 latinamerica",
-        "directory": "text-heavy-map-template_landscape",
+       "name": "textheavy_landscapea4_latin_america_and_caribbean_hub",
+        "title": "Latin America and Caribbean Hub A4 Landscape",
+        "description": "Latin America and Caribbean Hub A4 Landscape",
+        "directory": "text-heavy-landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea3_latinamerica.png",
-        "thumbnail": "textheavy_landscapea3_latin america.png"
+        "thumbnail": "textheavy_landscapea4_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "f1ec91ff-8076-4b87-a2eb-46280828e105",
-        "name": "textheavy_portraita1_latinamerica",
-        "title": "text heavy portrait A1 latinamerica",
-        "description": "text heavy portrait A1 latinamerica",
-        "directory": "text-heavy-map-template_portrait",
-        "type": "portrait",
+         "name": "textheavy_landscapea1_latin_america_and_caribbean_hub",
+        "title": "Latin America and Caribbean Hub A1 Portrait",
+        "description": "Latin America and Caribbean Hub A1 Portrait",
+        "directory": "text-heavy-portrait",
+        "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_portraita1_latinamerica.png"
+        "thumbnail": "textheavy_landscapea1_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "b3d613fd-ca1f-405e-9dce-ec5902a959d9",
-       "name": "textheavy_portraita2_latinamerica",
-        "title": "text heavy portrait A2 latinamerica",
-        "description": "text heavy portrait A2 latinamerica",
-        "directory": "text-heavy-map-template_portrait",
-        "type": "portrait",
+        "name": "textheavy_landscapea2_latin_america_and_caribbean_hub",
+        "title": "Latin America and Caribbean Hub A2 Portrait",
+        "description": "Latin America and Caribbean Hub A2 Portrait",
+        "directory": "text-heavy-portrait",
+        "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_portraita2_latinamerica.png"
+        "thumbnail": "textheavy_landscapea2_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "884fd672-df03-4530-a2bb-27d6982f853b",
-         "name": "textheavy_portraita3_latinamerica",
-        "title": "text heavy portrait A3 latinamerica",
-        "description": "text heavy portrait A3 latinamerica",
-        "directory": "text-heavy-map-template_portrait",
-        "type": "portrait",
+        "name": "textheavy_landscapea3_latin_america_and_caribbean_hub",
+        "title": "Latin America and Caribbean Hub A3 Portrait",
+        "description": "Latin America and Caribbean Hub A3 Portrait",
+        "directory": "text-heavy-portrait",
+        "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_portraita3_latinamerica.png"
+        "thumbnail": "textheavy_landscapea3_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "9d984808-31e9-4cb7-ae17-1a583a9eae6b",
-        "name": "textheavy_portraita4_latinamerica",
-        "title": "text heavy portrait A4 latinamerica",
-        "description": "text heavy portrait A4 latinamerica",
-        "directory": "text-heavy-map-template_portrait",
-        "type": "portrait",
-        "extension": "qpt",
-        "thumbnail": "textheavy_portraita4_latinamerica.png"
-    },
-    {
-        "id": "bf04db45-236d-4683-a2f9-cff93aca015f",
-        "name": "thematic_landscapea1_latinamerica",
-        "title": "thematic landscape A1 latinamerica",
-        "description": "thematic landscape A1 latinamerica",
-        "directory": "thematic-map-template_landscape",
+         "name": "textheavy_landscapea4_latin_america_and_caribbean_hub",
+        "title": "Latin America and Caribbean Hub A4 Portrait",
+        "description": "Latin America and Caribbean Hub A4 Portrait",
+        "directory": "text-heavy-portrait",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "thematic_landscapea1_latinamerica.png"
-    },
-    {
-        "id": "289e74e9-fc51-4687-8853-7a81a0541480",
-        "name": "thematic_landscapea2_latinamerica",
-        "title": "thematic landscape A2 latinamerica",
-        "description": "thematic landscape A2 latinamerica",
-        "directory": "thematic-map-template_landscape",
-        "type": "landscape",
-        "extension": "qpt",
-        "thumbnail": "thematic_landscapea2_latinamerica.png"
-    },
-    {
-        "id": "92d076c0-3100-4aa7-b253-517a6a7a1c13",
-        "name": "thematic_landscapea3_latinamerica",
-        "title": "thematic landscape A3 latinamerica",
-        "description": "thematic landscape A3 latinamerica",
-        "directory": "thematic-map-template_landscape",
-        "type": "landscape",
-        "extension": "qpt",
-        "thumbnail": "thematic_landscapea3_latinamerica.png"
-    },
-    {
-        "id": "da9f98b6-067a-48e3-9bb4-17daa2c1543f",
-        "name": "thematic_landscapea4_latinamerica",
-        "title": "thematic landscape A4 latinamerica",
-        "description": "thematic landscape A4 latinamerica",
-        "directory": "thematic-map-template_landscape",
-        "type": "landscape",
-        "extension": "qpt",
-        "thumbnail": "thematic_landscapea4_latinamerica.png"
-    },
-    {
-        "id": "08948da2-12bc-44e7-909a-e907670fafcd",
-        "name": "thematic_portraita1_latinamerica",
-        "title": "thematic portrait A1 latinamerica",
-        "description": "thematic portrait A1 latinamerica",
-        "directory": "thematic-map-template_portrait",
-        "type": "portrait",
-        "extension": "qpt",
-        "thumbnail": "thematic_portraita1_latinamerica.png"
-    },
-    {
-        "id": "1de3abf8-6aab-44cb-bd53-c95710ee21ba",
-        "name": "thematic_portraita2_latinamerica",
-        "title": "thematic portrait A2 latinamerica",
-        "description": "thematic portrait A2 latinamerica",
-        "directory": "thematic-map-template_portrait",
-        "type": "portrait",
-        "extension": "qpt",
-        "thumbnail": "thematic_portraita2_latinamerica.png"
-    },
-    {
-        "id": "d50b8686-d0cb-4436-b91d-2c25e1ac7be1",
-       "name": "thematic_portraita3_latinamerica",
-        "title": "thematic portrait A3 latinamerica",
-        "description": "thematic portrait A3 latinamerica",
-        "directory": "thematic-map-template_portrait",
-        "type": "portrait",
-        "extension": "qpt",
-        "thumbnail": "thematic_portraita3_latinamerica.png"
-    },
-    {
-      "id": "968dfc76-9c56-4ab4-8439-97426c02e63b",
-      "name": "thematic_portraita4_latinamerica",
-      "title": "thematic portrait A4 latinamerica",
-      "description": "thematic portrait A4 latinamerica",
-      "directory": "thematic-map-template_portrait",
-      "type": "portrait",
-      "extension": "qpt",
-      "thumbnail": "thematic_portraita4_latinamerica.png"
+        "thumbnail": "textheavy_landscapea4_latin_america_and_caribbean_hub.png"
+    
     }
   ]
 }
