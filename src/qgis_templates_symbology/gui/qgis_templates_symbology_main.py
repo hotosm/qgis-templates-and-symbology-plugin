@@ -40,7 +40,7 @@ WidgetUi, _ = loadUiType(
 )
 
 
-class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
+class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
     """ Main plugin UI"""
 
     def __init__(
@@ -448,7 +448,7 @@ class QgisTemplatesSymbologyMain(QtWidgets.QMainWindow, WidgetUi):
             0, 0, 1, 1,
             alignment=QtCore.Qt.AlignTop
         )
-        self.central_widget.layout().insertLayout(0, self.grid_layout)
+        self.layout().insertLayout(0, self.grid_layout)
 
     def fetch_templates(self, url=None):
         profile = settings_manager.get_current_profile()

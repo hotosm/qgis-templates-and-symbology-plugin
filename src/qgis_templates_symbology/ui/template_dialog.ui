@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>860</width>
-    <height>501</height>
+    <width>986</width>
+    <height>503</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,34 +66,6 @@
               <string>Adjust layout properties</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="template_subheading">
-                <property name="toolTip">
-                 <string>Set the layout sub heading</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Partner logo</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QgsFileWidget" name="logo_path">
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select another image to replace the default hub logo in the template, image link can also be used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="template_title">
-                <property name="toolTip">
-                 <string>Set the layout heading</string>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="0">
                <widget class="QLabel" name="label_2">
                 <property name="toolTip">
@@ -104,20 +76,27 @@
                 </property>
                </widget>
               </item>
-              <item row="4" column="1">
-               <widget class="QgsFileWidget" name="hot_logo_path">
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="template_title">
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select another image to replace the default organization logo in the template, image link can also be used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>Set the layout heading</string>
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label">
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_4">
                 <property name="toolTip">
-                 <string>Select the hub logo to use in the template. Logo can be from local or remote location(using http).</string>
+                 <string>Set the layout sub heading</string>
                 </property>
                 <property name="text">
-                 <string>Hub logo</string>
+                 <string>Sub-heading</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="template_subheading">
+                <property name="toolTip">
+                 <string>Set the layout sub heading</string>
                 </property>
                </widget>
               </item>
@@ -131,6 +110,60 @@
                 </property>
                </widget>
               </item>
+              <item row="2" column="1">
+               <widget class="QTextEdit" name="template_narrative">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>When set it changes the layout narrative</string>
+                </property>
+                <property name="readOnly">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label">
+                <property name="toolTip">
+                 <string>Select the hub logo to use in the template. Logo can be from local or remote location(using http).</string>
+                </property>
+                <property name="text">
+                 <string>Hub logo</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QgsFileWidget" name="logo_path">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select another image to replace the default hub logo in the template, image link can also be used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Organization logo</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QgsFileWidget" name="hot_logo_path">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select another image to replace the default organization logo in the template, image link can also be used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>Partner logo</string>
+                </property>
+               </widget>
+              </item>
               <item row="5" column="1">
                <widget class="QgsFileWidget" name="partner_logo_path">
                 <property name="toolTip">
@@ -138,15 +171,36 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_4">
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_7">
                 <property name="toolTip">
-                 <string>Set the layout sub heading</string>
+                 <string>Select layer that will used and shown in the inset map.</string>
                 </property>
                 <property name="text">
-                 <string>Sub-heading</string>
+                 <string>Inset map layers</string>
                 </property>
                </widget>
+              </item>
+              <item row="6" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QLineEdit" name="selected_layers_le">
+                  <property name="toolTip">
+                   <string>List of the selected layers, it will be empty if no layers having been selected.</string>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="select_layers_btn">
+                  <property name="text">
+                   <string>...</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item row="7" column="1">
                <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -174,46 +228,6 @@
                  </widget>
                 </item>
                </layout>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Organization logo</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QTextEdit" name="template_narrative">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>When set it changes the layout narrative</string>
-                </property>
-                <property name="readOnly">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
-               <widget class="QLabel" name="label_7">
-                <property name="toolTip">
-                 <string>Select layer that will used and shown in the inset map.</string>
-                </property>
-                <property name="text">
-                 <string>Inset map layer</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="1">
-               <widget class="QgsMapLayerComboBox" name="map_layers">
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select layer that will used and shown in the inset map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
               </item>
              </layout>
             </widget>
@@ -464,11 +478,6 @@
    <class>QgsFileWidget</class>
    <extends>QWidget</extends>
    <header>qgsfilewidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QgsMapLayerComboBox</class>
-   <extends>QComboBox</extends>
-   <header>qgsmaplayercombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

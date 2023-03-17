@@ -14,7 +14,7 @@
     {
       "id": "273a4fb8-6f59-4667-991d-6ff88b185613",
       "name": "hot_asia_pacific",
-      "title": "HOT Asia Pacific Region",
+      "title": "Asia Pacific Hub",
       "description": "" ,
       "modified": "",
       "templates_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_asia_pacific/templates",
@@ -25,7 +25,7 @@
     {
       "id": "d3d59021-5ae0-45ad-8c38-e9646459fbae",
       "name": "hot_es_africa",
-      "title": "HOT Africa Region",
+      "title": "Eastern & Southern Africa Hub",
       "description": "" ,
       "modified": "",
       "templates_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_es_africa/templates",
@@ -37,7 +37,7 @@
     {
       "id": "40722730-a5cf-41f6-9849-9442547c8ee9",
       "name": "hot_latin_america",
-      "title": "HOT Latin America hub",
+      "title": "Latin America & Caribbean Hub",
       "description": "" ,
       "modified": "",
       "templates_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_latin_america/templates",
@@ -49,7 +49,7 @@
     {
       "id": "b08bdb2f-876f-4da2-b5a3-fb8f39ddf0b9",
       "name": "hot_wn_africa",
-      "title": "HOT West North Africa hub",
+      "title": "West & Northern Africa Hub",
       "description": "" ,
       "modified": "",
       "templates_url": "https://raw.githubusercontent.com/hotosm/qgis-templates-and-symbology-plugin/master/data/hot_wn_africa/templates",

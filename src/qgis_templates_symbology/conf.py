@@ -529,6 +529,7 @@ class SettingsManager(QtCore.QObject):
             settings.setValue("hub_logo", custom_properties.get('hub_logo'))
             settings.setValue("hot_logo", custom_properties.get('hot_log'))
             settings.setValue("partner_logo", custom_properties.get('partner_logo'))
+            settings.setValue("layer_names", custom_properties.get('layer_names'))
 
     def save_symbology_properties(self, properties, symbology_id, profile_id):
         symbology_key = self._get_symbology_settings_base(profile_id, symbology_id)
@@ -553,6 +554,7 @@ class SettingsManager(QtCore.QObject):
             result['hub_logo'] = prop_settings.value("hub_logo", None)
             result['hot_logo'] = prop_settings.value("hot_logo", None)
             result['partner_logo'] = prop_settings.value("partner_logo", None)
+            result['layer_names'] = prop_settings.value("layer_names", None)
         return result
 
     def save_template(self, profile, template_settings):

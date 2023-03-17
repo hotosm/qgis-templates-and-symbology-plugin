@@ -1,6 +1,6 @@
 {
   "general": {
-    "name" : "QGIS Templates and Symbology Manager",
+    "name" : "HOT Templates and Symbology Manager",
     "qgisMinimumVersion": 3.0,
     "qgisMaximumVersion": 3.99,
     "icon": "icon.png",
@@ -12,10 +12,10 @@
     "tags": ["maps", "templates", "symbology", "styles"],
     "category": ["plugins"],
     "hasProcessingProvider": "no",
-    "about": "Provides functionality to manage QGIS map templates and symbology, Sponsored by HOT",
+    "about": "Provides functionality to manage the HOT map templates and symbology.",
     "author": "Kartoza",
     "email": "info@kartoza.com",
-    "description": "QGIS plugin for managing map templates and symbology",
+    "description": "QGIS plugin for managing HOT map templates and symbology",
     "version": "1.0.1",
     "changelog": ""
   }

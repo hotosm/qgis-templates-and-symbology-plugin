@@ -46,6 +46,7 @@ from qgis.PyQt.uic import loadUiType
 
 from ..models import Template, Symbology
 from ..conf import settings_manager, Settings
+from .layers_selection_dialog import LayersSelectionDialog
 from ..utils import log, tr
 from ..constants import THUMBNAIL_WIDTH_REDUCTION, THUMBNAIL_HEIGHT_REDUCTION
 
@@ -89,6 +90,13 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.open_layout_btn.clicked.connect(self.add_layout)
         self.download_result = {}
 
+        self.selected_layers = []
+        self.layer_names = []
+
+        self.select_layers_btn.clicked.connect(
+            self.open_layer_select_dialog
+        )
+
         if not self.template.downloaded:
             if self.main_widget:
                 self.main_widget.update_inputs(False)
@@ -112,7 +120,18 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         reset_properties_partial = partial(self.prepare_layout_properties, True)
         self.reset_properties_btn.clicked.connect(reset_properties_partial)
 
+    def open_layer_select_dialog(self):
+        layer_select_dialog = LayersSelectionDialog(self)
+        layer_select_dialog.exec_()
+
+    def set_selected_layers(self, layers):
+        self.selected_layers = layers
+        self.layer_names = [layer.name() for layer in layers]
+        self.selected_layers_le.setText(",".join(self.layer_names))
+        self.save_template_custom_properties()
+
     def save_template_custom_properties(self):
+        log(f"Saving properties {','.join(self.layer_names)}")
 
         custom_properties = {
             'heading': self.template_title.text(),
@@ -121,6 +140,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             'hub_logo': self.logo_path.filePath(),
             'hot_logo': self.hot_logo_path.filePath(),
             'partner_logo': self.partner_logo_path.filePath(),
+            'layer_names': ','.join(self.layer_names),
         }
 
         profile = settings_manager.get_current_profile()
@@ -182,6 +202,7 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 self.logo_path.setFilePath('')
                 self.hot_logo_path.setFilePath('')
                 self.partner_logo_path.setFilePath('')
+                self.selected_layers_le.setText('')
             except Exception as e:
                 log(f"Error preparing layout properties {e}")
 
@@ -203,6 +224,13 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                 self.hot_logo_path.setFilePath(custom_properties['hot_logo'])
             if custom_properties['partner_logo'] is not None:
                 self.partner_logo_path.setFilePath(custom_properties['partner_logo'])
+            if custom_properties['layer_names'] is not None:
+                self.selected_layers_le.setText(custom_properties['layer_names'])
+                if not self.selected_layers:
+                    layers = QgsProject.instance().mapLayers().values()
+                    self.selected_layers = [layer for layer in layers
+                                            if layer.name() in custom_properties['layer_names']
+                                            ]
 
     def prepare_message_bar(self):
         """ Initializes the widget message bar settings"""
@@ -609,13 +637,10 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             if layout_map is not None:
                 layout_map.zoomToExtent(iface.mapCanvas().extent())
 
-            selected_layer = self.map_layers.currentLayer()
-
             if inset_map is not None:
                 inset_map.setMapRotation(0)
-                if selected_layer is not None:
-                    inset_map.setLayers([selected_layer])
-                    inset_map.zoomToExtent(selected_layer.extent())
+                if self.selected_layers:
+                    inset_map.setLayers(self.selected_layers)
 
                     inset_map.setKeepLayerSet(True)
 
