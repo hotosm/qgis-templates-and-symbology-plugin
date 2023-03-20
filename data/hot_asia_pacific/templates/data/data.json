@@ -2,163 +2,83 @@
   "templates": [
   {
         "id": "32a63d1e-6be3-4c05-89e7-929e62daf38c",
-        "name": "textheavy_landscapea1_asiapacific",
-        "title": "Text heavy landscape A1 Asia Pacific",
-        "description": "Text heavy landscape Asia Pacific",
-        "directory": "text-heavy-map-template_landscape",
+        "name": "textheavy_landscapea1_asia_pacific_hub",
+        "title": "Asia Pacific Hub A1 Landscape",
+        "description": "Asia Pacific Hub A1 Landscape",
+        "directory": "text-heavy-landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea1_asiapacific.png"
+        "thumbnail": "textheavy_landscapea1_asia_pacific_hub.png"
     },
     {
         "id": "41027524-990f-47b3-8d90-9d9dad879855'",
-        "name": "textheavy_landscapea2_asiapacific",
-        "title": "Text heavy landscape A2 Asia Pacific",
-        "description": "Text heavy landscape Asia Pacific",
-        "directory": "text-heavy-map-template_landscape",
+         "name": "textheavy_landscapea2_asia_pacific_hub",
+        "title": "Asia Pacific Hub A2 Landscape",
+        "description": "Asia Pacific Hub A2 Landscape",
+        "directory": "text-heavy-landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea2_asiapacific.png"
+        "thumbnail": "textheavy_landscapea2_asia_pacific_hub.png"
     },
     {
         "id": "1404db70-9d27-430f-b03f-bb8fd956aea7'",
-        "name": "textheavy_landscapea3_asiapacific",
-        "title": "Text heavy landscape A3 Asia Pacific",
-        "description": "Text heavy landscape Asia Pacific",
-        "directory": "text-heavy-map-template_landscape",
+         "name": "textheavy_landscapea3_asia_pacific_hub",
+        "title": "Asia Pacific Hub A3 Landscape",
+        "description": "Asia Pacific Hub A3 Landscape",
+        "directory": "text-heavy-landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea3_asiapacific.png"
+        "thumbnail": "textheavy_landscapea3_asia_pacific_hub.png"
     },
     {
         "id": "01fd9a6f-3745-4a0c-9228-46d8d6c9a087",
-        "name": "textheavy_landscapea4_asiapacific",
-        "title": "Text heavy landscape A4 Asia Pacific",
-        "description": "Text heavy landscape Asia Pacific",
-        "directory": "text-heavy-map-template_landscape",
+         "name": "textheavy_landscapea4_asia_pacific_hub",
+        "title": "Asia Pacific Hub A4 Landscape",
+        "description": "Asia Pacific Hub A4 Landscape",
+        "directory": "text-heavy-landscape",
         "type": "landscape",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea4_asiapacific.png"
+        "thumbnail": "textheavy_landscapea4_asia_pacific_hub.png"
     },
     {
         "id": "f78b2d9d-614d-41dc-b095-a5360779ac5f",
-        "name": "textheavy_portraita1_asiapacific",
-        "title": "text heavy portrait A1 asiapacific",
-        "description": "text heavy portrait A1 asiapacific",
-        "directory": "text-heavy-map-template_portrait",
+        "name": "textheavy_portraita1_asia_pacific_hub",
+        "title": "Asia Pacific Hub A1 Portrait",
+        "description": "Asia Pacific Hub A1 Portrait",
+        "directory": "text-heavy-portrait",
         "type": "portrait",
         "extension": "qpt",
-        "thumbnail": "textheavy_portraita1_asiapacific.png"
+        "thumbnail": "textheavy_portraita1_asia_pacific_hub.png"
     },
     {
         "id": "68b46895-0c05-431d-9d1a-2b379d245a21",
-        "name": "textheavy_portraita2_asiapacific",
-        "title": "text heavy portrait A2 asiapacific",
-        "description": "text heavy portrait A2 asiapacific",
-        "directory": "text-heavy-map-template_portrait",
+        "name": "textheavy_portraita2_asia_pacific_hub",
+        "title": "Asia Pacific Hub A2 Portrait",
+        "description": "Asia Pacific Hub A2 Portrait",
+        "directory": "text-heavy-portrait",
         "type": "portrait",
         "extension": "qpt",
-        "thumbnail": "textheavy_portraita2_asiapacific.png"
+        "thumbnail": "textheavy_portraita2_asia_pacific_hub.png"
     },
     {
         "id": "75b83f8a-0d58-4140-b450-908db9258751",
-        "name": "textheavy_portraita3_asiapacific",
-        "title": "text heavy portrait A3 asiapacific",
-        "description": "text heavy portrait A3 asiapacific",
-        "directory": "text-heavy-map-template_portrait",
+       "name": "textheavy_portraita3_asia_pacific_hub",
+        "title": "Asia Pacific Hub A3 Portrait",
+        "description": "Asia Pacific Hub A3 Portrait",
+        "directory": "text-heavy-portrait",
         "type": "portrait",
         "extension": "qpt",
-        "thumbnail": "textheavy_portraita3_asiapacific.png"
+        "thumbnail": "textheavy_portraita3_asia_pacific_hub.png"
     },
     {
         "id": "cdd84c8c-5686-4597-9655-63ec88a72424",
-        "name": "textheavy_portraita4_asiapacific",
-        "title": "text heavy portrait A4 asiapacific",
-        "description": "text heavy portrait A4 asiapacific",
-        "directory": "text-heavy-map-template_portrait",
+       "name": "textheavy_portraita4_asia_pacific_hub",
+        "title": "Asia Pacific Hub A4 Portrait",
+        "description": "Asia Pacific Hub A4 Portrait",
+        "directory": "text-heavy-portrait",
         "type": "portrait",
         "extension": "qpt",
-        "thumbnail": "textheavy_portraita4_asiapacific.png"
-    },
-    {
-        "id": "55b98d46-4acf-4bea-ad27-dbc793ac16d4",
-        "name": "thematic_landscapea1_asiapacific",
-        "title": "thematic landscape A1 asiapacific",
-        "description": "thematic landscape A1 asiapacific",
-        "directory": "thematic-map-template_landscape",
-        "type": "landscape",
-        "extension": "qpt",
-        "thumbnail": "thematic_landscapea1_asiapacific.png"
-    },
-    {
-        "id": "1a95837f-cb9e-480d-82e4-4bdc05205a8a",
-        "name": "thematic_landscapea2_asiapacific",
-        "title": "thematic landscape A2 asiapacific",
-        "description": "thematic landscape A2 asiapacific",
-        "directory": "thematic-map-template_landscape",
-        "type": "landscape",
-        "extension": "qpt",
-        "thumbnail": "thematic_landscapea2_asiapacific.png"
-    },
-    {
-        "id": "576a7e3f-04b5-4eea-814c-ee4ffd9c1950",
-        "name": "thematic_landscapea3_asiapacific",
-        "title": "thematic landscape A3 asiapacific",
-        "description": "thematic landscape A3 asiapacific",
-        "directory": "thematic-map-template_landscape",
-        "type": "landscape",
-        "extension": "qpt",
-        "thumbnail": "thematic_landscapea3_asiapacific.png"
-    },
-    {
-        "id": "1a95837f-cb9e-480d-82e4-4bdc05205a8a",
-       "name": "thematic_landscapea4_asiapacific",
-        "title": "thematic landscape A4 asiapacific",
-        "description": "thematic landscape A4 asiapacific",
-        "directory": "thematic-map-template_landscape",
-        "type": "landscape",
-        "extension": "qpt",
-        "thumbnail": "thematic_landscapea4_asiapacific.png"
-    },
-    {
-        "id": "576a7e3f-04b5-4eea-814c-ee4ffd9c1950",
-        "name": "thematic_portraita1_asiapacific",
-        "title": "thematic portrait A1 asiapacific",
-        "description": "thematic portrait A1 asiapacific",
-        "directory": "thematic-map-template_portrait",
-        "type": "portrait",
-        "extension": "qpt",
-        "thumbnail": "thematic_portraita1_asiapacific.png"
-    },
-    {
-        "id": "69d79f26-b25a-4693-9405-05a7990066eb",
-        "name": "thematic_portraita2_asiapacific",
-        "title": "thematic portrait A2 asiapacific",
-        "description": "thematic portrait A2 asiapacific",
-        "directory": "thematic-map-template_portrait",
-        "type": "portrait",
-        "extension": "qpt",
-        "thumbnail": "thematic_portraita2_asiapacific.png"
-    },
-    {
-        "id": "4e4dad9b-6e4a-4dd9-97b8-dd4bbbd26785",
-       "name": "thematic_portraita3_asiapacific",
-        "title": "thematic portrait A3 asiapacific",
-        "description": "thematic portrait A3 asiapacific",
-        "directory": "thematic-map-template_portrait",
-        "type": "portrait",
-        "extension": "qpt",
-        "thumbnail": "thematic_portraita3_asiapacific.png"
-    },
-    {
-        "id": "26e95610-cd62-45d4-b397-90ec471b0fe2",
-        "name": "thematic_portraita4_asiapacific",
-        "title": "thematic portrait A4 asiapacific",
-        "description": "thematic portrait A4 asiapacific",
-        "directory": "thematic-map-template_portrait",
-        "type": "portrait",
-        "extension": "qpt",
-        "thumbnail": "thematic_portraita4_asiapacific.png"
+        "thumbnail": "textheavy_portraita4_asia_pacific_hub.png"
     }
   ]
 }
