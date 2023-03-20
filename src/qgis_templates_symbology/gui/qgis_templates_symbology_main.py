@@ -32,7 +32,7 @@ from ..conf import settings_manager, Settings, SymbologySettings, TemplateSettin
 
 from ..models import Properties
 
-from ..utils import open_folder, tr, log
+from ..utils import get_sld_path, open_folder, tr, log
 
 
 WidgetUi, _ = loadUiType(
@@ -100,6 +100,38 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
         self.templates_fetch_btn.clicked.connect(self.fetch_templates)
 
         self.profiles_box.activated.connect(self.update_current_profile)
+
+        self.load_style_btn.clicked.connect(self.load_style)
+
+    def load_style(self):
+        layer = self.map_layers_list.currentLayer()
+
+        try:
+            if layer is not None:
+                style = get_sld_path()
+                layer.loadSldStyle(style)
+                layer.triggerRepaint()
+                self.show_message(
+                    f"Style was loaded successfully",
+                    Qgis.Info
+                )
+            else:
+                self.show_message(
+                    f"Select the layer first before applying "
+                    f"the style",
+                    Qgis.Warning
+                )
+
+        except Exception as e:
+            self.show_message(
+                f"Problem occured when loading style"
+                f" {style} into layer {layer.name()}",
+                Qgis.Critical
+            )
+            log(
+                f"Problem occured when loading style"
+                f" {style} into layer {layer.name()}"
+            )
 
     def cancel_tasks(self):
         for task in self.active_tasks:

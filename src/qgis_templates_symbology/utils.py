@@ -288,3 +288,9 @@ def add_to_icons_path(path):
     except Exception as e:
         log(f"Problem adding icons to QGIS, error {e}")
 
+
+def get_sld_path():
+    plugin_root = os.path.dirname(__file__)
+    style_directory = os.path.join(plugin_root, 'data/symbology/styles')
+
+    return os.path.join(style_directory, 'roads.sld')
