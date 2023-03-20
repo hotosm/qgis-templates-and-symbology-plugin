@@ -674,14 +674,14 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
             #     map_scale_bar.setFixedSize(size_sc)
             #     map_scale_bar.refreshItemSize()
 
-            map_scale_bar.setSegmentSizeMode(QgsScaleBarSettings.SegmentSizeFitWidth)
-            map_scale_bar.setMinimumBarWidth(50)
-            map_scale_bar.setMaximumBarWidth(70)
-            map_scale_bar.setHeight(3)
-            text_format = QgsTextFormat()
-            text_format.setSize(20)
-            map_scale_bar.setTextFormat(text_format)
-            map_scale_bar.refresh()
+            # map_scale_bar.setSegmentSizeMode(QgsScaleBarSettings.SegmentSizeFitWidth)
+            # map_scale_bar.setMinimumBarWidth(50)
+            # map_scale_bar.setMaximumBarWidth(70)
+            # map_scale_bar.setHeight(3)
+            # text_format = QgsTextFormat()
+            # text_format.setSize(20)
+            # map_scale_bar.setTextFormat(text_format)
+            # map_scale_bar.refresh()
 
             page_collection.resizeToContents(
                 QgsMargins(0, 0, 0, 0),
