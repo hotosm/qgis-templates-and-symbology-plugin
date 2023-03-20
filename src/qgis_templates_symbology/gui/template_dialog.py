@@ -131,7 +131,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.save_template_custom_properties()
 
     def save_template_custom_properties(self):
-        log(f"Saving properties {','.join(self.layer_names)}")
 
         custom_properties = {
             'heading': self.template_title.text(),

@@ -23,6 +23,7 @@ import typer
 
 LOCAL_ROOT_DIR = Path(__file__).parent.resolve()
 SRC_NAME = "qgis_templates_symbology"
+ZIP_FILENAME = "hot_templates_symbology"
 PACKAGE_NAME = SRC_NAME.replace("_", "")
 TEST_FILES = [
     "test",
@@ -156,10 +157,12 @@ def generate_zip(
     build_dir = build(context)
     metadata = _get_metadata()
     output_directory.mkdir(parents=True, exist_ok=True)
-    zip_path = output_directory / f'{SRC_NAME}.{metadata["version"]}.zip'
+    zip_path = output_directory / f'{ZIP_FILENAME}.{metadata["version"]}.zip'
     with zipfile.ZipFile(zip_path, "w") as fh:
         _add_to_zip(build_dir, fh, arc_path_base=build_dir.parent)
-    typer.echo(f"zip generated at {str(zip_path)!r}")
+    typer.echo(f"zip generated at {str(zip_path)!r} "
+               f"on {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}"
+               )
     return zip_path
 
 
@@ -253,6 +256,16 @@ def copy_source_files(
             handler = shutil.copy
             handler(str(profile_child.resolve()), str(target_path))
             continue
+        if profile_child.name == 'symbology':
+            symbology_folder = LOCAL_ROOT_DIR / "data" / profile_child.name
+            for child in symbology_folder.iterdir():
+                target_directory = (output_directory / "data" / profile_child.name / child.name)
+                # if not target_directory.isdir():
+                #     target_directory.mkdir(parents=True, exist_ok=True)
+                handler = shutil.copytree if child.is_dir() else shutil.copy
+                handler(str(child.resolve()), str(target_directory))
+            continue
+
         templates_dir = LOCAL_ROOT_DIR / "data" / profile_child.name / "templates"
         for child in templates_dir.iterdir():
             if not child.is_dir():

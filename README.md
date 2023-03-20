@@ -1,10 +1,10 @@
-# QGIS Templates and Symbology plugin
+# HOT QGIS Templates and Symbology plugin
 
 
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/hotosm/qgis-templates-and-symbology-plugin/ci.yml?branch=master)
 ![GitHub](https://img.shields.io/github/license/hotosm/qgis-templates-and-symbology-plugin)
 
-QGIS plugin for managing map templates and symbology
+QGIS plugin for managing map templates and symbology from HOTOSM.
 
 ### Installation
 
@@ -15,8 +15,8 @@ a dedicated plugin repository
 #### Install from QGIS plugin repository
 
 - Open QGIS application and open plugin manager.
-- Search for `Templates and Symbology Manager` in the All page of the plugin manager.
-- From the found results, click on the `Templates and Symbology Manager` result item and a page with plugin information will show up. 
+- Search for `HOT Templates and Symbology Manager` in the All page of the plugin manager.
+- From the found results, click on the `HOT Templates and Symbology Manager` result item and a page with plugin information will show up. 
   
 - Click the `Install Plugin` button at the bottom of the dialog to install the plugin.
 
@@ -112,7 +112,7 @@ pip install virtualenvwrapper
  1. Create virtual environment
 
     ```
-    mkvirtualenv qgis_templates_symbology
+    mkvirtualenv templates_symbology
     ```
 
 2. Using the pip, install plugin development dependencies by running 

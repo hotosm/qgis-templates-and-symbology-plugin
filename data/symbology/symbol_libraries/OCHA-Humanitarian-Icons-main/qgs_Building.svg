@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 48" style="enable-background:new 0 0 32 48;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#011E41;}
+</style>
+<g id="Layer_2_1_">
+	<g id="Icons">
+		<path  stroke-width="param(outline-width) "  stroke-opacity="param(outline-opacity) "  stroke="param(outline) "  fill-opacity="param(fill-opacity) "  fill="param(fill) " class="st0" d="M30,6H2C0.9,6,0,6.9,0,8v22h32V8C32,6.9,31.1,6,30,6z M10,21c0,0.6-0.4,1-1,1H5c-0.6,0-1-0.4-1-1v-8
+			c0-0.6,0.4-1,1-1h4c0.6,0,1,0.4,1,1V21z M19,21c0,0.6-0.4,1-1,1h-4c-0.6,0-1-0.4-1-1v-8c0-0.6,0.4-1,1-1h4c0.6,0,1,0.4,1,1V21z
+			 M28,21c0,0.6-0.4,1-1,1h-4c-0.6,0-1-0.4-1-1v-8c0-0.6,0.4-1,1-1h4c0.6,0,1,0.4,1,1V21z"/>
+		<path  stroke-width="param(outline-width) "  stroke-opacity="param(outline-opacity) "  stroke="param(outline) "  fill-opacity="param(fill-opacity) "  fill="param(fill) " class="st0" d="M6,4h20c1.1,0,2-0.9,2-2s-0.9-2-2-2H6C4.9,0,4,0.9,4,2S4.9,4,6,4z"/>
+		<path  stroke-width="param(outline-width) "  stroke-opacity="param(outline-opacity) "  stroke="param(outline) "  fill-opacity="param(fill-opacity) "  fill="param(fill) " class="st0" d="M0,48h12V38c0-1.1,0.9-2,2-2h4c1.1,0,2,0.9,2,2v10h12V32H0V48z"/>
+	</g>
+</g>
+</svg>

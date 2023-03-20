@@ -64,7 +64,6 @@ class LayersSelectionDialog(QtWidgets.QDialog, DialogUi):
 
         for index in range(self.list_widget.count()):
             layer_item = self.list_widget.item(index)
-            log(f" layer names {custom_properties['layer_names']} and {layer_item.text()}")
             if custom_properties['layer_names'] is not None:
                 if layer_item.text() in custom_properties['layer_names']:
                     layer_item.setCheckState(QtCore.Qt.Checked)

@@ -33,7 +33,7 @@ class QgisTemplatesSymbology:
         self.plugin_dir = os.path.dirname(__file__)
         locale = QgsSettings().value("locale/userLocale")[0:2]
         locale_path = os.path.join(
-            self.plugin_dir, "i18n", "QgisTemplatesSymbology_{}.qm".format(locale)
+            self.plugin_dir, "i18n", "HOTTemplatesSymbology_{}.qm".format(locale)
         )
 
         if os.path.exists(locale_path):
@@ -43,10 +43,10 @@ class QgisTemplatesSymbology:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u"&Templates and Symbology Manager")
+        self.menu = self.tr(u"&HOT Templates and Symbology Manager")
         self.pluginIsActive = False
-        self.toolbar = self.iface.addToolBar("Open Templates and Symbology Manager")
-        self.toolbar.setObjectName("QGISTemplatesSymbology")
+        self.toolbar = self.iface.addToolBar("Open HOT Templates and Symbology Manager")
+        self.toolbar.setObjectName("HOTTemplatesSymbology")
 
         # Add default catalogs, first check if they have already
         # been set.
@@ -70,7 +70,7 @@ class QgisTemplatesSymbology:
         :rtype: QString
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate("QgisTemplatesSymbology", message)
+        return QCoreApplication.translate("HOTTemplatesSymbology", message)
 
     def add_action(
             self,
@@ -160,7 +160,7 @@ class QgisTemplatesSymbology:
         icon_path = ":/plugins/qgis_templates_symbology/icon.png"
         self.add_action(
             icon_path,
-            text=self.tr(u"Open Templates and Symbology Manager"),
+            text=self.tr(u"Open HOT Templates and Symbology Manager"),
             callback=self.run,
             parent=self.iface.mainWindow(),
         )
@@ -181,8 +181,8 @@ class QgisTemplatesSymbology:
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginMenu(self.tr(u"&Templates and Symbology Manager"), action)
-            self.iface.removePluginWebMenu(self.tr(u"&Templates and Symbology Manager"), action)
+            self.iface.removePluginMenu(self.tr(u"&HOT Templates and Symbology Manager"), action)
+            self.iface.removePluginWebMenu(self.tr(u"&HOT Templates and Symbology Manager"), action)
             self.iface.removeToolBarIcon(action)
 
         settings_manager.set_value("default_profiles_set", False)

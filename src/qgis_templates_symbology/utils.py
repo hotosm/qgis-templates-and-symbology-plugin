@@ -8,12 +8,14 @@ import subprocess
 import sys
 import uuid
 
+import xml.etree.ElementTree as ET
+
 from pathlib import Path
 
 import json
 
 from qgis.PyQt import QtCore
-from qgis.core import Qgis, QgsMessageLog
+from qgis.core import Qgis, QgsApplication, QgsMessageLog, QgsStyle
 
 from .conf import (
     ProfileSettings,
@@ -23,6 +25,7 @@ from .conf import (
 )
 
 from .models import Properties
+from .constants import HOT_STYLES_TAG
 
 LOCAL_ROOT_DIR = Path(__file__).parent.resolve()
 
@@ -43,7 +46,7 @@ def tr(message):
 
 def log(
         message: str,
-        name: str = "qgis_templates_symbology",
+        name: str = "hot_templates_symbology",
         info: bool = True,
         notify: bool = True,
 ):
@@ -134,25 +137,6 @@ def config_defaults_profiles():
                 )
                 templates_settings.append(template_setting)
 
-            symbology_settings = []
-            symbology_list = query_symbology(profile_name=profile['name'])
-
-            for symbology in symbology_list:
-                properties = Properties(
-                    extension=symbology.get('extension'),
-                    directory=symbology.get('directory'),
-                    template_type=symbology.get('type'),
-                    thumbnail=symbology.get('thumbnail'),
-                )
-                symbology_setting = SymbologySettings(
-                    id=symbology.get('id'),
-                    name=symbology.get('name'),
-                    description=symbology.get('description'),
-                    title=symbology.get('title'),
-                    properties=properties,
-                )
-                symbology_settings.append(symbology_setting)
-
             if not settings_manager.is_profile(
                     profile_id
             ):
@@ -161,7 +145,7 @@ def config_defaults_profiles():
                     name=profile['name'],
                     path=profile['path'],
                     templates=templates_settings,
-                    symbology=symbology_settings,
+                    symbology=[],
                     title=profile["title"],
                     description=profile["description"],
                     templates_url=profile["templates_url"],
@@ -171,6 +155,7 @@ def config_defaults_profiles():
 
                 if profile['selected']:
                     settings_manager.set_current_profile(profile_id)
+    setup_symbology()
 
     settings_manager.set_value("default_profiles_set", True)
 
@@ -198,4 +183,108 @@ def query_symbology(profile_name=None):
         for symbology in data_json['symbology']:
             symbology_list.append(symbology)
     return symbology_list
+
+
+def setup_symbology():
+    plugin_root = os.path.dirname(__file__)
+    fonts_directory = os.path.join(plugin_root, 'data/symbology/fonts')
+    styles_folder = os.path.join(plugin_root, 'data/symbology/styles')
+    icon_folders = os.path.join(plugin_root, 'data/symbology/symbol_libraries')
+
+    for font_folder in os.listdir(fonts_directory):
+        add_fonts(os.path.join(fonts_directory, font_folder))
+    for style_file in os.listdir(styles_folder):
+        add_style_to_manager(os.path.join(styles_folder, style_file))
+    for icon_folder in os.listdir(icon_folders):
+        add_to_icons_path(os.path.join(icon_folders, icon_folder))
+
+
+def add_fonts(icon_path):
+    try:
+        if os.path.isdir(icon_path):
+            font_manager = QgsApplication.fontManager()
+            font_manager.addUserFontDirectory(icon_path)
+
+            log(
+                f"Added fonts {icon_path} "
+                f"into the QGIS font user directory list"
+            )
+    except Exception as e:
+        log(f"Problem adding fonts into QGIS, error {e}")
+
+
+def add_style_to_manager(path):
+    try:
+        extension = os.path.splitext(path)[1]
+
+        if extension == '.xml':
+            qstyles = QgsStyle.defaultStyle()
+
+            new_symbols, new_ramps = get_style_entity(path)
+            qstyles.importXml(path)
+            if HOT_STYLES_TAG not in qstyles.tags():
+                qstyles.addTag(HOT_STYLES_TAG)
+
+            for s in new_symbols:
+                qstyles.tagSymbol(
+                    QgsStyle.StyleEntity.SymbolEntity,
+                    s,
+                    [HOT_STYLES_TAG]
+                )
+            for r in new_ramps:
+                qstyles.tagSymbol(
+                    QgsStyle.StyleEntity.ColorrampEntity,
+                    r,
+                    [HOT_STYLES_TAG]
+                )
+
+            log(
+                f"Added style {path} "
+                f"into the QGIS symbology"
+            )
+        else:
+            raise NotImplementedError
+    except Exception as e:
+        log(f"Problem adding style {path} into QGIS, error {e}")
+
+
+def get_style_entity(path):
+    symbols_list = []
+    color_ramps = []
+    try:
+        tree = ET.parse(path)
+        root = tree.getroot()
+        for symbols in root.findall('symbols'):
+            for item in symbols.findall('symbol'):
+                symbols_list.append(item.get('name'))
+        for ramps in root.findall('colorramps'):
+            for item in ramps.findall('colorramp'):
+                color_ramps.append(item.get('name'))
+    except Exception as e:
+        log(f"Problem preparing style entity, error {e}")
+
+    return symbols_list, color_ramps
+
+
+def add_to_icons_path(path):
+    try:
+
+        icon_path = path
+        svg_paths = QgsApplication.svgPaths()
+        message = None
+
+        if icon_path not in svg_paths:
+            svg_paths.append(icon_path)
+            message = f" Added {icon_path} " \
+                      f"into the QGIS icon library path"
+        else:
+            message = f" Path {icon_path} " \
+                      f"already exists in the " \
+                      f"QGIS icon library path"
+
+        QgsApplication.setSvgPaths(svg_paths)
+        log(message) if message else None
+
+    except Exception as e:
+        log(f"Problem adding icons to QGIS, error {e}")
 

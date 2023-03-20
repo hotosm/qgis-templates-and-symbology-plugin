@@ -58,17 +58,17 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
         self.proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
 
-        self.symbology_model = QtGui.QStandardItemModel()
-        self.symbology_model.setHorizontalHeaderLabels(['Title'])
-        self.symbology_proxy_model = QtCore.QSortFilterProxyModel()
-        self.symbology_proxy_model.setSourceModel(self.symbology_model)
-        self.symbology_proxy_model.setDynamicSortFilter(True)
-        self.symbology_proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
-        self.symbology_proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        # self.symbology_model = QtGui.QStandardItemModel()
+        # self.symbology_model.setHorizontalHeaderLabels(['Title'])
+        # self.symbology_proxy_model = QtCore.QSortFilterProxyModel()
+        # self.symbology_proxy_model.setSourceModel(self.symbology_model)
+        # self.symbology_proxy_model.setDynamicSortFilter(True)
+        # self.symbology_proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        # self.symbology_proxy_model.setSortCaseSensitivity(QtCore.Qt.CaseInsensitive)
 
         self.prepare_profiles()
         self.prepare_templates()
-        self.prepare_symbology()
+        # self.prepare_symbology()
 
         self.grid_layout = QtWidgets.QGridLayout()
         self.message_bar = QgsMessageBar()
@@ -94,14 +94,10 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
             self.save_download_folder)
         self.open_folder_btn.clicked.connect(self.open_download_folder)
 
-        self.symbology_sort_cmb.activated.connect(self.sort_symbology)
         self.template_sort_cmb.activated.connect(self.sort_template)
-
-        self.symbology_order.toggled.connect(self.sort_symbology)
         self.template_order.toggled.connect(self.sort_template)
 
         self.templates_fetch_btn.clicked.connect(self.fetch_templates)
-        self.symbology_fetch_btn.clicked.connect(self.fetch_symbology)
 
         self.profiles_box.activated.connect(self.update_current_profile)
 
@@ -204,11 +200,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
                 self.model.removeRows(0, self.model.rowCount())
                 self.load_templates(templates)
 
-                symbology = settings_manager.get_symbology(
-                    current_profile.id
-                )
-                self.symbology_model.removeRows(0, self.symbology_model.rowCount())
-                self.load_symbology(symbology)
             else:
                 self.profiles_box.setCurrentIndex(0)
 
@@ -298,11 +289,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
             )
             self.model.removeRows(0, self.model.rowCount())
             self.load_templates(templates)
-            symbology = settings_manager.get_symbology(
-                current_profile.id
-            )
-            self.symbology_model.removeRows(0, self.symbology_model.rowCount())
-            self.load_symbology(symbology)
 
     def symbology_tree_double_clicked(self, index):
         """ Opens the symbology dialog when an entry from the

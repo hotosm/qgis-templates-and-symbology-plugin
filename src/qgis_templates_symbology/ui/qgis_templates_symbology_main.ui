@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>954</width>
-    <height>853</height>
+    <width>775</width>
+    <height>563</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,8 +67,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>932</width>
-            <height>804</height>
+            <width>753</width>
+            <height>514</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -231,9 +231,6 @@
                   <property name="text">
                    <string>Sort by</string>
                   </property>
-                  <property name="buddy">
-                   <cstring>symbology_sort_cmb</cstring>
-                  </property>
                  </widget>
                 </item>
                 <item>
@@ -277,113 +274,7 @@
              <property name="collapsed">
               <bool>false</bool>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_12">
-              <item>
-               <widget class="QTreeView" name="symbology_tree">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>Click on an item to select the symbology and double click to open symbology information.</string>
-                </property>
-                <property name="editTriggers">
-                 <set>QAbstractItemView::NoEditTriggers</set>
-                </property>
-                <property name="selectionMode">
-                 <enum>QAbstractItemView::MultiSelection</enum>
-                </property>
-                <property name="indentation">
-                 <number>5</number>
-                </property>
-                <property name="sortingEnabled">
-                 <bool>true</bool>
-                </property>
-                <property name="allColumnsShowFocus">
-                 <bool>true</bool>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <item>
-                 <widget class="QPushButton" name="symbology_fetch_btn">
-                  <property name="toolTip">
-                   <string>Fetches new symbology and remove old profile symbology.</string>
-                  </property>
-                  <property name="text">
-                   <string>Fetch Symbology</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_8">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QLabel" name="sort_by_la">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>Sort by</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>symbology_sort_cmb</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="symbology_sort_cmb">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Name</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="symbology_order">
-                  <property name="text">
-                   <string>Reverse order</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
+             <layout class="QVBoxLayout" name="verticalLayout_12"/>
             </widget>
            </item>
           </layout>

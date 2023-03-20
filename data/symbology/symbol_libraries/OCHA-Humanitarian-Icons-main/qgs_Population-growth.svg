@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 48 48" style="enable-background:new 0 0 48 48;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#011E41;}
+</style>
+<g id="Layer_2_1_">
+	<g id="Icons">
+		<circle class="st0" cx="43.5" cy="43.5" r="4.5"/>
+		<circle class="st0" cx="43.5" cy="31.5" r="4.5"/>
+		<circle class="st0" cx="43.5" cy="19.5" r="4.5"/>
+		<circle class="st0" cx="31.5" cy="43.5" r="4.5"/>
+		<circle class="st0" cx="31.5" cy="31.5" r="4.5"/>
+		<circle class="st0" cx="19.5" cy="43.5" r="4.5"/>
+		<circle class="st0" cx="7.5" cy="43.5" r="4.5"/>
+		<circle class="st0" cx="19.5" cy="31.5" r="4.5"/>
+		<circle class="st0" cx="31.5" cy="19.5" r="4.5"/>
+		<circle class="st0" cx="43.5" cy="7.5" r="4.5"/>
+		<path  stroke-width="param(outline-width) "  stroke-opacity="param(outline-opacity) "  stroke="param(outline) "  fill-opacity="param(fill-opacity) "  fill="param(fill) " class="st0" d="M19,6.8V11c0,1.1,0.9,2,2,2s2-0.9,2-2V2c0-1.1-0.9-2-2-2h-9c-1.1,0-2,0.9-2,2s0.9,2,2,2h4.2L0.6,19.6
+			c-0.8,0.8-0.8,2,0,2.8s2,0.8,2.8,0L19,6.8z"/>
+	</g>
+</g>
+</svg>
