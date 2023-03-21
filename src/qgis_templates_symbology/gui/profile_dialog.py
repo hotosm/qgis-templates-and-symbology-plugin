@@ -62,7 +62,6 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
             self.name_edit.textChanged,
             self.url_edit.textChanged,
             self.templates_url.textChanged,
-            self.symbology_url.textChanged,
         ]
         for signal in ok_signals:
             signal.connect(self.update_ok_buttons)
@@ -81,15 +80,10 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
             self.setWindowTitle(tr("Edit Profile"))
 
         self.templates_fetch_btn.clicked.connect(self.fetch_templates)
-        self.symbology_fetch_btn.clicked.connect(self.fetch_symbology)
 
         self.prepare_message_bar()
 
         self.templates_fetch_btn.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "mActionIdentify.svg"))
-        )
-
-        self.symbology_fetch_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionIdentify.svg"))
         )
 
@@ -178,7 +172,7 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
             title=self.title_le.text(),
             description=self.description_tb.toPlainText(),
             templates_url=self.templates_url.text(),
-            symbology_url=self.symbology_url.text(),
+            symbology_url=None,
         )
 
         return profile_settings
@@ -191,7 +185,6 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
         self.title_le.setText(profile_settings.title)
         self.description_tb.setText(profile_settings.description)
         self.templates_url.setText(profile_settings.templates_url)
-        self.symbology_url.setText(profile_settings.symbology_url)
 
     def accept(self):
         """ Handles logic for adding new profiles"""
@@ -214,7 +207,7 @@ class ProfileDialog(QtWidgets.QDialog, DialogUi):
             title=self.title_le.text(),
             description=self.description_tb.toPlainText(),
             templates_url=self.templates_url.text(),
-            symbology_url=self.symbology_url.text(),
+            symbology_url=None,
             templates=templates,
             symbology=symbology
         )

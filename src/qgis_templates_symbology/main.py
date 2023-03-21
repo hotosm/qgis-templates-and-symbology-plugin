@@ -185,6 +185,7 @@ class QgisTemplatesSymbology:
             self.iface.removePluginWebMenu(self.tr(u"&HOT Templates and Symbology Manager"), action)
             self.iface.removeToolBarIcon(action)
 
+        settings_manager.delete_all_profiles()
         settings_manager.set_value("default_profiles_set", False)
 
     def run(self):

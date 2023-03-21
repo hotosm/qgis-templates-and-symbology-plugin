@@ -20,29 +20,6 @@
       <string>Profile Information</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_name">
-        <property name="text">
-         <string>Name</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="name_edit">
-        <property name="toolTip">
-         <string>Name of the profile</string>
-        </property>
-        <property name="statusTip">
-         <string>Name of the profile, that will be an identifier for the profile</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="placeholderText">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_url">
         <property name="text">
@@ -63,27 +40,6 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="title_la">
-        <property name="text">
-         <string>Title</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="title_le">
-        <property name="toolTip">
-         <string>Profile title that will be used to display the profile.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="description_la">
-        <property name="text">
-         <string>Description</string>
-        </property>
-       </widget>
-      </item>
       <item row="3" column="1">
        <widget class="QTextEdit" name="description_tb">
         <property name="whatsThis">
@@ -91,10 +47,33 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="templates_url_la">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="name_edit">
+        <property name="toolTip">
+         <string>Name of the profile</string>
+        </property>
+        <property name="statusTip">
+         <string>Name of the profile, that will be an identifier for the profile</string>
+        </property>
         <property name="text">
-         <string>Templates URL</string>
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="title_la">
+        <property name="text">
+         <string>Title</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_name">
+        <property name="text">
+         <string>Name</string>
         </property>
        </widget>
       </item>
@@ -119,35 +98,28 @@
         </item>
        </layout>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="symbology_url_la">
+      <item row="3" column="0">
+       <widget class="QLabel" name="description_la">
         <property name="text">
-         <string>Symbology URL</string>
+         <string>Description</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="title_le">
+        <property name="toolTip">
+         <string>Profile title that will be used to display the profile.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="templates_url_la">
+        <property name="text">
+         <string>Templates URL</string>
         </property>
        </widget>
       </item>
       <item row="5" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLineEdit" name="symbology_url">
-          <property name="toolTip">
-           <string>URL for the profile symbology</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="symbology_fetch_btn">
-          <property name="toolTip">
-           <string>Fetch information about profile symbology</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="6" column="1">
        <widget class="QDialogButtonBox" name="buttonBox">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>

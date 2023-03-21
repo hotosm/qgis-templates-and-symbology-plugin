@@ -195,12 +195,23 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
 
     def open_download_folder(self):
         """ Opens the current download folder"""
-        result = open_folder(
-            self.download_folder_btn.filePath()
-        )
 
-        if not result[0]:
-            self.show_message(result[1], level=Qgis.Critical)
+        try:
+            result = open_folder(
+                self.download_folder_btn.filePath()
+            )
+            if not result[0]:
+                self.show_message(result[1], level=Qgis.Critical)
+        except Exception as e:
+            self.show_message(
+                f"Problem opening {self.download_folder_btn.filePath()} "
+                f"make sure the folder exists.",
+                Qgis.Critical
+            )
+            log(
+                f" Couldn't open {self.download_folder_btn.filePath()},"
+                f" error {e}"
+            )
 
     def prepare_profiles(self):
 

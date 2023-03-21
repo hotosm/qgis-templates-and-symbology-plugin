@@ -293,6 +293,7 @@ class SettingsManager(QtCore.QObject):
                 f"/{self.PROFILE_GROUP_NAME}") \
                 as settings:
             for profile_name in settings.childGroups():
+                self.delete_templates(profile_name)
                 settings.remove(profile_name)
         self.clear_current_profile()
         self.profiles_settings_updated.emit()
