@@ -16,7 +16,7 @@
     "author": "Kartoza",
     "email": "info@kartoza.com",
     "description": "QGIS plugin for managing HOT map templates and symbology",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "changelog": ""
   }
 }
