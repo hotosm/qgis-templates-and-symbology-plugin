@@ -42,44 +42,44 @@
     },
     {
         "id": "f1ec91ff-8076-4b87-a2eb-46280828e105",
-         "name": "textheavy_landscapea1_latin_america_and_caribbean_hub",
+         "name": "textheavy_portraita1_latin_america_and_caribbean_hub",
         "title": "Latin America and Caribbean Hub A1 Portrait",
         "description": "Latin America and Caribbean Hub A1 Portrait",
         "directory": "text-heavy-portrait",
-        "type": "landscape",
+        "type": "portrait",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea1_latin_america_and_caribbean_hub.png"
+        "thumbnail": "textheavy_portraita1_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "b3d613fd-ca1f-405e-9dce-ec5902a959d9",
-        "name": "textheavy_landscapea2_latin_america_and_caribbean_hub",
+        "name": "textheavy_portraita2_latin_america_and_caribbean_hub",
         "title": "Latin America and Caribbean Hub A2 Portrait",
         "description": "Latin America and Caribbean Hub A2 Portrait",
         "directory": "text-heavy-portrait",
-        "type": "landscape",
+        "type": "portrait",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea2_latin_america_and_caribbean_hub.png"
+        "thumbnail": "textheavy_portraita2_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "884fd672-df03-4530-a2bb-27d6982f853b",
-        "name": "textheavy_landscapea3_latin_america_and_caribbean_hub",
+        "name": "textheavy_portraita3_latin_america_and_caribbean_hub",
         "title": "Latin America and Caribbean Hub A3 Portrait",
         "description": "Latin America and Caribbean Hub A3 Portrait",
         "directory": "text-heavy-portrait",
-        "type": "landscape",
+        "type": "portrait",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea3_latin_america_and_caribbean_hub.png"
+        "thumbnail": "textheavy_portraita3_latin_america_and_caribbean_hub.png"
     },
     {
         "id": "9d984808-31e9-4cb7-ae17-1a583a9eae6b",
-         "name": "textheavy_landscapea4_latin_america_and_caribbean_hub",
+         "name": "textheavy_portraita4_latin_america_and_caribbean_hub",
         "title": "Latin America and Caribbean Hub A4 Portrait",
         "description": "Latin America and Caribbean Hub A4 Portrait",
         "directory": "text-heavy-portrait",
-        "type": "landscape",
+        "type": "portrait",
         "extension": "qpt",
-        "thumbnail": "textheavy_landscapea4_latin_america_and_caribbean_hub.png"
-    
+        "thumbnail": "textheavy_portraita4_latin_america_and_caribbean_hub.png"
+
     }
   ]
 }
