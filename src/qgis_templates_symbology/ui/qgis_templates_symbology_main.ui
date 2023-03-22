@@ -298,7 +298,7 @@
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Apply the available layer style for roads that is provided by this plugin.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
-                   <string>Apply the available layer style (sld):</string>
+                   <string>Select a layer to apply a roads sld style:</string>
                   </property>
                  </widget>
                 </item>
