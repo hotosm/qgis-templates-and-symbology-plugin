@@ -18,22 +18,4 @@
                 <tags><![CDATA[maps, templates, symbology, styles]]></tags>
                 <server>False</server>
             </pyqgis_plugin>
-<pyqgis_plugin name="HOT Templates and Symbology Manager" version="1.0.0">
-                <description><![CDATA[QGIS plugin for managing HOT map templates and symbology]]></description>
-                <about><![CDATA[Provides functionality to manage the HOT map templates and symbology.]]></about>
-                <version>1.0.0</version>
-                <qgis_minimum_version>3.0</qgis_minimum_version>
-                <homepage><![CDATA[https://hotosm.github.io/qgis-templates-and-symbology-plugin]]></homepage>
-                <file_name>qgis_templates_symbology.1.0.0.zip</file_name>
-                <icon>icon.png</icon>
-                <author_name><![CDATA[Kartoza]]></author_name>
-                <download_url>https://github.com/hotosm/qgis-templates-and-symbology-plugin/releases/download/v1.0.0/qgis_templates_symbology.1.0.0.zip</download_url>
-                <update_date>2023-01-19 08:02:48</update_date>
-                <experimental>True</experimental>
-                <deprecated>False</deprecated>
-                <tracker><![CDATA[https://github.com/hotosm/qgis-templates-and-symbology-plugin/issues]]></tracker>
-                <repository><![CDATA[https://github.com/hotosm/qgis-templates-and-symbology-plugin]]></repository>
-                <tags><![CDATA[maps, templates, symbology, styles]]></tags>
-                <server>False</server>
-            </pyqgis_plugin>
 </plugins> 
