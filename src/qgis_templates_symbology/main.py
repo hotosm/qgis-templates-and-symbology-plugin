@@ -12,6 +12,8 @@
 import re
 import os.path
 
+import shutil
+
 from qgis.core import QgsSettings
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt
 from qgis.PyQt.QtGui import QIcon
@@ -181,13 +183,25 @@ class QgisTemplatesSymbology:
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         try:
-            for action in self.actions:
-                self.iface.removePluginMenu(self.tr(u"&HOT Templates and Symbology Manager"), action)
-                self.iface.removePluginWebMenu(self.tr(u"&HOT Templates and Symbology Manager"), action)
-                self.iface.removeToolBarIcon(action)
 
             settings_manager.delete_all_profiles()
             settings_manager.set_value("default_profiles_set", False)
+
+            for action in self.actions:
+                self.iface.removePluginMenu(
+                    self.tr(u"&HOT Templates and Symbology Manager"),
+                    action
+                )
+                self.iface.removePluginWebMenu(
+                    self.tr(u"&HOT Templates and Symbology Manager"),
+                    action
+                )
+                self.iface.removeToolBarIcon(action)
+
+            plugin_root = os.path.dirname(__file__)
+            fonts_directory = os.path.join(plugin_root, 'data/symbology/fonts')
+
+            shutil.rmtree(fonts_directory, ignore_errors=True)
 
         except Exception as e:
             pass
