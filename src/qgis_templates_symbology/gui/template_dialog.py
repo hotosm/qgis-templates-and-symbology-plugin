@@ -83,7 +83,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         self.prepare_message_bar()
 
         self.profile = settings_manager.get_current_profile()
-        self.update_inputs(False)
         self.add_thumbnail()
         self.populate_properties(template)
 
@@ -98,9 +97,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         )
 
         if not self.template.downloaded:
-            if self.main_widget:
-                self.main_widget.update_inputs(False)
-
             self.download_template(
                 self.template,
                 add_layout=False,
@@ -330,7 +326,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
         )
 
         if self.main_widget:
-            self.main_widget.update_inputs(False)
             self.main_widget.show_progress("Loading template information")
 
         self.network_task(
@@ -415,7 +410,6 @@ class TemplateDialog(QtWidgets.QDialog, DialogUi):
                     ),
                     level=Qgis.Info
                 )
-                self.update_inputs(False)
                 self.show_progress(
                     f"Downloading {url}",
                     minimum=0,

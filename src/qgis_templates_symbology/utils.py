@@ -191,13 +191,23 @@ def setup_symbology():
     styles_folder = os.path.join(plugin_root, 'data/symbology/styles')
     icon_folders = os.path.join(plugin_root, 'data/symbology/symbol_libraries')
 
-    for font_folder in os.listdir(fonts_directory):
-        add_fonts(os.path.join(fonts_directory, font_folder))
-    for style_file in os.listdir(styles_folder):
-        add_style_to_manager(os.path.join(styles_folder, style_file))
-    for icon_folder in os.listdir(icon_folders):
-        add_to_icons_path(os.path.join(icon_folders, icon_folder))
+    if os.path.exists(fonts_directory):
+        for font_folder in os.listdir(fonts_directory):
+            add_fonts(os.path.join(fonts_directory, font_folder))
+    else:
+        log(f"Skipped adding fonts, fonts folder doesn't exists")
 
+    if os.path.exists(styles_folder):
+        for style_file in os.listdir(styles_folder):
+            add_style_to_manager(os.path.join(styles_folder, style_file))
+    else:
+        log(f"Skipped adding style, style folder doesn't exists")
+
+    if os.path.exists(icon_folders):
+        for icon_folder in os.listdir(icon_folders):
+            add_to_icons_path(os.path.join(icon_folders, icon_folder))
+    else:
+        log(f"Skipped adding icons, icons folder doesn't exists")
 
 def add_fonts(icon_path):
     try:
