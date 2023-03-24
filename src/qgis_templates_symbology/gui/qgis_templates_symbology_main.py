@@ -203,13 +203,8 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
             if not result[0]:
                 self.show_message(result[1], level=Qgis.Critical)
         except Exception as e:
-            self.show_message(
-                f"Problem opening {self.download_folder_btn.filePath()} "
-                f"make sure the folder exists.",
-                Qgis.Critical
-            )
             log(
-                f" Couldn't open {self.download_folder_btn.filePath()},"
+                f" Problem opening {self.download_folder_btn.filePath()},"
                 f" error {e}"
             )
 
