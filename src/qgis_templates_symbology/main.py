@@ -180,13 +180,17 @@ class QgisTemplatesSymbology:
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
-        for action in self.actions:
-            self.iface.removePluginMenu(self.tr(u"&HOT Templates and Symbology Manager"), action)
-            self.iface.removePluginWebMenu(self.tr(u"&HOT Templates and Symbology Manager"), action)
-            self.iface.removeToolBarIcon(action)
+        try:
+            for action in self.actions:
+                self.iface.removePluginMenu(self.tr(u"&HOT Templates and Symbology Manager"), action)
+                self.iface.removePluginWebMenu(self.tr(u"&HOT Templates and Symbology Manager"), action)
+                self.iface.removeToolBarIcon(action)
 
-        settings_manager.delete_all_profiles()
-        settings_manager.set_value("default_profiles_set", False)
+            settings_manager.delete_all_profiles()
+            settings_manager.set_value("default_profiles_set", False)
+
+        except Exception as e:
+            pass
 
     def run(self):
         # Add default catalogs, first check if they have already
