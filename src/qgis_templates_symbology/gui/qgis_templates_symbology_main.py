@@ -240,6 +240,10 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
 
             else:
                 self.profiles_box.setCurrentIndex(0)
+        try:
+            self.profiles_box.model().sort(0)
+        except Exception as e:
+            log(f"Problem during sorting profile list, {e}")
 
     def add_profile(self):
         """ Adds a new profile into the plugin, then updates
@@ -493,8 +497,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
 
         self.show_progress("Loading template information...")
 
-        self.update_inputs(False)
-
         self.network_task(
             request,
             self.templates_response
@@ -636,8 +638,6 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
         )
 
         self.show_progress("Loading symbology information")
-
-        self.update_inputs(False)
 
         self.network_task(
             request,
