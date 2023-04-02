@@ -5,6 +5,7 @@
 """
 
 import os
+import sys
 import json
 
 from functools import partial
@@ -102,6 +103,59 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
         self.profiles_box.activated.connect(self.update_current_profile)
 
         self.load_style_btn.clicked.connect(self.load_style)
+
+        self.prepare_font_widgets()
+
+    def prepare_font_widgets(self):
+        if not settings_manager.get_value(
+                'fonts_installed',
+                False,
+                setting_type=bool,
+        ):
+            label = QtWidgets.QLabel(
+                tr("Plugin fonts:")
+            )
+
+            button = QtWidgets.QPushButton(
+                tr("Open fonts folder"
+                   )
+            )
+            button.setToolTip(
+                tr(
+                    "Opens the folder that the"
+                    "plugin contains the custom fonts. "
+                    "This provide user access to "
+                    "manually install fonts."
+                )
+            )
+            plugin_root = os.path.dirname(os.path.dirname(__file__))
+            fonts_directory = os.path.join(
+                plugin_root,
+                'data',
+                'symbology',
+                'fonts'
+            )
+            open_fonts_folder = partial(
+                self.open_fonts_folder,
+                fonts_directory
+             )
+
+            button.clicked.connect(open_fonts_folder)
+            layout = QtWidgets.QHBoxLayout()
+            layout.addWidget(label)
+            layout.addWidget(button)
+
+            self.symbology_group.layout().addLayout(layout)
+
+    def open_fonts_folder(self, path):
+        try:
+            if sys.platform == 'win32':
+                path = path.replace("\\\\", "\\")
+                path = path.replace("/", "\\")
+            open_folder(path)
+        except Exception as e:
+            log(f" Problem opening path {path}, {e}")
+
 
     def load_style(self):
         layer = self.map_layers_list.currentLayer()
@@ -690,4 +744,3 @@ class QgisTemplatesSymbologyMain(QtWidgets.QDialog, WidgetUi):
             self.update_inputs(True)
             self.show_message(f"Fetching content via network, {reply.errorString()}")
             log(tr("Problem fetching response from network"))
-

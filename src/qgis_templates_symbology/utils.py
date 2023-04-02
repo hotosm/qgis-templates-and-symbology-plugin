@@ -187,15 +187,23 @@ def query_symbology(profile_name=None):
 
 def setup_symbology():
     plugin_root = os.path.dirname(__file__)
-    fonts_directory = os.path.join(plugin_root, 'data/symbology/fonts')
-    styles_folder = os.path.join(plugin_root, 'data/symbology/styles')
-    icon_folders = os.path.join(plugin_root, 'data/symbology/symbol_libraries')
+    fonts_directory = os.path.join(plugin_root, 'data', 'symbology', 'fonts')
+    styles_folder = os.path.join(plugin_root, 'data', 'symbology', 'styles')
+    icon_folders = os.path.join(plugin_root, 'data', 'symbology', 'symbol_libraries')
 
-    if os.path.exists(fonts_directory):
-        for font_folder in os.listdir(fonts_directory):
-            add_fonts(os.path.join(fonts_directory, font_folder))
-    else:
-        log(f"Skipped adding fonts, fonts folder doesn't exists")
+    # if os.path.exists(fonts_directory):
+    #     # Check QGIS version, if it is lower than 3.28
+    #     # then don't auto install the fonts since the
+    #     # QgsFontManager doesn't exist.
+    #     if Qgis.versionInt() >= 32800:
+    #         for font_folder in os.listdir(fonts_directory):
+    #             add_fonts(os.path.join(fonts_directory, font_folder))
+    #         settings_manager.set_value('fonts_installed', True,)
+    #     else:
+    #         settings_manager.set_value('fonts_installed', False)
+    #         log(f"Skipped adding fonts, font manager is not available")
+    # else:
+    #     log(f"Skipped adding fonts, fonts folder doesn't exists")
 
     if os.path.exists(styles_folder):
         for style_file in os.listdir(styles_folder):
@@ -208,6 +216,7 @@ def setup_symbology():
             add_to_icons_path(os.path.join(icon_folders, icon_folder))
     else:
         log(f"Skipped adding icons, icons folder doesn't exists")
+
 
 def add_fonts(icon_path):
     try:
@@ -301,6 +310,17 @@ def add_to_icons_path(path):
 
 def get_sld_path():
     plugin_root = os.path.dirname(__file__)
-    style_directory = os.path.join(plugin_root, 'data/symbology/styles')
+    style_directory = os.path.join(plugin_root, 'data', 'symbology','styles')
 
     return os.path.join(style_directory, 'roads.sld')
+
+
+def remove_fonts():
+    plugin_dir = 'qgis_templates_symbology'
+
+    font_manager = QgsApplication.fontManager()
+
+    for key, value in font_manager.userFontToFamilyMap().items():
+        if plugin_dir in key:
+            font_manager.removeUserFont(key)
+        log(f"Removed {key} user font")
