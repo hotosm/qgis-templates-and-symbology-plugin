@@ -144,6 +144,7 @@ def uninstall(context: typer.Context):
 @app.command()
 def generate_zip(
         context: typer.Context,
+        version: str = None,
         output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "dist"):
     """ Generates plugin zip folder, that can be used to installed the
         plugin in QGIS
@@ -151,13 +152,17 @@ def generate_zip(
     :param context: Application context
     :type context: typer.Context
 
+    :param version: Plugin version
+    :type version: str
+
     :param output_directory: Directory where the zip folder will be saved.
     :type context: Path
     """
     build_dir = build(context)
     metadata = _get_metadata()
+    plugin_version = metadata["version"] if version is None else version
     output_directory.mkdir(parents=True, exist_ok=True)
-    zip_path = output_directory / f'{SRC_NAME}.{metadata["version"]}.zip'
+    zip_path = output_directory / f'{SRC_NAME}.{plugin_version}.zip'
     with zipfile.ZipFile(zip_path, "w") as fh:
         _add_to_zip(build_dir, fh, arc_path_base=build_dir.parent)
     typer.echo(f"zip generated at {str(zip_path)!r} "
