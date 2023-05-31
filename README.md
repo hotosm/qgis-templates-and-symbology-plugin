@@ -127,3 +127,5 @@ To install the plugin into the QGIS application, activate virtual environment an
 ```
  python admin.py install
 ```
+ ### Get Involved
+ If you are interested in testing the plugin, sharing your feedback and contributing to this repository, please follow our [Contributing Guidelines](https://github.com/hotosm/qgis-templates-and-symbology-plugin/blob/master/CONTRIBUTING.md)
