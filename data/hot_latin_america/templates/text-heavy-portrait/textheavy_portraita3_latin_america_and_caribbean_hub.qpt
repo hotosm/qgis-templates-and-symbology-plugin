@@ -610,7 +610,7 @@
    </layer>
   </symbol>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="74.928,27.759,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_disclaimer" position="213.114,282.801,mm" type="65641" labelText="Data provided by SANBI &#xa;(data sources and any contribution for those&#xa; data sources)" htmlState="0" visibility="1" templateUuid="{24f95dba-aeb4-4661-893e-a2cc69eab482}" uuid="{24f95dba-aeb4-4661-893e-a2cc69eab482}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="213.114,282.801,mm" frameJoinStyle="miter" blendMode="0" zValue="64" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="74.928,27.759,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_disclaimer" position="213.114,282.801,mm" type="65641" labelText="Datos proporcionados por SANBI &#xa;(Fuentes de datos y cualquier contribución para&#xa; esas fuentes de datos)" htmlState="0" visibility="1" templateUuid="{24f95dba-aeb4-4661-893e-a2cc69eab482}" uuid="{24f95dba-aeb4-4661-893e-a2cc69eab482}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="213.114,282.801,mm" frameJoinStyle="miter" blendMode="0" zValue="64" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -688,7 +688,7 @@
    </customproperties>
   </LayoutObject>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="58.8158,25.933,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="true" excludeFromExports="0" frame="false" id="contact_details" position="229.095,393.814,mm" type="65641" labelText="Contact us: info@hotosm.com" htmlState="0" visibility="1" templateUuid="{1844950f-7a0f-4848-bb5a-b85c6a05bb6e}" uuid="{1844950f-7a0f-4848-bb5a-b85c6a05bb6e}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="229.095,393.814,mm" frameJoinStyle="miter" blendMode="0" zValue="61" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="58.8158,25.933,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="true" excludeFromExports="0" frame="false" id="contact_details" position="229.095,393.814,mm" type="65641" labelText="Contáctanos: info@hotosm.com" htmlState="0" visibility="1" templateUuid="{1844950f-7a0f-4848-bb5a-b85c6a05bb6e}" uuid="{1844950f-7a0f-4848-bb5a-b85c6a05bb6e}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="229.095,393.814,mm" frameJoinStyle="miter" blendMode="0" zValue="61" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -789,7 +789,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="74.8334,11.6476,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_created_date" position="213.209,269.744,mm" type="65641" labelText="Date Created: [%format_date(now(), 'dd/MM/yyyy')%]&#xa;" htmlState="0" visibility="1" templateUuid="{f60bf5d5-a42a-4407-b58f-27258b6945d2}" uuid="{f60bf5d5-a42a-4407-b58f-27258b6945d2}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="213.209,269.744,mm" frameJoinStyle="miter" blendMode="0" zValue="60" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="74.8334,11.6476,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_created_date" position="213.209,269.744,mm" type="65641" labelText="Fecha de creación: [%format_date(now(), 'dd/MM/yyyy')%]&#xa;" htmlState="0" visibility="1" templateUuid="{f60bf5d5-a42a-4407-b58f-27258b6945d2}" uuid="{f60bf5d5-a42a-4407-b58f-27258b6945d2}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="213.209,269.744,mm" frameJoinStyle="miter" blendMode="0" zValue="60" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -906,7 +906,7 @@
    </customproperties>
   </LayoutObject>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="74.8334,25.7284,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_data_contribution" position="213.209,307.743,mm" type="65641" labelText="OpenStreetMap is open data compiled from community contributions, and is available under the Open Database License (ODbL)" htmlState="0" visibility="1" templateUuid="{f58afab9-4c16-44b1-bc69-7e507cd5854b}" uuid="{f58afab9-4c16-44b1-bc69-7e507cd5854b}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="213.209,307.743,mm" frameJoinStyle="miter" blendMode="0" zValue="57" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="74.8334,25.7284,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_data_contribution" position="213.209,307.743,mm" type="65641" labelText="OpenStreetMap son datos abiertos compilados a partir de contribuciones de la comunidad y están disponibles bajo la Licencia de base de datos abierta (ODbL)" htmlState="0" visibility="1" templateUuid="{f58afab9-4c16-44b1-bc69-7e507cd5854b}" uuid="{f58afab9-4c16-44b1-bc69-7e507cd5854b}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="213.209,307.743,mm" frameJoinStyle="miter" blendMode="0" zValue="57" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -1069,7 +1069,7 @@
    </customproperties>
   </LayoutObject>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="162.528,25.3921,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_sub_heading" position="69.7586,-1.86726e-15,mm" type="65641" labelText="Predominant Vegetation Types" htmlState="0" visibility="1" templateUuid="{e2603e2c-bbf9-4073-8e97-bce12508adbd}" uuid="{e2603e2c-bbf9-4073-8e97-bce12508adbd}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="69.7586,-1.86726e-15,mm" frameJoinStyle="miter" blendMode="0" zValue="50" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="162.528,25.3921,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_sub_heading" position="69.7586,-1.86726e-15,mm" type="65641" labelText="Tipos de Vegetación Predominante" htmlState="0" visibility="1" templateUuid="{e2603e2c-bbf9-4073-8e97-bce12508adbd}" uuid="{e2603e2c-bbf9-4073-8e97-bce12508adbd}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="69.7586,-1.86726e-15,mm" frameJoinStyle="miter" blendMode="0" zValue="50" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -1170,7 +1170,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="90.0239,26.186,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_coordinate_system" position="103.276,393.814,mm" type="65641" labelText="Coordinate System [%item_variables('main_map')['map_crs_description']%], [%item_variables('main_map')['map_crs']%]" htmlState="0" visibility="1" templateUuid="{a5e94f15-e1c7-49dc-ae6b-4ef88d3aad2e}" uuid="{a5e94f15-e1c7-49dc-ae6b-4ef88d3aad2e}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="103.276,393.814,mm" frameJoinStyle="miter" blendMode="0" zValue="49" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="90.0239,26.186,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_coordinate_system" position="103.276,393.814,mm" type="65641" labelText="Sistema de coordenadas [%item_variables('main_map')['map_crs_description']%], [%item_variables('main_map')['map_crs']%]" htmlState="0" visibility="1" templateUuid="{a5e94f15-e1c7-49dc-ae6b-4ef88d3aad2e}" uuid="{a5e94f15-e1c7-49dc-ae6b-4ef88d3aad2e}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="103.276,393.814,mm" frameJoinStyle="miter" blendMode="0" zValue="49" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -1318,7 +1318,7 @@
    </layer>
   </symbol>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="59.0842,25.3921,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_heading" position="10.6743,-1.86726e-15,mm" type="65641" labelText="South Africa" htmlState="0" visibility="1" templateUuid="{310e3c0c-4eb8-48ed-b373-0295a2f79ff4}" uuid="{310e3c0c-4eb8-48ed-b373-0295a2f79ff4}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="10.6743,-1.86726e-15,mm" frameJoinStyle="miter" blendMode="0" zValue="46" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="59.0842,25.3921,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_heading" position="10.6743,-1.86726e-15,mm" type="65641" labelText="Peru" htmlState="0" visibility="1" templateUuid="{310e3c0c-4eb8-48ed-b373-0295a2f79ff4}" uuid="{310e3c0c-4eb8-48ed-b373-0295a2f79ff4}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="10.6743,-1.86726e-15,mm" frameJoinStyle="miter" blendMode="0" zValue="46" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -1419,7 +1419,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem position="10.5695,214.295,mm" type="65642" splitLayer="1" maxSymbolSize="0" uuid="{fbb96ecf-d0e9-4834-88c7-98eb08a1bbab}" resizeToContents="1" legendFilterByAtlas="0" wrapChar="" background="false" frame="false" outlineWidthM="0.3,mm" columnCount="3" symbolAlignment="1" frameJoinStyle="miter" minSymbolSize="0" zValue="44" visibility="1" rasterBorderWidth="0" id="map_legend_2" groupUuid="" rasterBorder="1" positionOnPage="10.5695,214.295,mm" fontColor="#000000" templateUuid="{fbb96ecf-d0e9-4834-88c7-98eb08a1bbab}" boxSpace="1" excludeFromExports="0" equalColumnWidth="0" symbolWidth="5" wmsLegendHeight="25" positionLock="false" title="Legend" lineSpacing="2" wmsLegendWidth="50" rasterBorderColor="0,0,0,255" opacity="1" referencePoint="0" columnSpace="3" blendMode="0" symbolHeight="5" size="219,45,mm" itemRotation="0" titleAlignment="1">
+ <LayoutItem position="10.5695,214.295,mm" type="65642" splitLayer="1" maxSymbolSize="0" uuid="{fbb96ecf-d0e9-4834-88c7-98eb08a1bbab}" resizeToContents="1" legendFilterByAtlas="0" wrapChar="" background="false" frame="false" outlineWidthM="0.3,mm" columnCount="3" symbolAlignment="1" frameJoinStyle="miter" minSymbolSize="0" zValue="44" visibility="1" rasterBorderWidth="0" id="map_legend_2" groupUuid="" rasterBorder="1" positionOnPage="10.5695,214.295,mm" fontColor="#000000" templateUuid="{fbb96ecf-d0e9-4834-88c7-98eb08a1bbab}" boxSpace="1" excludeFromExports="0" equalColumnWidth="0" symbolWidth="5" wmsLegendHeight="25" positionLock="false" title="Leyenda" lineSpacing="2" wmsLegendWidth="50" rasterBorderColor="0,0,0,255" opacity="1" referencePoint="0" columnSpace="3" blendMode="0" symbolHeight="5" size="219,45,mm" itemRotation="0" titleAlignment="1">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
