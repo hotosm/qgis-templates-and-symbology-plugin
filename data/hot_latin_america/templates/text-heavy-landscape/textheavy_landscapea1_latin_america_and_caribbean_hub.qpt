@@ -726,7 +726,7 @@
    </customproperties>
   </LayoutObject>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="100.43,39.746,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="true" excludeFromExports="0" frame="false" id="contact_details" position="712.561,555.254,mm" type="65641" labelText="Contact us: info@hotosm.com" htmlState="0" visibility="1" templateUuid="{10ae1808-6139-47e6-ae48-e3be39cab964}" uuid="{10ae1808-6139-47e6-ae48-e3be39cab964}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="712.561,555.254,mm" frameJoinStyle="miter" blendMode="0" zValue="40" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="100.43,39.746,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="true" excludeFromExports="0" frame="false" id="contact_details" position="712.561,555.254,mm" type="65641" labelText="Contáctanos: info@hotosm.com" htmlState="0" visibility="1" templateUuid="{10ae1808-6139-47e6-ae48-e3be39cab964}" uuid="{10ae1808-6139-47e6-ae48-e3be39cab964}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="712.561,555.254,mm" frameJoinStyle="miter" blendMode="0" zValue="40" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
