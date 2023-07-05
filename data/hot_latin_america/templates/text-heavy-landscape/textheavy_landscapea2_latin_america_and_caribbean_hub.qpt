@@ -609,7 +609,7 @@
    </layer>
   </symbol>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="140.877,18.4073,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_disclaimer" position="436.11,344.019,mm" type="65641" labelText="Data provided by SANBI &#xa;(data sources and any contribution for those data sources)" htmlState="0" visibility="1" templateUuid="{2569f97c-9752-49f2-9cd0-d74e6faddc43}" uuid="{2569f97c-9752-49f2-9cd0-d74e6faddc43}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="436.11,344.019,mm" frameJoinStyle="miter" blendMode="0" zValue="43" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="140.877,18.4073,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_disclaimer" position="436.11,344.019,mm" type="65641" labelText="Datos proporcionados por SANBI &#xa;(Fuentes de datos y cualquier contribución para&#xa; esas fuentes de datos)" htmlState="0" visibility="1" templateUuid="{2569f97c-9752-49f2-9cd0-d74e6faddc43}" uuid="{2569f97c-9752-49f2-9cd0-d74e6faddc43}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="436.11,344.019,mm" frameJoinStyle="miter" blendMode="0" zValue="43" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -827,7 +827,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="140.678,11.6587,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_created_date" position="436.309,329.361,mm" type="65641" labelText="Date Created: [%format_date(now(), 'dd/MM/yyyy')%]&#xa;" htmlState="0" visibility="1" templateUuid="{a75f1fb6-1018-4d5f-be62-83ed42aea7fc}" uuid="{a75f1fb6-1018-4d5f-be62-83ed42aea7fc}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="436.309,329.361,mm" frameJoinStyle="miter" blendMode="0" zValue="39" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="140.678,11.6587,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_created_date" position="436.309,329.361,mm" type="65641" labelText="Fecha de creación: [%format_date(now(), 'dd/MM/yyyy')%]&#xa;" htmlState="0" visibility="1" templateUuid="{a75f1fb6-1018-4d5f-be62-83ed42aea7fc}" uuid="{a75f1fb6-1018-4d5f-be62-83ed42aea7fc}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="436.309,329.361,mm" frameJoinStyle="miter" blendMode="0" zValue="39" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -944,7 +944,7 @@
    </customproperties>
   </LayoutObject>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="140.678,14.2818,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_data_contribution" position="436.309,368.806,mm" type="65641" labelText="OpenStreetMap is open data compiled from community contributions, and is available under the Open Database License (ODbL)" htmlState="0" visibility="1" templateUuid="{38b51647-da2f-4c39-a568-3eb78553ac77}" uuid="{38b51647-da2f-4c39-a568-3eb78553ac77}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="436.309,368.806,mm" frameJoinStyle="miter" blendMode="0" zValue="36" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="140.678,14.2818,mm" valign="32" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_data_contribution" position="436.309,368.806,mm" type="65641" labelText="OpenStreetMap son datos abiertos compilados a partir de contribuciones de la comunidad y están disponibles bajo la Licencia de base de datos abierta (ODbL)" htmlState="0" visibility="1" templateUuid="{38b51647-da2f-4c39-a568-3eb78553ac77}" uuid="{38b51647-da2f-4c39-a568-3eb78553ac77}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="436.309,368.806,mm" frameJoinStyle="miter" blendMode="0" zValue="36" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -1107,7 +1107,7 @@
    </customproperties>
   </LayoutObject>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="277.625,36.4574,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_sub_heading" position="107.99,-0.15539,mm" type="65641" labelText="Predominant Vegetation Types" htmlState="0" visibility="1" templateUuid="{08d39d5e-bfa0-4d63-afcc-a8deb5a775cd}" uuid="{08d39d5e-bfa0-4d63-afcc-a8deb5a775cd}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="107.99,-0.15539,mm" frameJoinStyle="miter" blendMode="0" zValue="29" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="277.625,36.4574,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_sub_heading" position="107.99,-0.15539,mm" type="65641" labelText="Tipos de Vegetación Predominante" htmlState="0" visibility="1" templateUuid="{08d39d5e-bfa0-4d63-afcc-a8deb5a775cd}" uuid="{08d39d5e-bfa0-4d63-afcc-a8deb5a775cd}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="107.99,-0.15539,mm" frameJoinStyle="miter" blendMode="0" zValue="29" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -1208,7 +1208,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="126.652,27.4636,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_coordinate_system" position="233.005,393.536,mm" type="65641" labelText="Coordinate System [%item_variables('main_map')['map_crs_description']%], [%item_variables('main_map')['map_crs']%]" htmlState="0" visibility="1" templateUuid="{846c8530-0e8b-4358-90a6-f04d84b32cff}" uuid="{846c8530-0e8b-4358-90a6-f04d84b32cff}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="233.005,393.536,mm" frameJoinStyle="miter" blendMode="0" zValue="28" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="126.652,27.4636,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_coordinate_system" position="233.005,393.536,mm" type="65641" labelText="Sistema de coordenadas [%item_variables('main_map')['map_crs_description']%], [%item_variables('main_map')['map_crs']%]" htmlState="0" visibility="1" templateUuid="{846c8530-0e8b-4358-90a6-f04d84b32cff}" uuid="{846c8530-0e8b-4358-90a6-f04d84b32cff}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="233.005,393.536,mm" frameJoinStyle="miter" blendMode="0" zValue="28" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
@@ -1356,7 +1356,7 @@
    </layer>
   </symbol>
  </LayoutItem>
- <LayoutItem marginY="0" groupUuid="" size="122.414,36.4574,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_heading" position="21.4675,-0.15539,mm" type="65641" labelText="South Africa" htmlState="0" visibility="1" templateUuid="{2ec5cba0-54c0-4b62-ae9b-d35b676997b5}" uuid="{2ec5cba0-54c0-4b62-ae9b-d35b676997b5}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="21.4675,-0.15539,mm" frameJoinStyle="miter" blendMode="0" zValue="25" background="false">
+ <LayoutItem marginY="0" groupUuid="" size="122.414,36.4574,mm" valign="128" itemRotation="0" halign="1" opacity="1" positionLock="false" excludeFromExports="0" frame="false" id="map_heading" position="21.4675,-0.15539,mm" type="65641" labelText="Guatemala" htmlState="0" visibility="1" templateUuid="{2ec5cba0-54c0-4b62-ae9b-d35b676997b5}" uuid="{2ec5cba0-54c0-4b62-ae9b-d35b676997b5}" marginX="0" referencePoint="0" outlineWidthM="0.3,mm" positionOnPage="21.4675,-0.15539,mm" frameJoinStyle="miter" blendMode="0" zValue="25" background="false">
   <FrameColor red="0" blue="0" alpha="255" green="0"/>
   <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
   <LayoutObject>
